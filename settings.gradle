@@ -1,0 +1,3 @@
+include ':customforms'
+include ':app'
+rootProject.name = "Customs Forms"

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/box_design">
+
+    <include layout="@layout/title"></include>
+
+    <TextView
+        android:id="@+id/warningLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:textSize="12sp"
+        android:textColor="@color/red"
+        android:text="TextView" />
+
+    <EditText
+        android:id="@+id/editableBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="Name" />
+</LinearLayout>

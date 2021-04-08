@@ -1,0 +1,149 @@
+{
+  "questions": [
+    {
+      "view_id": 1,
+      "title": "Tipo de sitio",
+      "vtype": "select",
+      "data_origins": "A1",
+      "has_children": true,
+      "mandatory": true
+    },
+    {
+      "view_id": 2,
+      "title": "Nombre de sitio",
+      "vtype": "select",
+      "data_origins": "A1",
+      "has_children": true,
+      "has_parent": 1,
+      "mandatory": true
+    },
+    {
+      "view_id": 3,
+      "title": "Entidad",
+      "vtype": "select",
+      "data_origins": "A1",
+      "has_children": true,
+      "has_parent": 2,
+      "mandatory": true
+    },
+    {
+      "view_id": 4,
+      "title": "Linea de negocio del incidente",
+      "vtype": "select",
+      "data_origins": "A1",
+      "has_parent": 3,
+      "has_children": true,
+      "mandatory": true
+    },
+    {
+      "view_id": 5,
+      "title": "Responsable de linea de negocio",
+      "vtype": "external_text",
+      "search_key": "colaborador",
+      "has_parent": 4
+    },
+    {
+      "view_id": 6,
+      "title": "Medio por el cual se identifico el incidente",
+      "vtype": "select",
+      "data_origins": "A1",
+      "has_children": true,
+      "mandatory": true
+    },
+    {
+      "view_id": 7,
+      "title": "Tipo de incidente",
+      "vtype": "select",
+      "data_origins": "A1",
+      "has_children": true,
+      "has_parent": 6,
+      "mandatory": true
+    },
+    {
+      "view_id": 8,
+      "title": "Cateogria de incidente",
+      "vtype": "select",
+      "data_origins": "A1",
+      "has_children": true,
+      "has_parent": 7,
+      "mandatory": true
+    },
+    {
+      "view_id": 9,
+      "title": "Subcategoria de incidente",
+      "vtype": "select",
+      "data_origins": "A1",
+      "has_children": true,
+      "has_parent": 8,
+      "mandatory": true
+    },
+    {
+      "view_id": 10,
+      "title": "Reglas fundamentales de seguridad",
+      "vtype": "select",
+      "data_origins": "A1",
+      "has_parent": 9,
+      "mandatory": true
+    },
+    {
+      "view_id": 11,
+      "title": "Descripcion del incidente",
+      "hint": "Escriba aquí",
+      "vtype": "text",
+      "mandatory": true
+    },
+    {
+      "view_id": 12,
+      "title": "Fecha",
+      "hint": "",
+      "vtype": "datetime",
+      "mandatory": true
+    },
+    {
+      "view_id": 14,
+      "title": "Persona involucrada",
+      "hint": "Escriba aquí2",
+      "vtype": "text",
+      "mandatory": false
+    },
+    {
+      "view_id": 15,
+      "title": "Tipo contrato persona involucrada",
+      "vtype": "select",
+      "data_origins": "A1",
+      "mandatory": false
+    },
+    {
+      "view_id": 16,
+      "title": "Este incidente esta relacionado con el trabajo?",
+      "vtype": "select",
+      "data_origins": "A1",
+      "mandatory": true
+    },
+    {
+      "view_id": 17,
+      "title": "Lugar del incidente",
+      "hint": "",
+      "vtype": "text",
+      "mandatory": true
+    },
+    {
+      "view_id": 18,
+      "title": "Use mi autoridad para suspender el trabajo? (Stop Work)",
+      "vtype": "select",
+      "data_origins": "A1",
+      "mandatory": true
+    },
+    {
+      "view_id": 19,
+      "title": "Accion inmediata",
+      "hint": "",
+      "vtype": "text",
+      "mandatory": false
+    }
+
+
+
+
+  ]
+}

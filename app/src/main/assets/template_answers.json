@@ -1,0 +1,36 @@
+{
+  "answers": [
+    {
+      "view_id": 1,
+      "value": "1"
+    },
+    {
+      "view_id": 2,
+      "value": "12"
+    },
+    {
+      "view_id": 3,
+      "value": "23"
+    },
+    {
+      "view_id": 4,
+      "value": "36"
+    },
+    {
+      "view_id": 5,
+      "value": "Este es un valor externo"
+    },
+    {
+      "view_id": 11,
+      "value": "Este es un texto valido"
+    },
+    {
+      "view_id": 12,
+      "value": {"date":"05/05/2020", "time": "01:05:00"}
+    },
+    {
+      "view_id": 14,
+      "value": "Este es otro texto valido"
+    }
+  ]
+}

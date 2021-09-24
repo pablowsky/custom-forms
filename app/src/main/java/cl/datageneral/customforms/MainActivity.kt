@@ -66,7 +66,8 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-        val sampleJson = getFormConfig("template.json")
+        //val sampleJson = getFormConfig("template.json")
+        val sampleJson = getFormConfig("template_viewer.json")
 
 
         //cform.selectListener = cListener

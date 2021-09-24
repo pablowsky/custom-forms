@@ -106,6 +106,9 @@ class CustomFormBuilder {
                 is InputDatetimeView -> {
                     input.draw(PmDatetimeView(activity), datetimeListener)
                 }
+                is InputLabelView -> {
+                    input.draw(PmLabelView(activity))
+                }
                 else -> PmView(activity)
             }
             layoutContainer?.addView(dView as View)

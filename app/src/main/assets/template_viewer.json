@@ -1,0 +1,103 @@
+{
+  "questions": [
+    {
+      "view_id": 1,
+      "title": "OT",
+      "value": "QWER1234567 FRTG890455",
+      "vtype": "label",
+      "layout_options": {
+        "disposition" : "horizontal"
+      }
+    },
+    {
+      "view_id": 2,
+      "title": "ST",
+      "value": "QWER1234567 FRTG890455",
+      "vtype": "label",
+      "layout_options": {
+        "disposition" : "horizontal"
+      }
+    },
+    {
+      "view_id": 3,
+      "title": "Contactto OT",
+      "value": "Rosa de las Mercedez Josefina Salinas Vaca",
+      "vtype": "label",
+      "layout_options": {
+        "disposition" : "vertical"
+      }
+    },
+    {
+      "view_id": 4,
+      "title": "Ubicacion / Direccion Area",
+      "value": "Direccion de prueba 1234, Oriente Poniente Norte Sur Chile",
+      "vtype": "label",
+      "layout_options": {
+        "disposition" : "vertical"
+      }
+    },
+    {
+      "view_id": 5,
+      "title": "Telefono",
+      "value": "+5988659865478",
+      "vtype": "label",
+      "layout_options": {
+        "disposition" : "vertical"
+      }
+    },
+    {
+      "view_id": 6,
+      "title": "Glosa ST",
+      "value": "+5988659865478",
+      "vtype": "label",
+      "layout_options": {
+        "disposition" : "vertical"
+      }
+    },
+    {
+      "view_id": 7,
+      "title": "Recursos Asignados",
+      "data": [
+        {
+          "title": "Listado de Vehiculos",
+          "values": ["AAQQWW11", "DDEE22", "FFRR33", "GGTT44"]
+        },
+        {
+          "title": "Otros recursos",
+          "values": ["Lorem ipsum dolor sit amet", "consectetur adipiscing elit", "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua", " Ut enim ad minim veniam"]
+        }
+      ],
+      "vtype": "label",
+      "layout_options": {
+        "disposition" : "vertical"
+      }
+    },
+    {
+      "view_id": 8,
+      "title": "Nombre del contacto en terreno",
+      "value": "Nombre de persona cualquiera",
+      "vtype": "label",
+      "layout_options": {
+        "disposition" : "vertical"
+      }
+    },
+    {
+      "view_id": 10,
+      "title": "Telefono del contacto en terreno",
+      "value": "+5988659865478",
+      "vtype": "label",
+      "layout_options": {
+        "disposition" : "vertical"
+      }
+    },
+    {
+      "view_id": 11,
+      "title": "Comentarios",
+      "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+      "vtype": "label",
+      "layout_options": {
+        "disposition" : "vertical"
+      }
+    }
+  ]
+}

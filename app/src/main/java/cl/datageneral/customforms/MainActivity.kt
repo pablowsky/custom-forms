@@ -7,10 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import cl.datageneral.customforms.dialogs.ISelectedData
 import cl.datageneral.customforms.dialogs.SelectDateFragment
 import cl.datageneral.customforms.dialogs.SelectTimeFragment
-import cl.datageneral.customforms.helpers.DateTimeClickListener
-import cl.datageneral.customforms.helpers.ExternalChangeListenerListener
-import cl.datageneral.customforms.helpers.ItemSelectedListener
-import cl.datageneral.customforms.helpers.SpinnerItem
+import cl.datageneral.customforms.helpers.*
 import kotlinx.android.synthetic.main.activity_main2.*
 import org.json.JSONObject
 import java.io.IOException
@@ -61,6 +58,14 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         }
     }
 
+    var labelListener = object : LabelListener {
+        override fun onDataListClick(data: HashMap<String, ArrayList<String>>) {
+            for(d in data){
+                Log.e("DialogData", "Title:${d.key}, Values:${d.value.size}")
+            }
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,8 +76,9 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
 
         //cform.selectListener = cListener
-        cform.datetimeListener = datetimeListener
-        cform.externalListener = externalListener
+        cform.datetimeListener  = datetimeListener
+        cform.externalListener  = externalListener
+        cform.labelListener     = labelListener
         cform.buildLayout(this, sampleJson, viewContainer, true)
 
 

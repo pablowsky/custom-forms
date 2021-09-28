@@ -50,6 +50,12 @@ class CustomFormBuilder {
         }
     }
 
+    var labelListener = object : LabelListener{
+        override fun onDataListClick(data: HashMap<String, ArrayList<String>>) {
+            TODO("Not yet implemented")
+        }
+    }
+
     fun recursiveSet(parentViewId:String, selectedValue:String){
         val layout  = (layoutContainer as LinearLayout)
         for (i in 0 until layout.childCount) {
@@ -107,7 +113,7 @@ class CustomFormBuilder {
                     input.draw(PmDatetimeView(activity), datetimeListener)
                 }
                 is InputLabelView -> {
-                    input.draw(PmLabelView(activity))
+                    input.draw(PmLabelView(activity), labelListener)
                 }
                 else -> PmView(activity)
             }

@@ -125,3 +125,6 @@ interface DateTimeClickListener {
 interface ExternalChangeListenerListener {
     fun onExternalChange(viewId:String, searchKey:String, parent:String)
 }
+interface LabelListener{
+    fun onDataListClick(data:HashMap<String, ArrayList<String>>)
+}

@@ -3,12 +3,15 @@ package cl.datageneral.customforms.inputs
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import cl.datageneral.customforms.R
 import cl.datageneral.customforms.factory.custominputs.InputBase
 import cl.datageneral.customforms.factory.custominputs.InputLabelView
+import cl.datageneral.customforms.helpers.DateTimeClickListener
 import cl.datageneral.customforms.helpers.Disposition
+import cl.datageneral.customforms.helpers.LabelListener
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
@@ -20,20 +23,28 @@ class PmLabelView(context: Context, attrs: AttributeSet?=null): PmView(context, 
             viewId      = value!!.viewId
             title       = value.title
 
+            button.text = value.buttonText
             initValueBox()
         }
 
     private fun initValueBox(){
         val valueBoxV = findViewById<TextView>(R.id.valueBoxVertical)
         val valueBoxH = findViewById<TextView>(R.id.valueBoxHorizontal)
-        if(inputLabel?.layoutDisposition==Disposition.HORIZONTAL){
-            valueBox = valueBoxH
-            valueBoxH.visibility = View.VISIBLE
-            valueBoxV.visibility = View.GONE
-        }else{
-            valueBox = valueBoxV
+        if(inputLabel?.dialogData!=null){
+            button.visibility   = View.VISIBLE
             valueBoxH.visibility = View.GONE
-            valueBoxV.visibility = View.VISIBLE
+            valueBoxV.visibility = View.GONE
+        }else {
+            button.visibility   = View.GONE
+            if (inputLabel?.layoutDisposition == Disposition.HORIZONTAL) {
+                valueBox = valueBoxH
+                valueBoxH.visibility = View.VISIBLE
+                valueBoxV.visibility = View.GONE
+            } else {
+                valueBox = valueBoxV
+                valueBoxH.visibility = View.GONE
+                valueBoxV.visibility = View.VISIBLE
+            }
         }
 
         valueBox?.text = inputLabel?.inputValue
@@ -42,6 +53,8 @@ class PmLabelView(context: Context, attrs: AttributeSet?=null): PmView(context, 
     private var valueBox: TextView? = null
     private var titleLabel: TextView
     private var mandatoryLabel: TextView
+    private var button: Button
+    var listener: LabelListener?=null
 
 
     var title:String?       = String()
@@ -57,7 +70,13 @@ class PmLabelView(context: Context, attrs: AttributeSet?=null): PmView(context, 
 
         titleLabel      = findViewById(R.id.titleLabel)
         mandatoryLabel  = findViewById(R.id.mandatory)
+        button          = findViewById(R.id.showValues)
         mandatoryLabel.visibility = View.GONE
-        displayWarning("")
+
+        button.setOnClickListener {
+            inputLabel?.let {
+                listener?.onDataListClick(it.dialogData!!)
+            }
+        }
     }
 }

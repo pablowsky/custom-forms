@@ -16,6 +16,8 @@ class InputLabelConverter(private val jsonInput: JSONObject, var pReadOnly: Bool
             inputValue  = jValue
             viewId      = jViewId
             readOnly    = pReadOnly
+            dialogData  = jData
+            buttonText  = jButtonText
             layoutDisposition = jLayoutDisposition
         }
     }
@@ -35,6 +37,19 @@ class InputLabelConverter(private val jsonInput: JSONObject, var pReadOnly: Bool
                 }
             }else{
                 Disposition.VERTICAL
+            }
+        }
+
+    private val jButtonText:String
+        get() {
+            return if(jsonInput.has("layout_options")){
+                if(jsonInput.getJSONObject("layout_options").has("button_text")){
+                    jsonInput.getJSONObject("layout_options").getString("button_text")
+                }else{
+                    ""
+                }
+            }else{
+                ""
             }
         }
 
@@ -63,5 +78,28 @@ class InputLabelConverter(private val jsonInput: JSONObject, var pReadOnly: Bool
             }else{
                 String()
             }
+        }
+
+    private val jData:HashMap<String, ArrayList<String>>?
+        get() {
+            var dialogData:HashMap<String, ArrayList<String>>? = null
+
+            if(jsonInput.has("data")){
+                val data = jsonInput.getJSONArray("data")
+                dialogData = HashMap()
+                for(position in 0 until data.length()){
+                    val jItem = Json.getObject(data[position].toString())
+                    jItem?.let {
+                        val subItems:ArrayList<String> = ArrayList()
+                        val title       = it.getString("title")
+                        val jSubItems    = it.getJSONArray("values")
+                        for(p in 0 until jSubItems.length()){
+                            subItems.add(jSubItems[p].toString())
+                        }
+                        dialogData[title] = subItems
+                    }
+                }
+            }
+            return  dialogData
         }
 }

@@ -69,7 +69,8 @@
       ],
       "vtype": "label",
       "layout_options": {
-        "disposition" : "vertical"
+        "disposition" : "vertical",
+        "button_text" : "Ver Listados"
       }
     },
     {

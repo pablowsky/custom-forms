@@ -115,6 +115,9 @@ class CustomFormBuilder {
                 is InputLabelView -> {
                     input.draw(PmLabelView(activity), labelListener)
                 }
+                is InputSwitchView -> {
+                    input.draw(PmSwitchView(activity))
+                }
                 else -> PmView(activity)
             }
             layoutContainer?.addView(dView as View)

@@ -24,6 +24,10 @@ class ViewFactory(var jsonInput: JSONObject) {
                 "time"          -> ViewTypes.TIME
                 "datetime"      -> ViewTypes.DATETIME
                 "label"         -> ViewTypes.LABEL
+                "switch"        -> ViewTypes.SWITCH
+                "checkbox"      -> ViewTypes.CHECKBOX
+                "signature"     -> ViewTypes.SIGNATURE
+                "files"         -> ViewTypes.FILES
                 else -> throw Resources.NotFoundException("Property \"vtype\" was not found in the object")
             }
         }
@@ -36,11 +40,12 @@ class ViewFactory(var jsonInput: JSONObject) {
             ViewTypes.DATETIME  -> InputDatetimeConverter(jsonInput, readOnly).invoke()
             ViewTypes.EXTERNAL_DATA -> InputExternalConverter(jsonInput, readOnly).invoke()
             ViewTypes.LABEL     -> InputLabelConverter(jsonInput, readOnly).invoke()
+            ViewTypes.SWITCH    -> InputSwitchConverter(jsonInput, readOnly).invoke()
             else -> null
         }
     }
 }
 
 enum class ViewTypes{
-    TEXT, SELECT, RADIOBUTTON, EXTERNAL_DATA, DATE, TIME, DATETIME, LABEL
+    TEXT, SELECT, RADIOBUTTON, EXTERNAL_DATA, DATE, TIME, DATETIME, LABEL, SWITCH, CHECKBOX, SIGNATURE, FILES
 }

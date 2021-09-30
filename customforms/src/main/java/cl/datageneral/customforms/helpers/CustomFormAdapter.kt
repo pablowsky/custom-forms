@@ -8,10 +8,7 @@ import cl.datageneral.customforms.BaseViewHolder
 import cl.datageneral.customforms.factory.custominputs.InputBase
 import cl.datageneral.customforms.factory.custominputs.InputExternalView
 import cl.datageneral.customforms.factory.custominputs.InputSelectView
-import cl.datageneral.customforms.factory.viewholders.InputDatetimeViewHolder
-import cl.datageneral.customforms.factory.viewholders.InputExternalViewHolder
-import cl.datageneral.customforms.factory.viewholders.InputSelectViewHolder
-import cl.datageneral.customforms.factory.viewholders.InputTextViewHolder
+import cl.datageneral.customforms.factory.viewholders.*
 import cl.datageneral.customforms.inputs.*
 
 /**
@@ -85,6 +82,12 @@ class CustomFormAdapter(private val context: Context,
                     layoutParams = customLayoutParams
                 }
                 InputDatetimeViewHolder(view, listenerDT)
+            }
+            8 -> {
+                val view = PmSwitchView(context).apply {
+                    layoutParams = customLayoutParams
+                }
+                InputSwitchViewHolder(view)
             }
             /*2 -> {
                 val view = NumberinputView(context).apply {

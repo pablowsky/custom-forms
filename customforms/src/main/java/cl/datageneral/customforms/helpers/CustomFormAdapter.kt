@@ -131,3 +131,6 @@ interface ExternalChangeListenerListener {
 interface LabelListener{
     fun onDataListClick(data:HashMap<String, ArrayList<String>>)
 }
+interface InputClickListener{
+    fun onClick(itemId:String, data:ArrayList<String>)
+}

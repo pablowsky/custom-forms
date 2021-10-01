@@ -37,11 +37,15 @@ class ViewFactory(var jsonInput: JSONObject) {
         return when(type){
             ViewTypes.TEXT      -> InputTextConverter(jsonInput, readOnly).invoke()
             ViewTypes.SELECT    -> InputSelectConverter(jsonInput, readOnly).invoke()
-            ViewTypes.DATETIME  -> InputDatetimeConverter(jsonInput, readOnly).invoke()
+            ViewTypes.RADIOBUTTON   -> null
             ViewTypes.EXTERNAL_DATA -> InputExternalConverter(jsonInput, readOnly).invoke()
+            ViewTypes.DATE      -> null
+            ViewTypes.TIME      -> null
+            ViewTypes.DATETIME  -> InputDatetimeConverter(jsonInput, readOnly).invoke()
             ViewTypes.LABEL     -> InputLabelConverter(jsonInput, readOnly).invoke()
             ViewTypes.SWITCH    -> InputSwitchConverter(jsonInput, readOnly).invoke()
             ViewTypes.CHECKBOX  -> InputCheckboxConverter(jsonInput, readOnly).invoke()
+            ViewTypes.SIGNATURE -> InputSignatureConverter(jsonInput, readOnly).invoke()
             else -> null
         }
     }

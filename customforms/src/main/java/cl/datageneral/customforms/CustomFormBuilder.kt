@@ -56,6 +56,12 @@ class CustomFormBuilder {
         }
     }
 
+    var inputClickListener = object : InputClickListener{
+        override fun onClick(itemId:String, data:ArrayList<String>) {
+            TODO("Not yet implemented")
+        }
+    }
+
     fun recursiveSet(parentViewId:String, selectedValue:String){
         val layout  = (layoutContainer as LinearLayout)
         for (i in 0 until layout.childCount) {
@@ -120,6 +126,9 @@ class CustomFormBuilder {
                 }
                 is InputCheckboxView -> {
                     input.draw(PmCheckboxView(activity))
+                }
+                is InputSignatureView -> {
+                    input.draw(PmSignatureView(activity), inputClickListener)
                 }
                 else -> PmView(activity)
             }

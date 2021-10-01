@@ -46,6 +46,7 @@ class ViewFactory(var jsonInput: JSONObject) {
             ViewTypes.SWITCH    -> InputSwitchConverter(jsonInput, readOnly).invoke()
             ViewTypes.CHECKBOX  -> InputCheckboxConverter(jsonInput, readOnly).invoke()
             ViewTypes.SIGNATURE -> InputSignatureConverter(jsonInput, readOnly).invoke()
+            ViewTypes.FILES     -> InputFilesConverter(jsonInput, readOnly).invoke()
             else -> null
         }
     }

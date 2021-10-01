@@ -130,6 +130,9 @@ class CustomFormBuilder {
                 is InputSignatureView -> {
                     input.draw(PmSignatureView(activity), inputClickListener)
                 }
+                is InputFilesView -> {
+                    input.draw(PmFilesView(activity), inputClickListener)
+                }
                 else -> PmView(activity)
             }
             layoutContainer?.addView(dView as View)

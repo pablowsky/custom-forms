@@ -12,15 +12,15 @@ import cl.datageneral.customforms.R
 class SpinnerAdapter(
     private val mContext: Context,
     textViewResourceId: Int,
-    var myObjs: List<SpinnerItem>
-) : ArrayAdapter<SpinnerItem>(
+    var myObjs: List<SelectableItem>
+) : ArrayAdapter<SelectableItem>(
     mContext, textViewResourceId, myObjs
 ) {
     override fun getCount(): Int {
         return myObjs.size
     }
 
-    override fun getItem(position: Int): SpinnerItem {
+    override fun getItem(position: Int): SelectableItem {
         return myObjs[position]
     }
 

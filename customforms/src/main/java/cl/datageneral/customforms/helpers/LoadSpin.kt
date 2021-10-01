@@ -4,17 +4,16 @@ import android.R
 import android.content.Context
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.Spinner
-import java.util.*
 import kotlin.collections.ArrayList
 
 /**
  * VERSION CLASS: 1.7, FECHA 16-04-2018
  */
 class LoadSpin(private val context: Context, private val spinner: Spinner) {
-    var items: ArrayList<SpinnerItem> = ArrayList()
+    var items: ArrayList<SelectableItem> = ArrayList()
     private var selected: String? = null
     private var onItemListener: OnItemSelectedListener? = null
-    private var FirstItem: SpinnerItem? = null
+    private var FirstItem: SelectableItem? = null
     private val includeFirstRow = false
     private lateinit var adapter:SpinnerAdapter
 
@@ -24,7 +23,7 @@ class LoadSpin(private val context: Context, private val spinner: Spinner) {
 
     }
 
-    fun includeFirstRow(value: SpinnerItem?) {
+    fun includeFirstRow(value: SelectableItem?) {
         FirstItem = value
     }
 
@@ -74,7 +73,7 @@ class LoadSpin(private val context: Context, private val spinner: Spinner) {
             var index = 0
             var i = 0
             while (i < spinner.count) {
-                val obj = spinner.getItemAtPosition(i) as SpinnerItem
+                val obj = spinner.getItemAtPosition(i) as SelectableItem
                 //Log.d("Obj:", Integer.toString(obj.getValue()));
                 if (obj.value == myString) {
                     //Log.d("Obj2:", Integer.toString(myString));

@@ -41,6 +41,7 @@ class ViewFactory(var jsonInput: JSONObject) {
             ViewTypes.EXTERNAL_DATA -> InputExternalConverter(jsonInput, readOnly).invoke()
             ViewTypes.LABEL     -> InputLabelConverter(jsonInput, readOnly).invoke()
             ViewTypes.SWITCH    -> InputSwitchConverter(jsonInput, readOnly).invoke()
+            ViewTypes.CHECKBOX  -> InputCheckboxConverter(jsonInput, readOnly).invoke()
             else -> null
         }
     }

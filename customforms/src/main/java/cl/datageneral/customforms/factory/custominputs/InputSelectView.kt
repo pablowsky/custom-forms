@@ -2,7 +2,7 @@ package cl.datageneral.customforms.factory.custominputs
 
 import cl.datageneral.customforms.factory.ViewTypes
 import cl.datageneral.customforms.helpers.ItemSelectedListener
-import cl.datageneral.customforms.helpers.SpinnerItem
+import cl.datageneral.customforms.helpers.SelectableItem
 import cl.datageneral.customforms.inputs.PmSelectView
 import org.json.JSONObject
 
@@ -12,8 +12,8 @@ import org.json.JSONObject
 class InputSelectView:InputBase() {
     override var vtype              = ViewTypes.SELECT
     var dataOrigin:String           = String()
-    var options:ArrayList<SpinnerItem>   = ArrayList()
-    var filteredOptions:ArrayList<SpinnerItem>   = ArrayList()
+    var options:ArrayList<SelectableItem>   = ArrayList()
+    var filteredOptions:ArrayList<SelectableItem>   = ArrayList()
     var useFilteredOptions          = false
     var hasChildrens:Boolean        = false
     var hasParent:String            = String()
@@ -65,8 +65,8 @@ class InputSelectView:InputBase() {
 
 
     fun draw(view: PmSelectView, pListener: ItemSelectedListener):PmSelectView{
-        val nlist:ArrayList<SpinnerItem>   = ArrayList()
-        nlist.add(0, SpinnerItem("Seleccione", ""))
+        val nlist:ArrayList<SelectableItem>   = ArrayList()
+        nlist.add(0, SelectableItem("Seleccione", ""))
         nlist.addAll(if(useFilteredOptions){
             this@InputSelectView.filteredOptions
         }else {

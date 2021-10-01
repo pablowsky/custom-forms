@@ -118,6 +118,9 @@ class CustomFormBuilder {
                 is InputSwitchView -> {
                     input.draw(PmSwitchView(activity))
                 }
+                is InputCheckboxView -> {
+                    input.draw(PmCheckboxView(activity))
+                }
                 else -> PmView(activity)
             }
             layoutContainer?.addView(dView as View)
@@ -161,7 +164,7 @@ class CustomFormBuilder {
         }
     }
 
-    fun setOptions(viewId:String, options:ArrayList<SpinnerItem>){
+    fun setOptions(viewId:String, options:ArrayList<SelectableItem>){
         /*val view = viewList[itemPosition]
         if(view is InputSelectView){
             view.options = options
@@ -344,7 +347,7 @@ class CustomFormBuilder {
         var position:Int=0,
         var dataCode:String,
         var viewId:String="",
-        var values:ArrayList<SpinnerItem> = ArrayList()
+        var values:ArrayList<SelectableItem> = ArrayList()
     )
 
     data class ValidationResults(

@@ -1,17 +1,10 @@
 package cl.datageneral.customforms.factory.viewholders
 
-import android.util.Log
-import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.Spinner
 import cl.datageneral.customforms.BaseViewHolder
 import cl.datageneral.customforms.factory.custominputs.InputBase
 import cl.datageneral.customforms.factory.custominputs.InputSelectView
 import cl.datageneral.customforms.helpers.ItemSelectedListener
-import cl.datageneral.customforms.helpers.SpinnerItem
 import cl.datageneral.customforms.inputs.PmSelectView
-import kotlinx.android.synthetic.main.pm_select_view.view.*
 
 
 /**

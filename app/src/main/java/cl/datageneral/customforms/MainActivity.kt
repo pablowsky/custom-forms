@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         }
 
         override fun onTimeInputClick(viewId:String, value: String) {
+            Log.e("onTimeInputClick", "viewId:${viewId}, Values:${value}")
             SelectTimeFragment(viewId, this@MainActivity as ISelectedData).show(supportFragmentManager, "TimePikcer")
         }
     }
@@ -66,63 +67,70 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         }
     }
 
+    var inputClickListener = object : InputClickListener{
+        override fun onClick(itemId:String, data:ArrayList<String>) {
+            Log.e("DialogData", "Id:${itemId}, Values:${data.size}")
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
         //val sampleJson = getFormConfig("template.json")
-        val sampleJson = getFormConfig("template_viewer.json")
+        val sampleJson = getFormConfig("template_acta.json")
 
 
         //cform.selectListener = cListener
         cform.datetimeListener  = datetimeListener
         cform.externalListener  = externalListener
         cform.labelListener     = labelListener
+        cform.inputClickListener = inputClickListener
         cform.buildLayout(this, sampleJson, viewContainer, true)
 
 
         val requiresoptions = cform.viewsRequireExternalData()
 
         for(vr in requiresoptions){
-            val items = ArrayList<SpinnerItem>()
+            val items = ArrayList<SelectableItem>()
             if(vr.viewId=="1"){
-                items.add(SpinnerItem("tipo sitio 1", "1"))
-                items.add(SpinnerItem("tipo sitio 2", "2"))
-                items.add(SpinnerItem("tipo sitio 3", "3"))
+                items.add(SelectableItem("tipo sitio 1", "1"))
+                items.add(SelectableItem("tipo sitio 2", "2"))
+                items.add(SelectableItem("tipo sitio 3", "3"))
             }else if (vr.viewId=="2"){
-                items.add(SpinnerItem("nombre sitio 1", "11", "1"))
-                items.add(SpinnerItem("nombre sitio 2", "12", "1"))
-                items.add(SpinnerItem("nombre sitio 3", "13", "1"))
-                items.add(SpinnerItem("nombre sitio 4", "14", "2"))
-                items.add(SpinnerItem("nombre sitio 5", "15", "2"))
-                items.add(SpinnerItem("nombre sitio 6", "16", "2"))
-                items.add(SpinnerItem("nombre sitio 7", "17", "3"))
-                items.add(SpinnerItem("nombre sitio 8", "18", "3"))
-                items.add(SpinnerItem("nombre sitio 9", "19", "3"))
-                items.add(SpinnerItem("nombre sitio 10", "20", "3"))
+                items.add(SelectableItem("nombre sitio 1", "11", "1"))
+                items.add(SelectableItem("nombre sitio 2", "12", "1"))
+                items.add(SelectableItem("nombre sitio 3", "13", "1"))
+                items.add(SelectableItem("nombre sitio 4", "14", "2"))
+                items.add(SelectableItem("nombre sitio 5", "15", "2"))
+                items.add(SelectableItem("nombre sitio 6", "16", "2"))
+                items.add(SelectableItem("nombre sitio 7", "17", "3"))
+                items.add(SelectableItem("nombre sitio 8", "18", "3"))
+                items.add(SelectableItem("nombre sitio 9", "19", "3"))
+                items.add(SelectableItem("nombre sitio 10", "20", "3"))
             }else if (vr.viewId=="3"){
-                items.add(SpinnerItem("entidad 1", "21", "11"))
-                items.add(SpinnerItem("entidad 2", "22", "11"))
-                items.add(SpinnerItem("entidad 3", "23", "12"))
-                items.add(SpinnerItem("entidad 4", "24", "12"))
-                items.add(SpinnerItem("entidad 5", "25", "13"))
-                items.add(SpinnerItem("entidad 6", "26", "13"))
-                items.add(SpinnerItem("entidad 7", "27", "14"))
-                items.add(SpinnerItem("entidad 8", "28", "14"))
-                items.add(SpinnerItem("entidad 9", "29", "15"))
-                items.add(SpinnerItem("entidad 10", "30", "15"))
+                items.add(SelectableItem("entidad 1", "21", "11"))
+                items.add(SelectableItem("entidad 2", "22", "11"))
+                items.add(SelectableItem("entidad 3", "23", "12"))
+                items.add(SelectableItem("entidad 4", "24", "12"))
+                items.add(SelectableItem("entidad 5", "25", "13"))
+                items.add(SelectableItem("entidad 6", "26", "13"))
+                items.add(SelectableItem("entidad 7", "27", "14"))
+                items.add(SelectableItem("entidad 8", "28", "14"))
+                items.add(SelectableItem("entidad 9", "29", "15"))
+                items.add(SelectableItem("entidad 10", "30", "15"))
             }else if (vr.viewId=="4") {
-                items.add(SpinnerItem("linea de negocio del incidente 1", "31", "21"))
-                items.add(SpinnerItem("linea de negocio del incidente 2", "32", "21"))
-                items.add(SpinnerItem("linea de negocio del incidente 3", "33", "22"))
-                items.add(SpinnerItem("linea de negocio del incidente 4", "34", "22"))
-                items.add(SpinnerItem("linea de negocio del incidente 5", "35", "23"))
-                items.add(SpinnerItem("linea de negocio del incidente 6", "36", "23"))
-                items.add(SpinnerItem("linea de negocio del incidente 7", "37", "24"))
-                items.add(SpinnerItem("linea de negocio del incidente 8", "38", "24"))
-                items.add(SpinnerItem("linea de negocio del incidente 9", "39", "25"))
-                items.add(SpinnerItem("linea de negocio del incidente 10", "40", "25"))
+                items.add(SelectableItem("linea de negocio del incidente 1", "31", "21"))
+                items.add(SelectableItem("linea de negocio del incidente 2", "32", "21"))
+                items.add(SelectableItem("linea de negocio del incidente 3", "33", "22"))
+                items.add(SelectableItem("linea de negocio del incidente 4", "34", "22"))
+                items.add(SelectableItem("linea de negocio del incidente 5", "35", "23"))
+                items.add(SelectableItem("linea de negocio del incidente 6", "36", "23"))
+                items.add(SelectableItem("linea de negocio del incidente 7", "37", "24"))
+                items.add(SelectableItem("linea de negocio del incidente 8", "38", "24"))
+                items.add(SelectableItem("linea de negocio del incidente 9", "39", "25"))
+                items.add(SelectableItem("linea de negocio del incidente 10", "40", "25"))
             }
 
 

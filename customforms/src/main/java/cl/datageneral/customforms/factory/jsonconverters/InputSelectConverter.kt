@@ -1,6 +1,7 @@
 package cl.datageneral.customforms.factory.jsonconverters
 
 import cl.datageneral.customforms.Json
+import cl.datageneral.customforms.base.BaseConverter
 import cl.datageneral.customforms.factory.custominputs.InputSelectView
 import cl.datageneral.customforms.factory.custominputs.InputTextView
 import org.json.JSONObject
@@ -8,7 +9,7 @@ import org.json.JSONObject
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
-class InputSelectConverter(private val jsonInput: JSONObject, var pReadOnly: Boolean) {
+class InputSelectConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseConverter(jsonInput) {
 
     operator fun invoke():InputSelectView{
         return InputSelectView().apply {
@@ -22,38 +23,10 @@ class InputSelectConverter(private val jsonInput: JSONObject, var pReadOnly: Boo
         }
     }
 
-
-    private val jTitle:String
-        get() {
-            return if(jsonInput.has("title")){
-                Json.getText(jsonInput, "title")
-            }else{
-                String()
-            }
-        }
-
-    private val jMandatory:Boolean
-        get() {
-            return if(jsonInput.has("mandatory")){
-                Json.getBoolean(jsonInput, "mandatory")
-            }else{
-                false
-            }
-        }
-
     private val jDataOrigins:String
         get() {
             return if(jsonInput.has("data_origins")){
                 Json.getText(jsonInput, "data_origins")
-            }else{
-                String()
-            }
-        }
-
-    private val jViewId:String
-        get() {
-            return if(jsonInput.has("view_id")){
-                Json.getText(jsonInput, "view_id")
             }else{
                 String()
             }
@@ -77,12 +50,4 @@ class InputSelectConverter(private val jsonInput: JSONObject, var pReadOnly: Boo
             }
         }
 
-    private val jHasGrandChildren:Boolean
-        get() {
-            return if(jsonInput.has("has_grand_children")){
-                Json.getBoolean(jsonInput, "has_grand_children")
-            }else{
-                false
-            }
-        }
 }

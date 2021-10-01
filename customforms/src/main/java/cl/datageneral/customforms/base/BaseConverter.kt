@@ -1,4 +1,4 @@
-package cl.datageneral.customforms.factory.custominputs
+package cl.datageneral.customforms.base
 
 import cl.datageneral.customforms.Json
 import org.json.JSONObject
@@ -6,8 +6,20 @@ import org.json.JSONObject
 /**
  * Created by Pablo Molina on 01-10-2021. s.pablo.molina@gmail.com
  */
-open class BaseConverter(private val jsonInput: JSONObject) {
+open class BaseConverter(val jsonInput: JSONObject) {
 
+    val jButtonText:String
+        get() {
+            return if(jsonInput.has("layout_options")){
+                if(jsonInput.getJSONObject("layout_options").has("button_text")){
+                    jsonInput.getJSONObject("layout_options").getString("button_text")
+                }else{
+                    ""
+                }
+            }else{
+                ""
+            }
+        }
 
     val jHint:String
         get() {

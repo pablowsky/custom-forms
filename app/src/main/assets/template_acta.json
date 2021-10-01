@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "view_id": 1,
+      "title": "Hora de inicio",
+      "hint": "HH:MM",
+      "vtype": "time",
+      "mandatory": true
+    },
+    {
+      "view_id": 2,
+      "title": "Hora de termino",
+      "hint": "HH:MM",
+      "vtype": "time",
+      "mandatory": true
+    },
+    {
+      "view_id": 3,
+      "title": "Colacion",
+      "textOff": "Verdadero",
+      "textOn": "Falso",
+      "vtype": "switch"
+    },
+    {
+      "view_id": 4,
+      "title": "Numero de sellos o comprobante",
+      "hint": "Escriba aquí",
+      "vtype": "text",
+      "mandatory": true
+    },
+    {
+      "view_id": 5,
+      "title": "Descripcion de equipos",
+      "hint": "Escriba aquí",
+      "vtype": "text",
+      "mandatory": true
+    },
+    {
+      "view_id": 6,
+      "title": "Detalle de los servicios",
+      "hint": "Escriba aquí",
+      "vtype": "text",
+      "mandatory": true
+    },
+    {
+      "view_id": 7,
+      "title": "Desea agregar al resto del personal en su acta?",
+      "hint": "Escriba aquí",
+      "vtype": "checkbox",
+      "mandatory": true,
+      "items":[
+        {"itemId": 1, "itemText": "Text 1"},
+        {"itemId": 2, "itemText": "Text 2"},
+        {"itemId": 3, "itemText": "Text 3"},
+        {"itemId": 4, "itemText": "Text 4"},
+        {"itemId": 5, "itemText": "Text 5"}
+      ]
+    },
+    {
+      "view_id": 8,
+      "title": "Firma del cliente",
+      "vtype": "signature",
+      "layout_options": {
+        "button_text" : "Ingresar Firma"
+      },
+      "mandatory": true
+    },
+    {
+      "view_id": 10,
+      "title": "Envia copia de acta de inspeccion al cliente",
+      "textOff": "Verdadero",
+      "textOn": "Falso",
+      "vtype": "switch"
+    },
+    {
+      "view_id": 11,
+      "title": "Archivos adjuntos",
+      "vtype": "files",
+      "min_files": 0,
+      "max_files": 3,
+      "layout_options": {
+        "button_text" : "Adjuntos"
+      },
+      "mandatory": true
+    }
+
+  ]
+}

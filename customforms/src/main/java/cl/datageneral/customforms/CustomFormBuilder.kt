@@ -133,6 +133,9 @@ class CustomFormBuilder {
                 is InputFilesView -> {
                     input.draw(PmFilesView(activity), inputClickListener)
                 }
+                is InputTimeView -> {
+                    input.draw(PmTimeView(activity), datetimeListener)
+                }
                 else -> PmView(activity)
             }
             layoutContainer?.addView(dView as View)

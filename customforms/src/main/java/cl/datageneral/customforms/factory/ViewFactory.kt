@@ -40,7 +40,7 @@ class ViewFactory(var jsonInput: JSONObject) {
             ViewTypes.RADIOBUTTON   -> null
             ViewTypes.EXTERNAL_DATA -> InputExternalConverter(jsonInput, readOnly).invoke()
             ViewTypes.DATE      -> null
-            ViewTypes.TIME      -> null
+            ViewTypes.TIME      -> InputTimeConverter(jsonInput, readOnly).invoke()
             ViewTypes.DATETIME  -> InputDatetimeConverter(jsonInput, readOnly).invoke()
             ViewTypes.LABEL     -> InputLabelConverter(jsonInput, readOnly).invoke()
             ViewTypes.SWITCH    -> InputSwitchConverter(jsonInput, readOnly).invoke()

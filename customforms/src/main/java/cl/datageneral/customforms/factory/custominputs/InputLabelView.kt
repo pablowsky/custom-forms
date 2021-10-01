@@ -4,7 +4,6 @@ import cl.datageneral.customforms.factory.ViewTypes
 import cl.datageneral.customforms.helpers.Disposition
 import cl.datageneral.customforms.helpers.LabelListener
 import cl.datageneral.customforms.inputs.PmLabelView
-import cl.datageneral.customforms.inputs.PmTextView
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com

@@ -164,7 +164,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
         validateBtn.setOnClickListener {
             Log.e("Validation:", "-----------------------------")
-            val vr = cform.validateLayoutFields()
+            val vr = cform.validateFields()
             Log.e("Validation1:", "${vr.isValidForm}")
             Log.e("Validation2:", "${vr.invalidFields}")
             Log.e("Validation3:", "${vr.validFields}")

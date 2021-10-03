@@ -1,5 +1,7 @@
 package cl.datageneral.customforms.factory.custominputs
 
+import android.util.Log
+import cl.datageneral.customforms.R
 import cl.datageneral.customforms.factory.ViewTypes
 
 /**
@@ -14,8 +16,7 @@ class InputFilesView:InputBase() {
     override var readOnly: Boolean  = false
     override var title: String      = String()
     override var warningMessage: String= String()
-    override val isValid: Boolean
-        get() = true
+    var showWarning:Boolean         = false
     override var value2: Any = emptyList<String>()
         get() = mainValues
         set(value) {
@@ -23,6 +24,17 @@ class InputFilesView:InputBase() {
 
             if(value is List<*>) {
                 mainValues.addAll(value.map { it.toString() })
+            }
+        }
+
+    override val isValid: Boolean
+        get(){
+            return (if(mandatory){
+                mainValues.isNotEmpty()
+            }else{
+                true
+            }).also {
+                showWarning = !it
             }
         }
 }

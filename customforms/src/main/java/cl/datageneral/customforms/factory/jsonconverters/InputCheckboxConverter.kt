@@ -17,6 +17,7 @@ class InputCheckboxConverter(jsonInput: JSONObject, var pReadOnly: Boolean):Base
             viewId      = jViewId
             readOnly    = pReadOnly
             items       = jItems
+            mandatory   = jMandatory
         }
     }
 

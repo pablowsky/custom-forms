@@ -28,11 +28,12 @@ class PmCheckboxView(context: Context, attrs: AttributeSet?=null): PmView(contex
             for(option in value.items){
                 addOption(option)
             }
+            displayWarning(value.showWarning)
         }
 
-    override fun displayWarning(msg:String) {
-        if(msg.isNotEmpty()) {
-            warningLabel.text = msg
+    fun displayWarning(value: Boolean) {
+        if(value) {
+            warningLabel.text = context.getString(R.string.is_required)
             warningLabel.visibility = View.VISIBLE
         }else{
             warningLabel.text = ""
@@ -41,15 +42,6 @@ class PmCheckboxView(context: Context, attrs: AttributeSet?=null): PmView(contex
     }
 
     private var titleLabel: TextView
-
-
-    override var mainValue:String
-        set(value){
-            //switch.isChecked = value=="true"
-        }
-        get(){
-            return ""
-        }
 
     var title:String?       = String()
         set(value) {
@@ -67,17 +59,6 @@ class PmCheckboxView(context: Context, attrs: AttributeSet?=null): PmView(contex
                 mandatoryLabel.visibility = View.GONE
             }
             field = value
-        }
-
-    override val isValid: Boolean
-        get(){
-            return if(mandatory && inputLabel!!.selectedItems.isEmpty()){
-                displayWarning(context.getString(R.string.is_required))
-                false
-            }else{
-                displayWarning("")
-                true
-            }
         }
 
     private fun addOption(item:SelectableItem){

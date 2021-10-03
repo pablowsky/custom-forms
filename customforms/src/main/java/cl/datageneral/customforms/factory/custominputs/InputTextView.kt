@@ -13,19 +13,11 @@ class InputTextView:InputBase() {
     override var readOnly: Boolean  = false
     override var title: String      = String()
     override var warningMessage: String= String()
+    var showWarning:Boolean         = false
     override val isValid: Boolean
         get(){
-            return if(mandatory && value.isEmpty()){
-                val format = if(hint.isNotEmpty()){
-                    "($hint)"
-                }else{
-                    ""
-                }
-                warningMessage = "Este campo es requerido. $format"
-                false
-            }else{
-                warningMessage = ""
-                true
+            return (!(mandatory && mainValue.isEmpty())).also {
+                showWarning = !it
             }
         }
 

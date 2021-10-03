@@ -21,8 +21,8 @@ class PmSignatureView(context: Context, attrs: AttributeSet?=null): PmView(conte
             button.text     = value.buttonText
 
             initMandatory(value.mandatory)
-            displayWarning(value.warningMessage)
             initIndicator()
+            displayWarning(value.showWarning)
         }
 
     private var titleLabel: TextView
@@ -49,20 +49,9 @@ class PmSignatureView(context: Context, attrs: AttributeSet?=null): PmView(conte
         }
     }
 
-    override val isValid: Boolean
-        get(){
-            return if(mandatory && mainValue.isEmpty()){
-                displayWarning(context.getString(R.string.is_required))
-                false
-            }else{
-                displayWarning("")
-                true
-            }
-        }
-
-    override fun displayWarning(msg:String) {
-        if(msg.isNotEmpty()) {
-            warningLabel.text = msg
+    fun displayWarning(value: Boolean) {
+        if(value) {
+            warningLabel.text = context.getString(R.string.is_required)
             warningLabel.visibility = View.VISIBLE
         }else{
             warningLabel.text = ""

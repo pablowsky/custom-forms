@@ -21,8 +21,8 @@ class PmFilesView(context: Context, attrs: AttributeSet?=null): PmView(context, 
             button.text     = value.buttonText
 
             initMandatory(value.mandatory||value.minFiles>0)
-            displayWarning(value.warningMessage)
             initIndicator()
+            displayWarning(value.showWarning)
         }
 
     private var titleLabel: TextView
@@ -30,7 +30,6 @@ class PmFilesView(context: Context, attrs: AttributeSet?=null): PmView(context, 
     private var button: Button
     private var warningLabel: TextView
     private var signatureIndicator: TextView
-    //override var mainValue:String = String()
     var listener: MainListener?=null
 
     private fun initMandatory(value:Boolean) {
@@ -51,20 +50,9 @@ class PmFilesView(context: Context, attrs: AttributeSet?=null): PmView(context, 
         }
     }
 
-    override val isValid: Boolean
-        get(){
-            return if(mandatory && mainValue.isEmpty()){
-                displayWarning(context.getString(R.string.is_required))
-                false
-            }else{
-                displayWarning("")
-                true
-            }
-        }
-
-    override fun displayWarning(msg:String) {
-        if(msg.isNotEmpty()) {
-            warningLabel.text = msg
+    fun displayWarning(value: Boolean) {
+        if(value) {
+            warningLabel.text = context.getString(R.string.is_required)
             warningLabel.visibility = View.VISIBLE
         }else{
             warningLabel.text = ""

@@ -25,19 +25,6 @@ class PmSwitchView(context: Context, attrs: AttributeSet?=null): PmView(context,
     private var switch: SwitchCompat
     private var titleLabel: TextView
 
-
-    override var mainValue:String
-        set(value){
-            switch.isChecked = value=="true"
-        }
-        get(){
-            return if(switch.isChecked){
-                "true"
-            }else{
-                "false"
-            }
-        }
-
     var title:String?       = String()
         set(value) {
             value?.let {

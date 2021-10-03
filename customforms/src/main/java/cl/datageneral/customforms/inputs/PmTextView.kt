@@ -25,7 +25,7 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
             readOnly        = value.readOnly
             editable.setText(value.mainValue)
             initMandatory(value.mandatory)
-            displayWarning(value.warningMessage)
+            displayWarning(value.showWarning)
         }
 
     private var editable: EditText
@@ -38,7 +38,7 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
             field = value
         }
 
-    fun initMandatory(value:Boolean) {
+    private fun initMandatory(value:Boolean) {
         if(value){
             mandatoryLabel.visibility = View.VISIBLE
         }else{
@@ -46,11 +46,11 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
         }
     }
 
-    override var mainValue:String
+/*    override var mainValue:String
         set(value)  = editable.setText(value)
-        get()       = editable.text.toString()
+        get()       = editable.text.toString()*/
 
-    override val isValid: Boolean
+/*    override val isValid: Boolean
         get(){
             return if(mandatory && editable.text.isEmpty()){
                 val format = if(inputLabel?.hint!!.isNotEmpty()){
@@ -64,13 +64,13 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
                 displayWarning("")
                 true
             }
-        }
+        }*/
 
     /**
      * Returns true when the field has a right answer
      * Returns false when the field doesnt have a right answer
      */
-    override fun checkRequired(): Boolean {
+/*    override fun checkRequired(): Boolean {
         return if(mandatory){
             with(editable.text.toString()){
                 return this.isNotEmpty()
@@ -78,11 +78,16 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
         }else{
             true
         }
-    }
+    }*/
 
-    override fun displayWarning(msg:String) {
-        if(msg.isNotEmpty()) {
-            warningLabel.text = msg
+    fun displayWarning(value: Boolean) {
+        if(value) {
+            val format = if(inputLabel?.hint?.isNotEmpty() == true){
+                "(${inputLabel?.hint})"
+            }else{
+                ""
+            }
+            warningLabel.text = "${context.getString(R.string.is_required)}. $format"
             warningLabel.visibility = View.VISIBLE
         }else{
             warningLabel.text = ""

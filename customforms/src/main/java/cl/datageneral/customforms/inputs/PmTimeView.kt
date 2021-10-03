@@ -31,7 +31,7 @@ class PmTimeView(context: Context, attrs: AttributeSet?=null): PmView(context, a
 
             initMandatory(value.mandatory)
             initReadonly(value.readOnly)
-            displayWarning(value.warningMessage)
+            displayWarning(value.showWarning)
         }
 
     private var timeBox: EditText
@@ -99,9 +99,14 @@ class PmTimeView(context: Context, attrs: AttributeSet?=null): PmView(context, a
         }
     }
 
-    override fun displayWarning(msg:String) {
-        if(msg.isNotEmpty()) {
-            warningLabel.text = msg
+    fun displayWarning(value: Boolean) {
+        if(value) {
+            val format = if(inputLabel?.hint?.isNotEmpty() == true){
+                "(${inputLabel?.hint})"
+            }else{
+                ""
+            }
+            warningLabel.text = "${context.getString(R.string.is_required)}. $format"
             warningLabel.visibility = View.VISIBLE
         }else{
             warningLabel.text = ""

@@ -1,7 +1,6 @@
 package cl.datageneral.customforms.helpers
 
 import android.content.Context
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import cl.datageneral.customforms.BaseViewHolder
@@ -13,10 +12,7 @@ import cl.datageneral.customforms.inputs.*
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
 class CustomFormAdapter(private val context: Context,
-                        private val listener:ItemSelectedListener,
-                        private val eListener:ExternalChangeListenerListener,
-                        private val mListener:InputClickListener,
-                        private val listenerDT:DateTimeClickListener): RecyclerView.Adapter<BaseViewHolder>() {
+                        private val listener:MainListener): RecyclerView.Adapter<BaseViewHolder>() {
     var items:ArrayList<InputBase> = ArrayList()
 
     fun setDataSet(pItems:ArrayList<InputBase>){
@@ -81,13 +77,13 @@ class CustomFormAdapter(private val context: Context,
                 val view = PmTimeView(context).apply {
                     layoutParams = customLayoutParams
                 }
-                InputTimeViewHolder(view, listenerDT)
+                InputTimeViewHolder(view, listener)
             }
             6 -> {
                 val view = PmDatetimeView(context).apply {
                     layoutParams = customLayoutParams
                 }
-                InputDatetimeViewHolder(view, listenerDT)
+                InputDatetimeViewHolder(view, listener)
             }
             7 -> {
                 val view = PmLabelView(context).apply {
@@ -111,13 +107,13 @@ class CustomFormAdapter(private val context: Context,
                 val view = PmSignatureView(context).apply {
                     layoutParams = customLayoutParams
                 }
-                InputSignatureViewHolder(view, mListener)
+                InputSignatureViewHolder(view, listener)
             }
             11 -> {
                 val view = PmFilesView(context).apply {
                     layoutParams = customLayoutParams
                 }
-                InputFilesViewHolder(view, mListener)
+                InputFilesViewHolder(view, listener)
             }
 
             else -> BaseViewHolder(PmView(parent.context))
@@ -136,24 +132,13 @@ class CustomFormAdapter(private val context: Context,
         return items.size
     }
 }
-interface ItemSelectedListener {
+
+interface MainListener{
+    fun onDateInputClick(viewId:String, value:String)
+    fun onTimeInputClick(viewId:String, value:String)
+    fun onClick(itemId:String, data:ArrayList<String>)
+    fun onDataListClick(data:HashMap<String, ArrayList<String>>)
+    fun onExternalChange(viewId:String, searchKey:String, parent:String)
     fun onSelectInputClick(viewId:String, value:String)
     fun onLoadChildrensClick(parentViewId:String, selectedValue:String)
-}
-interface DateTimeClickListener {
-    fun onDateInputClick(viewId:String, value:String)
-    fun onTimeInputClick(viewId:String, value:String)
-}
-interface ExternalChangeListenerListener {
-    fun onExternalChange(viewId:String, searchKey:String, parent:String)
-}
-interface LabelListener{
-    fun onDataListClick(data:HashMap<String, ArrayList<String>>)
-}
-interface InputClickListener{
-    fun onClick(itemId:String, data:ArrayList<String>)
-}
-interface MainCLickListener{
-    fun onDateInputClick(viewId:String, value:String)
-    fun onTimeInputClick(viewId:String, value:String)
 }

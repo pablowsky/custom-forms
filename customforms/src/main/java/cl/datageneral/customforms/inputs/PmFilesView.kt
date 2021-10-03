@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import cl.datageneral.customforms.R
 import cl.datageneral.customforms.factory.custominputs.InputFilesView
-import cl.datageneral.customforms.helpers.InputClickListener
+import cl.datageneral.customforms.helpers.MainListener
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
@@ -31,7 +31,7 @@ class PmFilesView(context: Context, attrs: AttributeSet?=null): PmView(context, 
     private var warningLabel: TextView
     private var signatureIndicator: TextView
     //override var mainValue:String = String()
-    var listener: InputClickListener?=null
+    var listener: MainListener?=null
 
     private fun initMandatory(value:Boolean) {
         if(value){

@@ -2,8 +2,6 @@ package cl.datageneral.customforms.factory.custominputs
 
 import cl.datageneral.customforms.factory.ViewTypes
 import cl.datageneral.customforms.helpers.Disposition
-import cl.datageneral.customforms.helpers.LabelListener
-import cl.datageneral.customforms.inputs.PmLabelView
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com

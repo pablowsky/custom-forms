@@ -2,7 +2,6 @@ package cl.datageneral.customforms.factory.custominputs
 
 import android.util.Log
 import cl.datageneral.customforms.factory.ViewTypes
-import cl.datageneral.customforms.helpers.DateTimeClickListener
 import cl.datageneral.customforms.inputs.PmDatetimeView
 import org.json.JSONObject
 
@@ -61,10 +60,10 @@ class InputDatetimeView:InputBase() {
         }
     }
 
-    fun draw(view: PmDatetimeView, pDatetimeListener: DateTimeClickListener): PmDatetimeView {
+    fun draw(view: PmDatetimeView): PmDatetimeView {
         return view.apply {
             viewId      = this@InputDatetimeView.viewId
-            datetimeListener = pDatetimeListener
+            //datetimeListener = pDatetimeListener
             title       = this@InputDatetimeView.title
             readOnly    = this@InputDatetimeView.readOnly
             mandatory   = this@InputDatetimeView.mandatory

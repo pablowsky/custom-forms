@@ -1,7 +1,6 @@
 package cl.datageneral.customforms.factory.custominputs
 
 import cl.datageneral.customforms.factory.ViewTypes
-import cl.datageneral.customforms.helpers.ItemSelectedListener
 import cl.datageneral.customforms.helpers.SelectableItem
 import cl.datageneral.customforms.inputs.PmSelectView
 import org.json.JSONObject
@@ -64,7 +63,7 @@ class InputSelectView:InputBase() {
     override var value: String = String()
 
 
-    fun draw(view: PmSelectView, pListener: ItemSelectedListener):PmSelectView{
+    fun draw(view: PmSelectView):PmSelectView{
         val nlist:ArrayList<SelectableItem>   = ArrayList()
         nlist.add(0, SelectableItem("Seleccione", ""))
         nlist.addAll(if(useFilteredOptions){
@@ -76,7 +75,7 @@ class InputSelectView:InputBase() {
         return view.apply {
             viewId          = this@InputSelectView.viewId
             title           = this@InputSelectView.title
-            listener        = pListener
+            //listener        = pListener
             readOnly        = this@InputSelectView.readOnly
             dataOrigin      = this@InputSelectView.dataOrigin
             hasChildrens    = this@InputSelectView.hasChildrens

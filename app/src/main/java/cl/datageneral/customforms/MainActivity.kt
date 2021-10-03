@@ -17,6 +17,49 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
     val cform = CustomFormBuilder()
 
+    var mainListener = object : MainListener{
+        override fun onDateInputClick(viewId:String, value: String) {
+            SelectDateFragment(viewId, this@MainActivity as ISelectedData).show(supportFragmentManager, "DatePicker")
+        }
+
+        override fun onTimeInputClick(viewId:String, value: String) {
+            Log.e("onTimeInputClick", "viewId:${viewId}, Values:${value}")
+            SelectTimeFragment(viewId, this@MainActivity as ISelectedData).show(supportFragmentManager, "TimePikcer")
+        }
+
+        override fun onClick(itemId:String, data:ArrayList<String>) {
+            Log.e("DialogData", "Id:${itemId}, Values:${data.size}")
+            if(itemId=="11") {
+                cform.setValue(itemId, arrayListOf("/my/fake/signature1.jpg","/my/fake/signature2.jpg","/my/fake/signature3.jpg"))
+            }else{
+                cform.setValue(itemId, "/my/fake/signature.jpg")
+            }
+        }
+
+        override fun onExternalChange(viewId:String, searchKey: String, parent: String) {
+            //Thread.sleep(3000)
+            Log.e("ExternalChangeDetected", "$viewId $searchKey $parent")
+            cform.setValue(viewId, "Este es un texto externo")
+        }
+
+        override fun onDataListClick(data: HashMap<String, ArrayList<String>>) {
+            for(d in data){
+                Log.e("DialogData", "Title:${d.key}, Values:${d.value.size}")
+            }
+        }
+
+        override fun onSelectInputClick(viewId: String, value: String) {
+            Log.e(TAG, "onSelectInputClick $viewId $value")
+        }
+
+        override fun onLoadChildrensClick(
+            parentViewId: String,
+            selectedValue: String
+        ) {
+            Log.e(TAG, "onLoadChildrensClick $parentViewId $selectedValue")
+        }
+    }
+
     override fun onDateSelected(position: String, date: String) {
         Log.e("data", "$date")
         //cform.setValue(position, date, "DATE")
@@ -28,56 +71,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         cform.setValue(position, time)
     }
 
-    /*private val cListener = object : ItemSelectedListener {
-        override fun onSelectInputClick(viewId: String, value: String) {
-            Log.e(TAG, "onSelectInputClick $viewId $value")
-        }
 
-        override fun onLoadChildrensClick(
-            parentViewId: String,
-            selectedValue: String
-        ) {
-            Log.e(TAG, "onLoadChildrensClick $parentViewId $selectedValue")
-        }
-    }*/
-
-    var datetimeListener = object : DateTimeClickListener {
-        override fun onDateInputClick(viewId:String, value: String) {
-            SelectDateFragment(viewId, this@MainActivity as ISelectedData).show(supportFragmentManager, "DatePicker")
-        }
-
-        override fun onTimeInputClick(viewId:String, value: String) {
-            Log.e("onTimeInputClick", "viewId:${viewId}, Values:${value}")
-            SelectTimeFragment(viewId, this@MainActivity as ISelectedData).show(supportFragmentManager, "TimePikcer")
-        }
-    }
-
-    var externalListener = object : ExternalChangeListenerListener {
-        override fun onExternalChange(viewId:String, searchKey: String, parent: String) {
-            //Thread.sleep(3000)
-            Log.e("ExternalChangeDetected", "$viewId $searchKey $parent")
-            cform.setValue(viewId, "Este es un texto externo")
-        }
-    }
-
-    var labelListener = object : LabelListener {
-        override fun onDataListClick(data: HashMap<String, ArrayList<String>>) {
-            for(d in data){
-                Log.e("DialogData", "Title:${d.key}, Values:${d.value.size}")
-            }
-        }
-    }
-
-    var inputClickListener = object : InputClickListener{
-        override fun onClick(itemId:String, data:ArrayList<String>) {
-            Log.e("DialogData", "Id:${itemId}, Values:${data.size}")
-            if(itemId=="11") {
-                cform.setValue(itemId, arrayListOf("/my/fake/signature1.jpg","/my/fake/signature2.jpg","/my/fake/signature3.jpg"))
-            }else{
-                cform.setValue(itemId, "/my/fake/signature.jpg")
-            }
-        }
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,12 +81,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         //val sampleJson = getFormConfig("template.json")
         val sampleJson = getFormConfig("template_acta.json")
 
-
-        //cform.selectListener = cListener
-        cform.datetimeListener  = datetimeListener
-        cform.externalListener  = externalListener
-        cform.labelListener     = labelListener
-        cform.inputClickListener = inputClickListener
+        cform.mainListener = mainListener
         //cform.buildLayout(this, sampleJson, viewContainer, true)
         cform.buildRecycler(this, sampleJson, viewListContainer, false)
 

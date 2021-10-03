@@ -9,8 +9,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import cl.datageneral.customforms.R
-import cl.datageneral.customforms.helpers.ItemSelectedListener
 import cl.datageneral.customforms.helpers.LoadSpin
+import cl.datageneral.customforms.helpers.MainListener
 import cl.datageneral.customforms.helpers.SelectableItem
 import kotlinx.android.synthetic.main.pm_select_view.view.*
 
@@ -24,7 +24,7 @@ class PmSelectView(context: Context, attrs: AttributeSet? = null): PmView(contex
     private var warningLabel: TextView
     private var mandatoryLabel: TextView
     private var spin:LoadSpin
-    var listener: ItemSelectedListener?= null
+    var listener: MainListener?= null
     var filteredOptions:ArrayList<SelectableItem>  = ArrayList()
     var hasChildrens:Boolean                    = false
     var hasParent:String                        = String()

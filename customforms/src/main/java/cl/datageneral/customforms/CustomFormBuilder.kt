@@ -23,41 +23,32 @@ class CustomFormBuilder {
     var layoutContainer:LinearLayout? =null
     var readOnly:Boolean = false
 
-    private var selectListener = object : ItemSelectedListener{
-        override fun onSelectInputClick(viewId: String, value: String) {
-
-            //recursiveSet(viewId, value)
-        }
-
-        override fun onLoadChildrensClick(  parentViewId: String, selectedValue: String ) {
-            recursiveSet(parentViewId, selectedValue)
-        }
-    }
-
-    var datetimeListener = object : DateTimeClickListener{
-        override fun onDateInputClick(viewId:String, value: String) {
+    var mainListener = object : MainListener{
+        override fun onDateInputClick(viewId: String, value: String) {
             TODO("Not yet implemented")
         }
 
-        override fun onTimeInputClick(viewId:String, value: String) {
+        override fun onTimeInputClick(viewId: String, value: String) {
             TODO("Not yet implemented")
         }
-    }
 
-    var externalListener = object :ExternalChangeListenerListener{
-        override fun onExternalChange(viewId: String, searchKey: String, parent: String) {
+        override fun onClick(itemId:String, data:ArrayList<String>) {
             TODO("Not yet implemented")
         }
-    }
 
-    var labelListener = object : LabelListener{
         override fun onDataListClick(data: HashMap<String, ArrayList<String>>) {
             TODO("Not yet implemented")
         }
-    }
 
-    var inputClickListener = object : InputClickListener{
-        override fun onClick(itemId:String, data:ArrayList<String>) {
+        override fun onExternalChange(viewId: String, searchKey: String, parent: String) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onSelectInputClick(viewId: String, value: String) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onLoadChildrensClick(parentViewId: String, selectedValue: String) {
             TODO("Not yet implemented")
         }
     }
@@ -112,18 +103,24 @@ class CustomFormBuilder {
                     }
                 }
                 is InputSelectView -> {
-                    input.draw(PmSelectView(activity), selectListener)
+                    input.draw(PmSelectView(activity)).apply {
+                        listener = mainListener
+                    }
                 }
                 is InputExternalView -> {
-                    input.draw(PmExternalView(activity), externalListener)
+                    input.draw(PmExternalView(activity)).apply {
+                        externalListener = mainListener
+                    }
                 }
                 is InputDatetimeView -> {
-                    input.draw(PmDatetimeView(activity), datetimeListener)
+                    input.draw(PmDatetimeView(activity)).apply {
+                        datetimeListener = mainListener
+                    }
                 }
                 is InputLabelView -> {
                     PmLabelView(activity).apply {
                         inputLabel  = input
-                        listener    = labelListener
+                        listener    = mainListener
                     }
                 }
                 is InputSwitchView -> {
@@ -132,22 +129,27 @@ class CustomFormBuilder {
                     }
                 }
                 is InputCheckboxView -> {
-                    PmView(activity)//input.draw(PmCheckboxView(activity))
+                    PmCheckboxView(activity).apply {
+                        inputLabel = input
+                    }
                 }
                 is InputSignatureView -> {
                     PmSignatureView(activity).apply {
                         inputLabel  = input
-                        listener    = inputClickListener
+                        listener    = mainListener
                     }
                 }
                 is InputFilesView -> {
                     PmFilesView(activity).apply {
                         inputLabel  = input
-                        listener    = inputClickListener
+                        listener    = mainListener
                     }
                 }
                 is InputTimeView -> {
-                    PmView(activity)//input.draw(PmTimeView(activity), datetimeListener)
+                    PmTimeView(activity).apply {
+                        inputLabel  = input
+                        datetimeListener    = mainListener
+                    }
                 }
                 else -> PmView(activity)
             }
@@ -178,7 +180,7 @@ class CustomFormBuilder {
         }
 
         // Set the recycler view
-        adapter = CustomFormAdapter(activity, selectListener, externalListener, inputClickListener, datetimeListener)
+        adapter = CustomFormAdapter(activity, mainListener)
         container.layoutManager  = LinearLayoutManager(activity)
         container.adapter        = adapter
         setData(viewList)

@@ -4,14 +4,11 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import cl.datageneral.customforms.R
-import cl.datageneral.customforms.factory.custominputs.InputBase
 import cl.datageneral.customforms.factory.custominputs.InputLabelView
-import cl.datageneral.customforms.helpers.DateTimeClickListener
 import cl.datageneral.customforms.helpers.Disposition
-import cl.datageneral.customforms.helpers.LabelListener
+import cl.datageneral.customforms.helpers.MainListener
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
@@ -54,7 +51,7 @@ class PmLabelView(context: Context, attrs: AttributeSet?=null): PmView(context, 
     private var titleLabel: TextView
     private var mandatoryLabel: TextView
     private var button: Button
-    var listener: LabelListener?=null
+    var listener: MainListener?=null
 
 
     var title:String?       = String()

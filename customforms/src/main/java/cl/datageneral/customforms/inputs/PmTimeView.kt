@@ -3,18 +3,15 @@ package cl.datageneral.customforms.inputs
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import cl.datageneral.customforms.R
 import cl.datageneral.customforms.factory.custominputs.InputTimeView
-import cl.datageneral.customforms.helpers.DateTimeClickListener
-import kotlinx.android.synthetic.main.pm_datetime_view.view.*
 import org.json.JSONObject
 
-import android.view.MotionEvent
+import cl.datageneral.customforms.helpers.MainListener
 
 
 /**
@@ -41,7 +38,7 @@ class PmTimeView(context: Context, attrs: AttributeSet?=null): PmView(context, a
     private var titleLabel: TextView
     private var warningLabel: TextView
     private var mandatoryLabel: TextView
-    var datetimeListener: DateTimeClickListener?=null
+    var datetimeListener: MainListener?=null
 
     fun initReadonly(value:Boolean){
         timeBox.isEnabled = !value

@@ -2,12 +2,11 @@ package cl.datageneral.customforms.inputs
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import cl.datageneral.customforms.R
-import cl.datageneral.customforms.helpers.ExternalChangeListenerListener
+import cl.datageneral.customforms.helpers.MainListener
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
@@ -18,7 +17,7 @@ class PmExternalView(context: Context, attrs: AttributeSet?=null): PmView(contex
     private var warningLabel: TextView
     var searchKey = String()
     var hasParent:String                        = String()
-    var externalListener: ExternalChangeListenerListener?= null
+    var externalListener: MainListener?= null
     override var mainValue:String
         set(value)  = editable.setText(value)
         get()       = editable.text.toString()

@@ -5,9 +5,7 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import cl.datageneral.customforms.BaseViewHolder
-import cl.datageneral.customforms.factory.custominputs.InputBase
-import cl.datageneral.customforms.factory.custominputs.InputExternalView
-import cl.datageneral.customforms.factory.custominputs.InputSelectView
+import cl.datageneral.customforms.factory.custominputs.*
 import cl.datageneral.customforms.factory.viewholders.*
 import cl.datageneral.customforms.inputs.*
 
@@ -17,6 +15,7 @@ import cl.datageneral.customforms.inputs.*
 class CustomFormAdapter(private val context: Context,
                         private val listener:ItemSelectedListener,
                         private val eListener:ExternalChangeListenerListener,
+                        private val mListener:InputClickListener,
                         private val listenerDT:DateTimeClickListener): RecyclerView.Adapter<BaseViewHolder>() {
     var items:ArrayList<InputBase> = ArrayList()
 
@@ -71,11 +70,18 @@ class CustomFormAdapter(private val context: Context,
                 }
                 InputSelectViewHolder(view, listener)
             }
+            // 2 Pending
             3 -> {
                 val view = PmExternalView(context).apply {
                     layoutParams = customLayoutParams
                 }
                 InputExternalViewHolder(view)
+            }
+            5 -> {
+                val view = PmTimeView(context).apply {
+                    layoutParams = customLayoutParams
+                }
+                InputTimeViewHolder(view, listenerDT)
             }
             6 -> {
                 val view = PmDatetimeView(context).apply {
@@ -83,24 +89,37 @@ class CustomFormAdapter(private val context: Context,
                 }
                 InputDatetimeViewHolder(view, listenerDT)
             }
+            7 -> {
+                val view = PmLabelView(context).apply {
+                    layoutParams = customLayoutParams
+                }
+                InputLabelViewHolder(view)
+            }
             8 -> {
                 val view = PmSwitchView(context).apply {
                     layoutParams = customLayoutParams
                 }
                 InputSwitchViewHolder(view)
             }
-            /*2 -> {
-                val view = NumberinputView(context).apply {
+            9 -> {
+                val view = PmCheckboxView(context).apply {
                     layoutParams = customLayoutParams
                 }
-                NumberInputViewHolder(view, listenerItem)
+                InputCheckboxViewHolder(view)
             }
-            3 -> {
-                val view = MultiplechoiceinputView(context).apply {
+            10 -> {
+                val view = PmSignatureView(context).apply {
                     layoutParams = customLayoutParams
                 }
-                MultipleChoiceInputViewHolder(view, listenerItem)
-            }*/
+                InputSignatureViewHolder(view, mListener)
+            }
+            11 -> {
+                val view = PmFilesView(context).apply {
+                    layoutParams = customLayoutParams
+                }
+                InputFilesViewHolder(view, mListener)
+            }
+
             else -> BaseViewHolder(PmView(parent.context))
         }
     }
@@ -133,4 +152,8 @@ interface LabelListener{
 }
 interface InputClickListener{
     fun onClick(itemId:String, data:ArrayList<String>)
+}
+interface MainCLickListener{
+    fun onDateInputClick(viewId:String, value:String)
+    fun onTimeInputClick(viewId:String, value:String)
 }

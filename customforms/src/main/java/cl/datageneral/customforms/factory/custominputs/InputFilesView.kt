@@ -13,11 +13,8 @@ import cl.datageneral.customforms.inputs.PmTextView
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
 class InputFilesView:InputBase() {
-    override var vtype              = ViewTypes.LABEL
-    var inputValue:String ? = null
-    var hint:String                 = String()
-    var layoutDisposition: Disposition = Disposition.VERTICAL
-    var dialogData:HashMap<String, ArrayList<String>>? = null
+    override var vtype              = ViewTypes.FILES
+    var mainValues:ArrayList<String> = arrayListOf()
     var buttonText:String = String()
     var maxFiles:Int = 0
     var minFiles:Int = 0
@@ -26,11 +23,13 @@ class InputFilesView:InputBase() {
     override var warningMessage: String= String()
     override val isValid: Boolean
         get() = true
+    override var value2: Any = emptyList<String>()
+        get() = mainValues
+        set(value) {
+            field = value
 
-    fun draw(view: PmFilesView, labelListener: InputClickListener): PmFilesView {
-        return view.apply {
-            inputLabel  = this@InputFilesView
-            listener    = labelListener
+            if(value is List<*>) {
+                mainValues.addAll(value.map { it.toString() })
+            }
         }
-    }
 }

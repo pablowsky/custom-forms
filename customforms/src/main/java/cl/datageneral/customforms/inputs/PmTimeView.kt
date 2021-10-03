@@ -30,6 +30,8 @@ class PmTimeView(context: Context, attrs: AttributeSet?=null): PmView(context, a
 
             timeBox.hint = value.hint
 
+            timeBox.setText(value.timeValue)
+
             initMandatory(value.mandatory)
             initReadonly(value.readOnly)
             displayWarning(value.warningMessage)
@@ -40,11 +42,6 @@ class PmTimeView(context: Context, attrs: AttributeSet?=null): PmView(context, a
     private var warningLabel: TextView
     private var mandatoryLabel: TextView
     var datetimeListener: DateTimeClickListener?=null
-
-    var timeValue = String()
-        set(value) {
-            timeBox.setText(value)
-        }
 
     fun initReadonly(value:Boolean){
         timeBox.isEnabled = !value
@@ -133,18 +130,10 @@ class PmTimeView(context: Context, attrs: AttributeSet?=null): PmView(context, a
         val icon        = findViewById<ImageView>(R.id.imageTime)
 
         timeBox.setOnClickListener {
-            Log.e("timeBox", "timeBox 1234567890 ")
             datetimeListener?.onTimeInputClick(inputLabel!!.viewId, timeBox.text.toString())
-        }
-        timeBox.setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action){
-                Log.e("timeBox2", "timeBox 1234567890 ")
-            }
-            false
         }
 
         icon.setOnClickListener {
-            Log.e("timeBox", "timeBox 1234567890 ")
             datetimeListener?.onTimeInputClick(inputLabel!!.viewId, timeBox.text.toString())
         }
     }

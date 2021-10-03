@@ -7,9 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import cl.datageneral.customforms.R
 import cl.datageneral.customforms.factory.custominputs.InputFilesView
-import cl.datageneral.customforms.factory.custominputs.InputSignatureView
 import cl.datageneral.customforms.helpers.InputClickListener
-import cl.datageneral.customforms.helpers.LabelListener
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
@@ -19,27 +17,39 @@ class PmFilesView(context: Context, attrs: AttributeSet?=null): PmView(context, 
         set(value) {
             field = value
             viewId      = value!!.viewId
-            title       = value.title
+            titleLabel.text = value.title
+            button.text     = value.buttonText
 
-            button.text = value.buttonText
+            initMandatory(value.mandatory||value.minFiles>0)
+            displayWarning(value.warningMessage)
+            initIndicator()
         }
 
     private var titleLabel: TextView
     private var mandatoryLabel: TextView
     private var button: Button
     private var warningLabel: TextView
-    override var mainValue:String = String()
+    private var signatureIndicator: TextView
+    //override var mainValue:String = String()
     var listener: InputClickListener?=null
 
-    override var mandatory: Boolean = false
-        set(value) {
-            if(value){
-                mandatoryLabel.visibility = View.VISIBLE
-            }else{
-                mandatoryLabel.visibility = View.GONE
-            }
-            field = value
+    private fun initMandatory(value:Boolean) {
+        if(value){
+            mandatoryLabel.visibility = View.VISIBLE
+        }else{
+            mandatoryLabel.visibility = View.GONE
         }
+    }
+
+    private fun initIndicator(){
+        val sCounter = inputLabel?.mainValues?.size
+        if(sCounter==0){
+            signatureIndicator.visibility = View.GONE
+        }else{
+            signatureIndicator.text = "Archivos cargados: $sCounter"
+            signatureIndicator.visibility = View.VISIBLE
+        }
+    }
 
     override val isValid: Boolean
         get(){
@@ -58,17 +68,9 @@ class PmFilesView(context: Context, attrs: AttributeSet?=null): PmView(context, 
             warningLabel.visibility = View.VISIBLE
         }else{
             warningLabel.text = ""
-            warningLabel.visibility = View.INVISIBLE
+            warningLabel.visibility = View.GONE
         }
     }
-
-    var title:String?       = String()
-        set(value) {
-            value?.let {
-                titleLabel.text   = value
-            }
-            field               = value
-        }
 
     init {
         inflate(context, R.layout.pm_files_view, this)
@@ -77,13 +79,13 @@ class PmFilesView(context: Context, attrs: AttributeSet?=null): PmView(context, 
         mandatoryLabel  = findViewById(R.id.mandatory)
         button          = findViewById(R.id.button)
         warningLabel    = findViewById(R.id.warningLabel)
+        signatureIndicator  = findViewById(R.id.signatureIndicator)
         mandatoryLabel.visibility = View.GONE
 
         button.setOnClickListener {
             inputLabel?.let {
-                listener?.onClick(inputLabel!!.viewId, arrayListOf())
+                listener?.onClick(inputLabel!!.viewId, inputLabel!!.mainValues)
             }
         }
-        displayWarning("")
     }
 }

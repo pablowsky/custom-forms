@@ -17,6 +17,7 @@ class InputSwitchConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseC
             textOn      = jTextOn
             viewId      = jViewId
             readOnly    = pReadOnly
+            sValue      = jDefault
         }
     }
 
@@ -35,6 +36,15 @@ class InputSwitchConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseC
                 Json.getText(jsonInput, "textOn")
             }else{
                 String()
+            }
+        }
+
+    private val jDefault:Boolean
+        get() {
+            return if(jsonInput.has("default")){
+                Json.getBoolean(jsonInput, "default")
+            }else{
+                false
             }
         }
 

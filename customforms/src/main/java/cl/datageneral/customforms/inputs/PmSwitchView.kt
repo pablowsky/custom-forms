@@ -19,8 +19,7 @@ class PmSwitchView(context: Context, attrs: AttributeSet?=null): PmView(context,
             viewId      = value!!.viewId
             title       = value.title
 
-            //button.text = value.buttonText
-            //initValueBox()
+            switch.isChecked = value.sValue
         }
 
     private var switch: SwitchCompat
@@ -55,5 +54,11 @@ class PmSwitchView(context: Context, attrs: AttributeSet?=null): PmView(context,
         switch          = findViewById(R.id.pmswitch)
         val mandatoryLabel:TextView  = findViewById(R.id.mandatory)
         mandatoryLabel.visibility = View.GONE
+
+
+        switch.setOnCheckedChangeListener { buttonView, isChecked ->
+            inputLabel?.sValue = isChecked
+            Log.v("Switch State=","" + isChecked)
+        }
     }
 }

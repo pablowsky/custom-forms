@@ -8,7 +8,7 @@ import cl.datageneral.customforms.dialogs.ISelectedData
 import cl.datageneral.customforms.dialogs.SelectDateFragment
 import cl.datageneral.customforms.dialogs.SelectTimeFragment
 import cl.datageneral.customforms.helpers.*
-import kotlinx.android.synthetic.main.activity_main2.*
+import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import java.io.IOException
 
@@ -19,12 +19,13 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
     override fun onDateSelected(position: String, date: String) {
         Log.e("data", "$date")
-        cform.setValue(position, date, "DATE")
+        //cform.setValue(position, date, "DATE")
     }
 
     override fun onTimeSelected(position: String, time: String) {
         Log.e("data", "$time")
-        cform.setValue(position, time, "TIME")
+        //cform.setValue(position, time, "TIME")
+        cform.setValue(position, time)
     }
 
     /*private val cListener = object : ItemSelectedListener {
@@ -70,13 +71,18 @@ class MainActivity : AppCompatActivity(), ISelectedData {
     var inputClickListener = object : InputClickListener{
         override fun onClick(itemId:String, data:ArrayList<String>) {
             Log.e("DialogData", "Id:${itemId}, Values:${data.size}")
+            if(itemId=="11") {
+                cform.setValue(itemId, arrayListOf("/my/fake/signature1.jpg","/my/fake/signature2.jpg","/my/fake/signature3.jpg"))
+            }else{
+                cform.setValue(itemId, "/my/fake/signature.jpg")
+            }
         }
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_main)
 
         //val sampleJson = getFormConfig("template.json")
         val sampleJson = getFormConfig("template_acta.json")
@@ -87,10 +93,11 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         cform.externalListener  = externalListener
         cform.labelListener     = labelListener
         cform.inputClickListener = inputClickListener
-        cform.buildLayout(this, sampleJson, viewContainer, true)
+        //cform.buildLayout(this, sampleJson, viewContainer, true)
+        cform.buildRecycler(this, sampleJson, viewListContainer, false)
 
 
-        val requiresoptions = cform.viewsRequireExternalData()
+        /*val requiresoptions = cform.viewsRequireExternalData()
 
         for(vr in requiresoptions){
             val items = ArrayList<SelectableItem>()
@@ -135,7 +142,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
 
             cform.setOptions(vr.viewId, items)
-        }
+        }*/
 
         saveBtn.setOnClickListener {
             val answers = cform.formAnswer

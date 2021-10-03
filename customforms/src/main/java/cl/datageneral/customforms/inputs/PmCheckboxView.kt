@@ -18,13 +18,13 @@ class PmCheckboxView(context: Context, attrs: AttributeSet?=null): PmView(contex
     private var itemsContainer: LinearLayout
     private var warningLabel: TextView
     private var mandatoryLabel: TextView
-    private val selectedItems: HashMap<String, String> = HashMap()
     var inputLabel: InputCheckboxView? = null
         set(value) {
             field = value
             viewId      = value!!.viewId
             title       = value.title
 
+            itemsContainer.removeAllViews()
             for(option in value.items){
                 addOption(option)
             }
@@ -71,7 +71,7 @@ class PmCheckboxView(context: Context, attrs: AttributeSet?=null): PmView(contex
 
     override val isValid: Boolean
         get(){
-            return if(mandatory && selectedItems.isEmpty()){
+            return if(mandatory && inputLabel!!.selectedItems.isEmpty()){
                 displayWarning(context.getString(R.string.is_required))
                 false
             }else{
@@ -90,16 +90,18 @@ class PmCheckboxView(context: Context, attrs: AttributeSet?=null): PmView(contex
             )
             //isEnabled = !readOnly
         }.also {
-            setOnClickListener{ view ->
+            it.setOnClickListener{ view ->
                 view as AppCompatCheckBox
                 val text    = view.text.toString()
                 val value   = view.tag.toString()
 
-                selectedItems.remove(value)
+                inputLabel!!.selectedItems.remove(value)
                 if (view.isChecked) {
-                    selectedItems[value] = text
+                    inputLabel!!.selectedItems[value] = text
                 }
             }
+
+            it.isChecked = inputLabel!!.selectedItems.containsKey(item.value)
         }
         itemsContainer.addView(cbox)
     }

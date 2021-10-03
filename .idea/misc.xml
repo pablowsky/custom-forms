@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Pablo/AndroidStudioProjects/CustomsForms/app/src/main/res/layout/activity_main.xml" value="0.171875" />
+        <entry key="..\:/Users/Pablo/AndroidStudioProjects/CustomsForms/app/src/main/res/layout/activity_main2.xml" value="0.3546875" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/CustomsForms/customforms/src/main/res/layout/pm_checkbox_view.xml" value="0.2328125" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/CustomsForms/customforms/src/main/res/layout/pm_datetime_view.xml" value="0.21510416666666668" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/CustomsForms/customforms/src/main/res/layout/pm_external_view.xml" value="0.3546875" />

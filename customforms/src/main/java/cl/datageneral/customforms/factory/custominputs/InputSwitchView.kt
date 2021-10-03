@@ -11,12 +11,8 @@ class InputSwitchView:InputBase() {
     override var vtype              = ViewTypes.SWITCH
     var textOff:String              = String()
     var textOn:String               = String()
+    var sValue:Boolean              = true
     override var readOnly: Boolean  = false
     override var title: String      = String()
     override val isValid: Boolean = true
-
-    fun draw(view: PmSwitchView):PmSwitchView{
-        view.inputLabel = this
-        return view
-    }
 }

@@ -21,10 +21,4 @@ class InputLabelView:InputBase() {
     override val isValid: Boolean
         get() = true
 
-    fun draw(view: PmLabelView, labelListener: LabelListener):PmLabelView{
-        return view.apply {
-            inputLabel  = this@InputLabelView
-            listener    = labelListener
-        }
-    }
 }

@@ -9,6 +9,7 @@ import cl.datageneral.customforms.inputs.PmTextView
 class InputTextView:InputBase() {
     override var vtype              = ViewTypes.TEXT
     var hint:String                 = String()
+    var mainValue:String    = String()
     override var readOnly: Boolean  = false
     override var title: String      = String()
     override var warningMessage: String= String()
@@ -28,15 +29,4 @@ class InputTextView:InputBase() {
             }
         }
 
-    fun draw(view: PmTextView):PmTextView{
-        return view.apply {
-            viewId      = this@InputTextView.viewId
-            hint        = this@InputTextView.hint
-            title       = this@InputTextView.title
-            readOnly    = this@InputTextView.readOnly
-            mandatory   = this@InputTextView.mandatory
-            //mainValue   = this@InputTextView.value
-            //displayWarning(warningMessage)
-        }
-    }
 }

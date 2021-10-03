@@ -1,10 +1,6 @@
 package cl.datageneral.customforms.factory.custominputs
 
-import android.util.Log
 import cl.datageneral.customforms.factory.ViewTypes
-import cl.datageneral.customforms.helpers.DateTimeClickListener
-import cl.datageneral.customforms.inputs.PmDatetimeView
-import cl.datageneral.customforms.inputs.PmTimeView
 import org.json.JSONObject
 
 /**
@@ -31,41 +27,35 @@ class InputTimeView:InputBase() {
                 true
             }
         }
-    //var dateValue = String()
+
     var timeValue = String()
+
+    override var value2:Any = ""
+        set(value) {
+            field = value
+            if(value is String){
+                timeValue = value
+            }
+        }
 
     override var value: String
         get() {
             val jObj = JSONObject().apply {
-                //put("date", dateValue)
                 put("time", timeValue)
             }
             return jObj.toString()
         }
         set(value) {
             val jObj = JSONObject(value)
-            /*if(jObj.has("date")){
-                setValue(jObj.getString("date"), "DATE")
-            }*/
             if(jObj.has("time")){
                 setValue(jObj.getString("time"), "TIME")
             }
         }
 
     override fun setValue(value:String, subtype:String){
-        Log.e("setValue", value)
-        /*if(subtype=="DATE"){
-            dateValue = value
-        }*/
         if(subtype=="TIME"){
             timeValue = value
         }
     }
 
-    fun draw(view: PmTimeView, pDatetimeListener: DateTimeClickListener): PmTimeView {
-        return view.apply {
-            view.inputLabel = this@InputTimeView
-            datetimeListener = pDatetimeListener
-        }
-    }
 }

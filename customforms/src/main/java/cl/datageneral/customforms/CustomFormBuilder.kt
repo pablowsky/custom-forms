@@ -107,7 +107,9 @@ class CustomFormBuilder {
             //input?.let { viewList.add(it) }
             val dView = when(input){
                 is InputTextView -> {
-                    input.draw(PmTextView(activity))
+                    PmTextView(activity).apply {
+                        inputLabel = input
+                    }
                 }
                 is InputSelectView -> {
                     input.draw(PmSelectView(activity), selectListener)
@@ -119,22 +121,33 @@ class CustomFormBuilder {
                     input.draw(PmDatetimeView(activity), datetimeListener)
                 }
                 is InputLabelView -> {
-                    input.draw(PmLabelView(activity), labelListener)
+                    PmLabelView(activity).apply {
+                        inputLabel  = input
+                        listener    = labelListener
+                    }
                 }
                 is InputSwitchView -> {
-                    input.draw(PmSwitchView(activity))
+                    PmSwitchView(activity).apply {
+                        inputLabel = input
+                    }
                 }
                 is InputCheckboxView -> {
-                    input.draw(PmCheckboxView(activity))
+                    PmView(activity)//input.draw(PmCheckboxView(activity))
                 }
                 is InputSignatureView -> {
-                    input.draw(PmSignatureView(activity), inputClickListener)
+                    PmSignatureView(activity).apply {
+                        inputLabel  = input
+                        listener    = inputClickListener
+                    }
                 }
                 is InputFilesView -> {
-                    input.draw(PmFilesView(activity), inputClickListener)
+                    PmFilesView(activity).apply {
+                        inputLabel  = input
+                        listener    = inputClickListener
+                    }
                 }
                 is InputTimeView -> {
-                    input.draw(PmTimeView(activity), datetimeListener)
+                    PmView(activity)//input.draw(PmTimeView(activity), datetimeListener)
                 }
                 else -> PmView(activity)
             }
@@ -144,21 +157,28 @@ class CustomFormBuilder {
 
     }
 
+    private val mapIds:HashMap<String, Int> = HashMap()
     fun buildRecycler(activity: Activity, jsonForm:JSONObject, container:RecyclerView, pReadOnly:Boolean=false){
         // Parse JSON
         val inputList    = Json.getArray(jsonForm, "questions")
         val size         = inputList?.length()?:0
+        var counter = 0
         for (input in 0 until size){
             val qObject  = inputList?.getJSONObject(input)
 
             val iFactory    = ViewFactory(qObject!!)
             val input       = iFactory.build(pReadOnly)
 
-            input?.let { viewList.add(it) }
+            input?.let {
+                viewList.add(counter, it)
+                mapIds[it.viewId] = counter
+                counter++
+            }
+
         }
 
         // Set the recycler view
-        adapter = CustomFormAdapter(activity, selectListener, externalListener, datetimeListener)
+        adapter = CustomFormAdapter(activity, selectListener, externalListener, inputClickListener, datetimeListener)
         container.layoutManager  = LinearLayoutManager(activity)
         container.adapter        = adapter
         setData(viewList)
@@ -265,14 +285,23 @@ class CustomFormBuilder {
             }
         }
 
-    fun setValue(position:Int, value:String, subValue:String?=null){
+    /*fun setValue(position:Int, value:String, subValue:String?=null){
         if(subValue!=null){
             viewList[position].setValue(value, subValue!!)
         }
         adapter?.notifyItemChanged(position)
-    }
+    }*/
 
-    fun setValue(viewId: String, value:String, subValue:String?=null){
+    fun setValue(viewId: String, value:Any) {
+        Log.e("data4", "$value")
+        if(mapIds.containsKey(viewId)){
+            viewList[mapIds[viewId]!!].value2 = value
+
+            adapter?.notifyItemChanged(mapIds[viewId]!!)
+        }
+
+    }
+    fun setValueOld(viewId: String, value:String, subValue:String?=null){
         val layout  = (layoutContainer as LinearLayout)
         for (i in 0 until layout.childCount) {
             val view = layout.getChildAt(i)

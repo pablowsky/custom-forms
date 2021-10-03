@@ -12,22 +12,21 @@ import cl.datageneral.customforms.inputs.PmTextView
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
 class InputSignatureView:InputBase() {
-    override var vtype              = ViewTypes.LABEL
-    var inputValue:String ? = null
+    override var vtype              = ViewTypes.SIGNATURE
     var hint:String                 = String()
-    var layoutDisposition: Disposition = Disposition.VERTICAL
-    var dialogData:HashMap<String, ArrayList<String>>? = null
     var buttonText:String = String()
+    var mainValue:String = String()
     override var readOnly: Boolean  = false
     override var title: String      = String()
     override var warningMessage: String= String()
     override val isValid: Boolean
         get() = true
-
-    fun draw(view: PmSignatureView, labelListener: InputClickListener): PmSignatureView {
-        return view.apply {
-            inputLabel  = this@InputSignatureView
-            listener    = labelListener
+    override var value2: Any = String()
+        get() = mainValue
+        set(value) {
+            field = value
+            if(value is String){
+                mainValue = value
+            }
         }
-    }
 }

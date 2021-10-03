@@ -21,6 +21,7 @@ class InputFilesConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseCo
             buttonText  = jButtonText
             maxFiles    = jMaxFiles
             minFiles    = jMinFiles
+            mandatory   = jMandatory
         }
     }
 

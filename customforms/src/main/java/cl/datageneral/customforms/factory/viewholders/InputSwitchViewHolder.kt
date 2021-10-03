@@ -12,10 +12,7 @@ class InputSwitchViewHolder(itemView: PmSwitchView) : BaseViewHolder(itemView) {
 
     override fun bind(element: InputBase){
         itemView as PmSwitchView
-        element as InputSwitchView
 
-        element.draw(itemView)
-
-
+        itemView.inputLabel = element as InputSwitchView
     }
 }

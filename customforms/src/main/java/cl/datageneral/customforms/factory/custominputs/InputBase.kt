@@ -1,6 +1,5 @@
 package cl.datageneral.customforms.factory.custominputs
 
-import android.util.Log
 import cl.datageneral.customforms.factory.ViewTypes
 import org.json.JSONObject
 
@@ -8,6 +7,7 @@ import org.json.JSONObject
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
 abstract class InputBase:InputBaseI {
+    open var value2:Any = ""
     override var mandatory: Boolean = false
     override var readOnly: Boolean  = false
     override var title:String       = String()

@@ -10,14 +10,11 @@ import cl.datageneral.customforms.inputs.PmTextView
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
 class InputCheckboxView:InputBase() {
-    override var vtype              = ViewTypes.SWITCH
+    override var vtype              = ViewTypes.CHECKBOX
     var items:ArrayList<SelectableItem> = ArrayList()
     override var readOnly: Boolean  = false
     override var title: String      = String()
     override val isValid: Boolean = true
 
-    fun draw(view: PmCheckboxView):PmCheckboxView{
-        view.inputLabel = this
-        return view
-    }
+    val selectedItems: HashMap<String, String> = HashMap()
 }

@@ -15,6 +15,7 @@ class InputSignatureConverter(jsonInput: JSONObject, var pReadOnly: Boolean): Ba
             viewId      = jViewId
             readOnly    = pReadOnly
             buttonText  = jButtonText
+            mandatory   = jMandatory
         }
     }
 

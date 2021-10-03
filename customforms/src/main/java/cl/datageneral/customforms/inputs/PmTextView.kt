@@ -1,16 +1,33 @@
 package cl.datageneral.customforms.inputs
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import cl.datageneral.customforms.R
+import cl.datageneral.customforms.factory.custominputs.InputLabelView
+import cl.datageneral.customforms.factory.custominputs.InputTextView
+import kotlinx.android.synthetic.main.pm_text_view.view.*
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
 class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
+    var inputLabel: InputTextView? = null
+        set(value) {
+            field           = value
+            viewId          = value!!.viewId
+            titleLabel.text = value.title
+            editable.hint   = value.hint
+            readOnly        = value.readOnly
+            editable.setText(value.mainValue)
+            initMandatory(value.mandatory)
+            displayWarning(value.warningMessage)
+        }
+
     private var editable: EditText
     private var titleLabel: TextView
     private var warningLabel: TextView
@@ -21,15 +38,13 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
             field = value
         }
 
-    override var mandatory: Boolean = false
-        set(value) {
-            if(value){
-                mandatoryLabel.visibility = View.VISIBLE
-            }else{
-                mandatoryLabel.visibility = View.GONE
-            }
-            field = value
+    fun initMandatory(value:Boolean) {
+        if(value){
+            mandatoryLabel.visibility = View.VISIBLE
+        }else{
+            mandatoryLabel.visibility = View.GONE
         }
+    }
 
     override var mainValue:String
         set(value)  = editable.setText(value)
@@ -38,8 +53,8 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
     override val isValid: Boolean
         get(){
             return if(mandatory && editable.text.isEmpty()){
-                val format = if(hint!!.isNotEmpty()){
-                    " ($hint)"
+                val format = if(inputLabel?.hint!!.isNotEmpty()){
+                    " (${inputLabel!!.hint})"
                 }else{
                     ""
                 }
@@ -75,21 +90,7 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
         }
     }
 
-    var hint:String? = String()
-        set(value) {
-            value?.let {
-                editable.hint   = value
-            }
-            field               = value
-        }
-
-    var title:String?       = String()
-        set(value) {
-            value?.let {
-                titleLabel.text   = value
-            }
-            field               = value
-        }
+    private var textWatcherListener: TextWatcher? = null
 
     init {
         inflate(context, R.layout.pm_text_view, this)
@@ -99,5 +100,21 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
         warningLabel    = findViewById(R.id.warningLabel)
         mandatoryLabel  = findViewById(R.id.mandatory)
         displayWarning("")
+
+        textWatcherListener?.let {
+            editable.removeTextChangedListener(it)
+        }
+
+        textWatcherListener = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable) {
+                inputLabel?.mainValue = s.toString()
+            }
+        }
+
+        editable.addTextChangedListener(textWatcherListener)
     }
 }

@@ -1,6 +1,7 @@
 package cl.datageneral.customforms.factory.custominputs
 
 import cl.datageneral.customforms.factory.ViewTypes
+import cl.datageneral.customforms.factory.jsonconverters.InputTimeConverter
 import org.json.JSONObject
 
 /**
@@ -50,4 +51,10 @@ class InputTimeView:InputBase() {
         }
     }
 
+    override var answer: Answer
+        get() = InputTimeConverter.prepareAnswer(this)
+        set(value) {}
+
+    override fun setJsonAnswer(answer: JSONObject)
+            = InputTimeConverter.parseAnswer(this, answer)
 }

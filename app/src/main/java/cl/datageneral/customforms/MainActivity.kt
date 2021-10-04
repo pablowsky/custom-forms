@@ -138,14 +138,19 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
             cform.setOptions(vr.viewId, items)
         }*/
+        val answer = "{\"answers\":[{\"view_id\":\"7\",\"value\":[{\"itemId\":\"1\",\"itemText\":\"Text 1\"},{\"itemId\":\"3\",\"itemText\":\"Text 3\"},{\"itemId\":\"5\",\"itemText\":\"Text 5\"}]}]}"
+        val answerFiles = "{\"answers\":[{\"view_id\":\"11\",\"value\":[\"/my/fake/signature1.jpg\",\"/my/fake/signature2.jpg\",\"/my/fake/signature3.jpg\"]}]}"
+        val answerSignature = "{\"answers\":[{\"view_id\":\"8\",\"value\":[\"/my/fake/signature.jpg\"]}]}"
+        val answerTextSwitchTIme = "{\"answers\":[{\"view_id\":\"1\",\"value\":[\"10:44\"]},{\"view_id\":\"2\",\"value\":[\"02:44\"]},{\"view_id\":\"3\",\"value\":[false]},{\"view_id\":\"4\",\"value\":[\"cmVhbGx5IGdvb2Qg8J+RjfCfkY3wn5GN\\n\"]},{\"view_id\":\"5\",\"value\":[\"ZW1haWwgYWRkcg==\\n\"]},{\"view_id\":\"6\",\"value\":[\"TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdCwg\\nc2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQgdXQgbGFib3JlIGV0IGRvbG9yZSBtYWdu\\nYSBhbGlxdWEuIFV0IGVuaW0gYWQgbWluaW0gdmVuaWFtLCBxdWlzIG5vc3RydWQgZXhlcmNpdGF0\\naW9uIHVsbGFtY28gbGFib3JpcyBuaXNpIHV0IGFsaXF1aXAgZXggZWEgY29tbW9kbyBjb25zZXF1\\nYXQuIER1aXMgYXV0ZSBpcnVyZSBkb2xvciBpbiByZXByZWhlbmRlcml0IGluIHZvbHVwdGF0ZSB2\\nZWxpdCBlc3NlIGNpbGx1bSBkb2xvcmUgZXUgZnVnaWF0IG51bGxhIHBhcmlhdHVyLiBFeGNlcHRl\\ndXIgc2ludCBvY2NhZWNhdCBjdXBpZGF0YXQgbm9uIHByb2lkZW50LCBzdW50IGluIGN1bHBhIHF1\\naSBvZmZpY2lhIGRlc2VydW50IG1vbGxpdCBhbmltIGlkIGVzdCBsYWJvcnVtLg==\\n\"]}]}"
 
         saveBtn.setOnClickListener {
-            val answers = cform.formAnswer
+            val answers = cform.formAnswers
             Log.e("Answers", answers.toString())
         }
 
         setBtn.setOnClickListener {
-            cform.formAnswer = getFormConfig("template_answers3.json")
+            //cform.formAnswer = getFormConfig("template_answers3.json")
+            cform.formAnswers = Pair(JSONObject(answerTextSwitchTIme), arrayListOf())
         }
 
         saveTemp.setOnClickListener {

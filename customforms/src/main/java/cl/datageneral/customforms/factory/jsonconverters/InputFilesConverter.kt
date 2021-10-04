@@ -1,11 +1,8 @@
 package cl.datageneral.customforms.factory.jsonconverters
 
-import cl.datageneral.customforms.Json
 import cl.datageneral.customforms.base.BaseConverter
-import cl.datageneral.customforms.factory.custominputs.InputFilesView
-import cl.datageneral.customforms.factory.custominputs.InputLabelView
-import cl.datageneral.customforms.factory.custominputs.InputSignatureView
-import cl.datageneral.customforms.helpers.Disposition
+import cl.datageneral.customforms.factory.custominputs.*
+import org.json.JSONArray
 import org.json.JSONObject
 
 /**
@@ -43,4 +40,28 @@ class InputFilesConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseCo
             }
         }
 
+    companion object{
+        fun prepareAnswer(data: InputFilesView): Answer {
+            val files: ArrayList<String> = ArrayList()
+            files.addAll(data.mainValues)
+            val json = JSONObject().apply {
+                put("view_id", data.viewId)
+
+                val jArray = JSONArray()
+                for(value in data.mainValues){
+                    jArray.put(value)
+                }
+                put("value", jArray)
+            }
+            return Answer(json, files)
+        }
+
+        fun parseAnswer(data:InputFilesView, answer: JSONObject){
+            val jValues = answer.getJSONArray("value")
+
+            for(index in 0 until jValues.length()){
+                data.mainValues.add(jValues[index].toString())
+            }
+        }
+    }
 }

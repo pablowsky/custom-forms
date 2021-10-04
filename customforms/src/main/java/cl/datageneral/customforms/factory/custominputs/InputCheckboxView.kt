@@ -1,7 +1,9 @@
 package cl.datageneral.customforms.factory.custominputs
 
 import cl.datageneral.customforms.factory.ViewTypes
+import cl.datageneral.customforms.factory.jsonconverters.InputCheckboxConverter
 import cl.datageneral.customforms.helpers.SelectableItem
+import org.json.JSONObject
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
@@ -20,4 +22,10 @@ class InputCheckboxView:InputBase() {
         }
 
     val selectedItems: HashMap<String, String> = HashMap()
+
+    override var answer: Answer
+        get() = InputCheckboxConverter.prepareAnswer(this)
+        set(value) {}
+
+    override fun setJsonAnswer(answer: JSONObject) = InputCheckboxConverter.parseAnswer(this, answer)
 }

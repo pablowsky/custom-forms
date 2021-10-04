@@ -1,7 +1,9 @@
 package cl.datageneral.customforms.factory.jsonconverters
 
 import cl.datageneral.customforms.base.BaseConverter
+import cl.datageneral.customforms.factory.custominputs.Answer
 import cl.datageneral.customforms.factory.custominputs.InputTimeView
+import org.json.JSONArray
 import org.json.JSONObject
 
 /**
@@ -19,4 +21,23 @@ class InputTimeConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseCon
         }
     }
 
+    companion object{
+        fun prepareAnswer(data: InputTimeView): Answer {
+            val jArray = JSONArray()
+            jArray.put(data.timeValue)
+
+            val json = JSONObject().apply {
+                put("view_id", data.viewId)
+                put("value", jArray)
+            }
+            return Answer(json)
+        }
+
+        fun parseAnswer(data: InputTimeView, answer: JSONObject){
+            val jValues = answer.getJSONArray("value")
+            if(jValues.length()>0){
+                data.timeValue = jValues.getString(0)
+            }
+        }
+    }
 }

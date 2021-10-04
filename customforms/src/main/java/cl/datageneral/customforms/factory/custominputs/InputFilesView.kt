@@ -1,8 +1,8 @@
 package cl.datageneral.customforms.factory.custominputs
 
-import android.util.Log
-import cl.datageneral.customforms.R
 import cl.datageneral.customforms.factory.ViewTypes
+import cl.datageneral.customforms.factory.jsonconverters.InputFilesConverter
+import org.json.JSONObject
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
@@ -37,4 +37,10 @@ class InputFilesView:InputBase() {
                 showWarning = !it
             }
         }
+
+    override var answer: Answer
+        get() = InputFilesConverter.prepareAnswer(this)
+        set(value) {}
+
+    override fun setJsonAnswer(answer: JSONObject) = InputFilesConverter.parseAnswer(this, answer)
 }

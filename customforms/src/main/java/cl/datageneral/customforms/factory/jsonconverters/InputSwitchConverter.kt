@@ -2,7 +2,9 @@ package cl.datageneral.customforms.factory.jsonconverters
 
 import cl.datageneral.customforms.Json
 import cl.datageneral.customforms.base.BaseConverter
+import cl.datageneral.customforms.factory.custominputs.Answer
 import cl.datageneral.customforms.factory.custominputs.InputSwitchView
+import org.json.JSONArray
 import org.json.JSONObject
 
 /**
@@ -17,7 +19,7 @@ class InputSwitchConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseC
             textOn      = jTextOn
             viewId      = jViewId
             readOnly    = pReadOnly
-            sValue      = jDefault
+            mainValue      = jDefault
         }
     }
 
@@ -48,4 +50,24 @@ class InputSwitchConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseC
             }
         }
 
+    companion object{
+        fun prepareAnswer(data: InputSwitchView): Answer {
+
+            val jArray = JSONArray()
+            jArray.put(data.mainValue)
+
+            val json = JSONObject().apply {
+                put("view_id", data.viewId)
+                put("value", jArray)
+            }
+            return Answer(json)
+        }
+
+        fun parseAnswer(data: InputSwitchView, answer: JSONObject){
+            val jValues = answer.getJSONArray("value")
+            if(jValues.length()>0){
+                data.mainValue = jValues.getBoolean(0)
+            }
+        }
+    }
 }

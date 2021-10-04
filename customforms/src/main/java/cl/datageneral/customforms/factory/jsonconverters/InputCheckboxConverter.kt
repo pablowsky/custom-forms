@@ -2,8 +2,10 @@ package cl.datageneral.customforms.factory.jsonconverters
 
 import cl.datageneral.customforms.Json
 import cl.datageneral.customforms.base.BaseConverter
+import cl.datageneral.customforms.factory.custominputs.Answer
 import cl.datageneral.customforms.factory.custominputs.InputCheckboxView
 import cl.datageneral.customforms.helpers.SelectableItem
+import org.json.JSONArray
 import org.json.JSONObject
 
 /**
@@ -33,4 +35,31 @@ class InputCheckboxConverter(jsonInput: JSONObject, var pReadOnly: Boolean):Base
             }
             return items
         }
+
+    companion object{
+        fun prepareAnswer(data:InputCheckboxView):Answer{
+            val json = JSONObject().apply {
+                put("view_id", data.viewId)
+
+                val jArray = JSONArray()
+                for(value in data.selectedItems){
+                    jArray.put(JSONObject().apply {
+                        put("itemId", value.key)
+                        put("itemText", value.value)
+                    })
+                }
+                put("value", jArray)
+            }
+            return Answer(json)
+        }
+
+        fun parseAnswer(data:InputCheckboxView, answer: JSONObject){
+            val jValues = answer.getJSONArray("value")
+
+            for(index in 0 until jValues.length()){
+                val jSel = JSONObject(jValues[index].toString())
+                data.selectedItems[jSel.getString("itemId")] = jSel.getString("itemText")
+            }
+        }
+    }
 }

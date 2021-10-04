@@ -1,7 +1,9 @@
 package cl.datageneral.customforms.factory.custominputs
 
-import cl.datageneral.customforms.R
 import cl.datageneral.customforms.factory.ViewTypes
+import cl.datageneral.customforms.factory.jsonconverters.InputSignatureConverter
+import org.json.JSONObject
+
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
@@ -28,4 +30,11 @@ class InputSignatureView:InputBase() {
                 showWarning = !it
             }
         }
+
+    override var answer: Answer
+        get() = InputSignatureConverter.prepareAnswer(this)
+        set(value) {}
+
+    override fun setJsonAnswer(answer: JSONObject)
+        = InputSignatureConverter.parseAnswer(this, answer)
 }

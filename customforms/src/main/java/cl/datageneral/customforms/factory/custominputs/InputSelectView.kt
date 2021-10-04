@@ -3,7 +3,6 @@ package cl.datageneral.customforms.factory.custominputs
 import cl.datageneral.customforms.factory.ViewTypes
 import cl.datageneral.customforms.helpers.SelectableItem
 import cl.datageneral.customforms.inputs.PmSelectView
-import org.json.JSONObject
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
@@ -21,18 +20,6 @@ class InputSelectView:InputBase() {
                 useFilteredOptions = true
             }
             field = value
-        }
-
-    override var answer: JSONObject
-        get() = super.answer
-        set(value) {
-            val selectedValue =  value.getString("value")
-            this@InputSelectView.value = selectedValue
-            for(opt in options){
-                if(opt.value==selectedValue){
-                    parentSelected = opt.parent
-                }
-            }
         }
 
     var parentSelected              = String()

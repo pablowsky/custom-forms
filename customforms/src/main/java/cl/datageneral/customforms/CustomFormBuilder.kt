@@ -369,30 +369,35 @@ class CustomFormBuilder {
                 }
             }
         }
-    /*
-    var formAnswer:JSONObject
+
+    var formAnswers:Pair<JSONObject, ArrayList<String>>
         get(){
+            val files: ArrayList<String> = ArrayList()
             val answers = JSONArray()
-            for( view in viewList ){
-                answers.put(view.answer)
+            for(view in viewList){
+                answers.put(view.answer.json)
+                files.addAll(view.answer.files)
             }
-            return JSONObject().apply {
+
+            return Pair(JSONObject().apply {
                 put("answers", answers)
-            }
+            }, files)
         }
         set(value) {
-            val jAnswers = value.getJSONArray("answers")
+            val jAnswers = value.first.getJSONArray("answers")
+
             for(key in 0 until jAnswers.length()){
                 val janswer = jAnswers.getJSONObject(key)
                 val jviewId = janswer.getString("view_id")
-                for((position, view) in viewList.withIndex()){
-                    if(jviewId==view.viewId){
-                        view.answer = janswer
-                        adapter?.notifyItemChanged(position)
-                    }
+
+                if(mapIds.containsKey(jviewId)){
+                    viewList[mapIds[jviewId]!!].setJsonAnswer( janswer )
+
+                    adapter?.notifyItemChanged(mapIds[jviewId]!!)
                 }
             }
-        }*/
+        }
+
     data class OptionsForView(
         var position:Int=0,
         var dataCode:String,

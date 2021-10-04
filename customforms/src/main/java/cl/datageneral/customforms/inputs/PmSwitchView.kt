@@ -19,7 +19,7 @@ class PmSwitchView(context: Context, attrs: AttributeSet?=null): PmView(context,
             viewId      = value!!.viewId
             title       = value.title
 
-            switch.isChecked = value.sValue
+            switch.isChecked = value.mainValue
         }
 
     private var switch: SwitchCompat
@@ -44,7 +44,7 @@ class PmSwitchView(context: Context, attrs: AttributeSet?=null): PmView(context,
 
 
         switch.setOnCheckedChangeListener { buttonView, isChecked ->
-            inputLabel?.sValue = isChecked
+            inputLabel?.mainValue = isChecked
             Log.v("Switch State=","" + isChecked)
         }
     }

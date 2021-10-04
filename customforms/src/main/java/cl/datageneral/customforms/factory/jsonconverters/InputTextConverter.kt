@@ -2,6 +2,8 @@ package cl.datageneral.customforms.factory.jsonconverters
 
 import cl.datageneral.customforms.base.BaseConverter
 import cl.datageneral.customforms.factory.custominputs.*
+import cl.datageneral.customforms.helpers.B64
+import org.json.JSONArray
 import org.json.JSONObject
 
 /**
@@ -54,4 +56,24 @@ class InputTextConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseCon
                 TextOptions(MIN_CHARS, MAX_CHARS, EXTERNAL_TEXT, MAX_LINES)
             }
         }
+
+    companion object{
+        fun prepareAnswer(data: InputTextView): Answer {
+            val jArray = JSONArray()
+            jArray.put(B64.encode(data.mainValue))
+
+            val json = JSONObject().apply {
+                put("view_id", data.viewId)
+                put("value", jArray)
+            }
+            return Answer(json)
+        }
+
+        fun parseAnswer(data: InputTextView, answer: JSONObject){
+            val jValues = answer.getJSONArray("value")
+            if(jValues.length()>0){
+                data.mainValue = B64.decode(jValues.getString(0))
+            }
+        }
+    }
 }

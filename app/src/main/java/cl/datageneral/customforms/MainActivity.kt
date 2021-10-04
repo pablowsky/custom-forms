@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import cl.datageneral.customforms.dialogs.ISelectedData
 import cl.datageneral.customforms.dialogs.SelectDateFragment
 import cl.datageneral.customforms.dialogs.SelectTimeFragment
+import cl.datageneral.customforms.factory.custominputs.TextOptions
 import cl.datageneral.customforms.helpers.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
@@ -18,6 +19,11 @@ class MainActivity : AppCompatActivity(), ISelectedData {
     val cform = CustomFormBuilder()
 
     var mainListener = object : MainListener{
+        override fun onRequestLargeText(itemId: String, value: String, options: TextOptions) {
+            Log.e("requireLargetext", "id:${itemId} ${value}")
+            cform.setValue(itemId, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+        }
+
         override fun onDateInputClick(viewId:String, value: String) {
             SelectDateFragment(viewId, this@MainActivity as ISelectedData).show(supportFragmentManager, "DatePicker")
         }

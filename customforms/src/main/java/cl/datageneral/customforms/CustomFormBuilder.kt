@@ -24,6 +24,10 @@ class CustomFormBuilder {
     var readOnly:Boolean = false
 
     var mainListener = object : MainListener{
+        override fun onRequestLargeText(itemId: String, value: String, options: TextOptions) {
+            TODO("Not yet implemented")
+        }
+
         override fun onDateInputClick(viewId: String, value: String) {
             TODO("Not yet implemented")
         }

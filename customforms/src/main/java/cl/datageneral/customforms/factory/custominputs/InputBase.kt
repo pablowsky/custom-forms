@@ -28,6 +28,20 @@ abstract class InputBase:InputBaseI {
     override fun setValue(value: String, subtype: String) {}
 }
 
+data class TextOptions(
+    var minChars:Int = MIN_CHARS,
+    var maxChars:Int = MAX_CHARS,
+    var externalText:Boolean = EXTERNAL_TEXT,
+    var maxLines:Int = MAX_LINES
+)
+
+const val MIN_CHARS = 0
+const val MAX_CHARS = 250
+const val MAX_LINES = 1
+const val EXTERNAL_TEXT = false
+
+
+
 interface InputBaseI{
     var readOnly:Boolean
     var title:String

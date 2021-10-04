@@ -8,14 +8,18 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import cl.datageneral.customforms.R
-import cl.datageneral.customforms.factory.custominputs.InputLabelView
 import cl.datageneral.customforms.factory.custominputs.InputTextView
-import kotlinx.android.synthetic.main.pm_text_view.view.*
+import cl.datageneral.customforms.factory.custominputs.TextOptions
+import cl.datageneral.customforms.helpers.MainListener
+import android.text.InputFilter
+import android.text.InputFilter.LengthFilter
+
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
 class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
+    var listener:MainListener? = null
     var inputLabel: InputTextView? = null
         set(value) {
             field           = value
@@ -26,6 +30,8 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
             editable.setText(value.mainValue)
             initMandatory(value.mandatory)
             displayWarning(value.showWarning)
+            externalText(value.textOptions.externalText)
+            configureTextOptions(value.textOptions)
         }
 
     private var editable: EditText
@@ -38,6 +44,27 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
             field = value
         }
 
+    private fun configureTextOptions(options: TextOptions){
+        editable.isSingleLine   = options.maxLines==1
+        editable.maxLines       = options.maxLines
+        editable.filters        = arrayOf<InputFilter>(LengthFilter(options.maxChars))
+    }
+
+    private fun externalText(value:Boolean){
+        if(value){
+            editable.isSelected     = false
+            editable.isFocusable    = false
+            editable.setOnClickListener {
+                inputLabel?.let {
+                    listener?.onRequestLargeText(it.viewId, it.mainValue, it.textOptions)
+                }
+            }
+        }else{
+            editable.isFocusable    = true
+            editable.setOnClickListener(null)
+        }
+    }
+
     private fun initMandatory(value:Boolean) {
         if(value){
             mandatoryLabel.visibility = View.VISIBLE
@@ -45,40 +72,6 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
             mandatoryLabel.visibility = View.GONE
         }
     }
-
-/*    override var mainValue:String
-        set(value)  = editable.setText(value)
-        get()       = editable.text.toString()*/
-
-/*    override val isValid: Boolean
-        get(){
-            return if(mandatory && editable.text.isEmpty()){
-                val format = if(inputLabel?.hint!!.isNotEmpty()){
-                    " (${inputLabel!!.hint})"
-                }else{
-                    ""
-                }
-                displayWarning(context.getString(R.string.is_required)+format)
-                false
-            }else{
-                displayWarning("")
-                true
-            }
-        }*/
-
-    /**
-     * Returns true when the field has a right answer
-     * Returns false when the field doesnt have a right answer
-     */
-/*    override fun checkRequired(): Boolean {
-        return if(mandatory){
-            with(editable.text.toString()){
-                return this.isNotEmpty()
-            }
-        }else{
-            true
-        }
-    }*/
 
     fun displayWarning(value: Boolean) {
         if(value) {

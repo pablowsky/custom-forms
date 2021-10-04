@@ -34,14 +34,23 @@
       "title": "Descripcion de equipos",
       "hint": "Escriba aquí",
       "vtype": "text",
-      "mandatory": true
+      "mandatory": true,
+      "text_options": {
+        "max_chars": 10
+      }
     },
     {
       "view_id": 6,
       "title": "Detalle de los servicios",
       "hint": "Escriba aquí",
       "vtype": "text",
-      "mandatory": true
+      "mandatory": true,
+      "text_options": {
+        "external_text" : true,
+        "max_chars": 1000,
+        "min_chars": 10,
+        "max_lines": 2
+      }
     },
     {
       "view_id": 7,

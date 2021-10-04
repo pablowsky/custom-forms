@@ -58,7 +58,7 @@ class CustomFormAdapter(private val context: Context,
                 val view = PmTextView(context).apply {
                     layoutParams = customLayoutParams
                 }
-                InputTextViewHolder(view)
+                InputTextViewHolder(view, listener)
             }
             1 -> {
                 val view = PmSelectView(context).apply {
@@ -137,6 +137,7 @@ interface MainListener{
     fun onDateInputClick(viewId:String, value:String)
     fun onTimeInputClick(viewId:String, value:String)
     fun onClick(itemId:String, data:ArrayList<String>)
+    fun onRequestLargeText(itemId:String, value:String, options:TextOptions)
     fun onDataListClick(data:HashMap<String, ArrayList<String>>)
     fun onExternalChange(viewId:String, searchKey:String, parent:String)
     fun onSelectInputClick(viewId:String, value:String)

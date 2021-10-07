@@ -91,7 +91,8 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         setContentView(R.layout.activity_main)
 
         //val sampleJson = getFormConfig("template.json")
-        val sampleJson = getFormConfig("template_acta.json")
+        val sampleJson = getFormConfig("template_viewer.json")
+        //val sampleJson = getFormConfig("template_acta.json")
 
         cform.mainListener = mainListener
         //cform.buildLayout(this, sampleJson, viewContainer, true)

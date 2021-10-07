@@ -90,7 +90,7 @@ class CustomFormAdapter(private val context: Context,
                 val view = PmLabelView(context).apply {
                     layoutParams = customLayoutParams
                 }
-                InputLabelViewHolder(view)
+                InputLabelViewHolder(view, listener)
             }
             8 -> {
                 val view = PmSwitchView(readOnly, context).apply {

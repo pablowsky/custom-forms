@@ -8,11 +8,14 @@ import android.widget.TextView
 import cl.datageneral.customforms.R
 import cl.datageneral.customforms.factory.custominputs.InputSignatureView
 import cl.datageneral.customforms.helpers.MainListener
+import android.graphics.BitmapFactory
+import android.widget.ImageView
+import java.io.File
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
-class PmSignatureView(context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
+class PmSignatureView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
     var inputLabel: InputSignatureView? = null
         set(value) {
             field = value
@@ -20,16 +23,28 @@ class PmSignatureView(context: Context, attrs: AttributeSet?=null): PmView(conte
             titleLabel.text = value.title
             button.text     = value.buttonText
 
-            initMandatory(value.mandatory)
-            initIndicator()
             displayWarning(value.showWarning)
+            initIndicator()
+            initReadonly()
         }
+
+    private fun initReadonly(){
+        if(readOnly){
+            initMandatory(false)
+            signatureIndicator.visibility   = View.GONE
+            button.visibility               = View.GONE
+        }else{
+            initMandatory(inputLabel!!.mandatory)
+        }
+
+    }
 
     private var titleLabel: TextView
     private var signatureIndicator: TextView
     private var mandatoryLabel: TextView
     private var button: Button
     private var warningLabel: TextView
+    private var imageHolder:ImageView
     override var mainValue:String = String()
     var listener: MainListener?=null
 
@@ -42,10 +57,23 @@ class PmSignatureView(context: Context, attrs: AttributeSet?=null): PmView(conte
     }
 
     private fun initIndicator(){
-        if(inputLabel?.mainValue.isNullOrEmpty()){
-            signatureIndicator.visibility = View.GONE
-        }else{
-            signatureIndicator.visibility = View.VISIBLE
+        if(readOnly && !inputLabel?.mainValue.isNullOrEmpty()) {
+            val imgFile = File(inputLabel?.mainValue!!)
+
+            if (imgFile.exists()) {
+                val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
+                imageHolder.setImageBitmap(myBitmap)
+            }
+
+            imageHolder.visibility          = View.VISIBLE
+            initMandatory(false)
+        } else {
+            imageHolder.visibility = View.GONE
+            if (inputLabel?.mainValue.isNullOrEmpty()) {
+                signatureIndicator.visibility = View.GONE
+            } else {
+                signatureIndicator.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -67,11 +95,12 @@ class PmSignatureView(context: Context, attrs: AttributeSet?=null): PmView(conte
         button          = findViewById(R.id.button)
         warningLabel    = findViewById(R.id.warningLabel)
         signatureIndicator    = findViewById(R.id.signatureIndicator)
+        imageHolder    = findViewById(R.id.imageView)
         mandatoryLabel.visibility = View.GONE
 
         button.setOnClickListener {
             inputLabel?.let {
-                listener?.onClick(inputLabel!!.viewId, arrayListOf(inputLabel!!.mainValue))
+                listener?.onClick(inputLabel!!.viewId, arrayListOf(inputLabel!!.mainValue), readOnly)
             }
         }
         displayWarning("")

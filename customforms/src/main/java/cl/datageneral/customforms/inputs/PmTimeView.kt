@@ -18,7 +18,7 @@ import cl.datageneral.customforms.helpers.MainListener
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
 @SuppressLint("ClickableViewAccessibility")
-class PmTimeView(context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
+class PmTimeView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
     var inputLabel: InputTimeView? = null
         set(value) {
             field = value
@@ -28,10 +28,8 @@ class PmTimeView(context: Context, attrs: AttributeSet?=null): PmView(context, a
             timeBox.hint = value.hint
 
             timeBox.setText(value.timeValue)
-
-            initMandatory(value.mandatory)
-            initReadonly(value.readOnly)
             displayWarning(value.showWarning)
+            initReadonly()
         }
 
     private var timeBox: EditText
@@ -40,8 +38,13 @@ class PmTimeView(context: Context, attrs: AttributeSet?=null): PmView(context, a
     private var mandatoryLabel: TextView
     var datetimeListener: MainListener?=null
 
-    fun initReadonly(value:Boolean){
-        timeBox.isEnabled = !value
+    private fun initReadonly(){
+        if(readOnly){
+            initMandatory(false)
+        }else{
+            initMandatory(inputLabel!!.mandatory)
+        }
+        timeBox.isEnabled = !readOnly
     }
 
     override val isValid: Boolean
@@ -110,7 +113,7 @@ class PmTimeView(context: Context, attrs: AttributeSet?=null): PmView(context, a
             warningLabel.visibility = View.VISIBLE
         }else{
             warningLabel.text = ""
-            warningLabel.visibility = View.INVISIBLE
+            warningLabel.visibility = View.GONE
         }
     }
 
@@ -123,7 +126,11 @@ class PmTimeView(context: Context, attrs: AttributeSet?=null): PmView(context, a
         }
 
     init {
-        inflate(context, R.layout.pm_time_view, this)
+        if (readOnly) {
+            inflate(context, R.layout.ro_time_view, this)
+        } else {
+            inflate(context, R.layout.pm_time_view, this)
+        }
 
         timeBox         = findViewById(R.id.timeBox2)
         titleLabel      = findViewById(R.id.titleLabel)

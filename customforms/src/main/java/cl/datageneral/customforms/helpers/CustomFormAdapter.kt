@@ -12,6 +12,7 @@ import cl.datageneral.customforms.inputs.*
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
 class CustomFormAdapter(private val context: Context,
+                        private val readOnly:Boolean,
                         private val listener:MainListener): RecyclerView.Adapter<BaseViewHolder>() {
     var items:ArrayList<InputBase> = ArrayList()
 
@@ -55,7 +56,7 @@ class CustomFormAdapter(private val context: Context,
         )
         return when (viewType){
             0 -> {
-                val view = PmTextView(context).apply {
+                val view = PmTextView(readOnly, context).apply {
                     layoutParams = customLayoutParams
                 }
                 InputTextViewHolder(view, listener)
@@ -74,7 +75,7 @@ class CustomFormAdapter(private val context: Context,
                 InputExternalViewHolder(view)
             }
             5 -> {
-                val view = PmTimeView(context).apply {
+                val view = PmTimeView(readOnly, context).apply {
                     layoutParams = customLayoutParams
                 }
                 InputTimeViewHolder(view, listener)
@@ -92,25 +93,25 @@ class CustomFormAdapter(private val context: Context,
                 InputLabelViewHolder(view)
             }
             8 -> {
-                val view = PmSwitchView(context).apply {
+                val view = PmSwitchView(readOnly, context).apply {
                     layoutParams = customLayoutParams
                 }
                 InputSwitchViewHolder(view)
             }
             9 -> {
-                val view = PmCheckboxView(context).apply {
+                val view = PmCheckboxView(readOnly, context).apply {
                     layoutParams = customLayoutParams
                 }
                 InputCheckboxViewHolder(view)
             }
             10 -> {
-                val view = PmSignatureView(context).apply {
+                val view = PmSignatureView(readOnly, context).apply {
                     layoutParams = customLayoutParams
                 }
                 InputSignatureViewHolder(view, listener)
             }
             11 -> {
-                val view = PmFilesView(context).apply {
+                val view = PmFilesView(readOnly, context).apply {
                     layoutParams = customLayoutParams
                 }
                 InputFilesViewHolder(view, listener)
@@ -136,7 +137,7 @@ class CustomFormAdapter(private val context: Context,
 interface MainListener{
     fun onDateInputClick(viewId:String, value:String)
     fun onTimeInputClick(viewId:String, value:String)
-    fun onClick(itemId:String, data:ArrayList<String>)
+    fun onClick(itemId:String, data:ArrayList<String>, readOnly: Boolean)
     fun onRequestLargeText(itemId:String, value:String, options:TextOptions)
     fun onDataListClick(data:HashMap<String, ArrayList<String>>)
     fun onExternalChange(viewId:String, searchKey:String, parent:String)

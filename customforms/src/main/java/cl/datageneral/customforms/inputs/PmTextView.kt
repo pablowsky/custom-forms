@@ -18,7 +18,7 @@ import android.text.InputFilter.LengthFilter
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
-class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
+class PmTextView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
     var listener:MainListener? = null
     var inputLabel: InputTextView? = null
         set(value) {
@@ -26,23 +26,26 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
             viewId          = value!!.viewId
             titleLabel.text = value.title
             editable.hint   = value.hint
-            readOnly        = value.readOnly
             editable.setText(value.mainValue)
-            initMandatory(value.mandatory)
             displayWarning(value.showWarning)
             externalText(value.textOptions.externalText)
             configureTextOptions(value.textOptions)
+            initReadonly()
         }
 
     private var editable: EditText
     private var titleLabel: TextView
     private var warningLabel: TextView
     private var mandatoryLabel: TextView
-    var readOnly = false
-        set(value) {
-            editable.isEnabled = !value
-            field = value
+
+    private fun initReadonly(){
+        if(readOnly){
+            initMandatory(false)
+        }else{
+            initMandatory(inputLabel!!.mandatory)
         }
+        editable.maxLines       = 20
+    }
 
     private fun configureTextOptions(options: TextOptions){
         editable.isSingleLine   = options.maxLines==1
@@ -84,14 +87,18 @@ class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, a
             warningLabel.visibility = View.VISIBLE
         }else{
             warningLabel.text = ""
-            warningLabel.visibility = View.INVISIBLE
+            warningLabel.visibility = View.GONE
         }
     }
 
     private var textWatcherListener: TextWatcher? = null
 
     init {
-        inflate(context, R.layout.pm_text_view, this)
+        if (readOnly) {
+            inflate(context, R.layout.ro_text_view, this)
+        } else {
+            inflate(context, R.layout.pm_text_view, this)
+        }
 
         editable        = findViewById(R.id.editableBox)
         titleLabel      = findViewById(R.id.titleLabel)

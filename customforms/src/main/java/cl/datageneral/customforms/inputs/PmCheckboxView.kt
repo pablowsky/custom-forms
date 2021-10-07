@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.appcompat.widget.LinearLayoutCompat
 import cl.datageneral.customforms.R
 import cl.datageneral.customforms.factory.custominputs.InputCheckboxView
 import cl.datageneral.customforms.helpers.SelectableItem
@@ -14,7 +15,7 @@ import cl.datageneral.customforms.helpers.SelectableItem
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
-class PmCheckboxView(context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
+class PmCheckboxView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
     private var itemsContainer: LinearLayout
     private var warningLabel: TextView
     private var mandatoryLabel: TextView
@@ -26,9 +27,18 @@ class PmCheckboxView(context: Context, attrs: AttributeSet?=null): PmView(contex
 
             itemsContainer.removeAllViews()
             for(option in value.items){
-                addOption(option)
+                if(readOnly) {
+                    addOptionRO(option)
+                }else{
+                    addOption(option)
+                }
             }
             displayWarning(value.showWarning)
+            if(readOnly){
+                initMandatory(false)
+            }else{
+                initMandatory(value.mandatory)
+            }
         }
 
     fun displayWarning(value: Boolean) {
@@ -51,15 +61,13 @@ class PmCheckboxView(context: Context, attrs: AttributeSet?=null): PmView(contex
             field               = value
         }
 
-    override var mandatory: Boolean = false
-        set(value) {
-            if(value){
-                mandatoryLabel.visibility = View.VISIBLE
-            }else{
-                mandatoryLabel.visibility = View.GONE
-            }
-            field = value
+    private fun initMandatory(value:Boolean) {
+        if(value){
+            mandatoryLabel.visibility = View.VISIBLE
+        }else{
+            mandatoryLabel.visibility = View.GONE
         }
+    }
 
     private fun addOption(item:SelectableItem){
         val cbox = AppCompatCheckBox(context).apply {
@@ -85,6 +93,21 @@ class PmCheckboxView(context: Context, attrs: AttributeSet?=null): PmView(contex
             it.isChecked = inputLabel!!.selectedItems.containsKey(item.value)
         }
         itemsContainer.addView(cbox)
+    }
+
+    private fun addOptionRO(item:SelectableItem){
+        if(inputLabel!!.selectedItems.containsKey(item.value)) {
+            val cbox = TextView(context).apply {
+                this.text = item.text
+                this.layoutParams = LayoutParams(
+                    LayoutParams.MATCH_PARENT,
+                    LayoutParams.WRAP_CONTENT
+                )
+            }
+            itemsContainer.addView(cbox)
+        }else{
+
+        }
     }
 
     init {

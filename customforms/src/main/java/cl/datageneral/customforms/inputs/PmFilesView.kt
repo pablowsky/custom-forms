@@ -12,7 +12,7 @@ import cl.datageneral.customforms.helpers.MainListener
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
-class PmFilesView(context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
+class PmFilesView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
     var inputLabel: InputFilesView? = null
         set(value) {
             field = value
@@ -20,9 +20,13 @@ class PmFilesView(context: Context, attrs: AttributeSet?=null): PmView(context, 
             titleLabel.text = value.title
             button.text     = value.buttonText
 
-            initMandatory(value.mandatory||value.minFiles>0)
             initIndicator()
             displayWarning(value.showWarning)
+            if(readOnly){
+                initMandatory(false)
+            }else{
+                initMandatory(value.mandatory||value.minFiles>0)
+            }
         }
 
     private var titleLabel: TextView
@@ -72,7 +76,7 @@ class PmFilesView(context: Context, attrs: AttributeSet?=null): PmView(context, 
 
         button.setOnClickListener {
             inputLabel?.let {
-                listener?.onClick(inputLabel!!.viewId, inputLabel!!.mainValues)
+                listener?.onClick(inputLabel!!.viewId, inputLabel!!.mainValues, readOnly)
             }
         }
     }

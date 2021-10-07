@@ -13,9 +13,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@+id/pmswitch"
+        app:layout_constraintEnd_toStartOf="@+id/switchText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/switchText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintBottom_toBottomOf="@+id/titleBox"
+        app:layout_constraintEnd_toStartOf="@+id/pmswitch"
+        app:layout_constraintTop_toTopOf="@+id/titleBox" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/pmswitch"

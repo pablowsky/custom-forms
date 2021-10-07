@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.ArrayMap
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.FileProvider
 import cl.datageneral.customforms.dialogs.ISelectedData
 import cl.datageneral.customforms.dialogs.SelectDateFragment
 import cl.datageneral.customforms.dialogs.SelectTimeFragment
@@ -11,6 +13,7 @@ import cl.datageneral.customforms.factory.custominputs.TextOptions
 import cl.datageneral.customforms.helpers.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
+import java.io.File
 import java.io.IOException
 
 class MainActivity : AppCompatActivity(), ISelectedData {
@@ -33,12 +36,12 @@ class MainActivity : AppCompatActivity(), ISelectedData {
             SelectTimeFragment(viewId, this@MainActivity as ISelectedData).show(supportFragmentManager, "TimePikcer")
         }
 
-        override fun onClick(itemId:String, data:ArrayList<String>) {
+        override fun onClick(itemId: String, data: ArrayList<String>, readOnly: Boolean) {
             Log.e("DialogData", "Id:${itemId}, Values:${data.size}")
             if(itemId=="11") {
                 cform.setValue(itemId, arrayListOf("/my/fake/signature1.jpg","/my/fake/signature2.jpg","/my/fake/signature3.jpg"))
             }else{
-                cform.setValue(itemId, "/my/fake/signature.jpg")
+                cform.setValue(itemId, fileUri("IMG_20211007_005235.jpg"))
             }
         }
 
@@ -79,6 +82,9 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
 
 
+    fun fileUri(fileName: String): String {
+        return  cacheDir.absolutePath + "/attachment/" + fileName
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,10 +95,14 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
         cform.mainListener = mainListener
         //cform.buildLayout(this, sampleJson, viewContainer, true)
-        cform.buildRecycler(this, sampleJson, viewListContainer, false)
+        cform.buildRecycler(this, sampleJson, viewListContainer, true)
 
+        val f = File(fileUri("IMG_20211007_005235.jpg"))
+        Log.e("fileURI", f.path)
+        Log.e("fileURIExists", f.exists().toString())
 
         /*val requiresoptions = cform.viewsRequireExternalData()
+        ** /data/data/cl.datageneral.customforms/cache/attachment/IMG_20211007_005235.jpg
 
         for(vr in requiresoptions){
             val items = ArrayList<SelectableItem>()
@@ -142,6 +152,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         val answerFiles = "{\"answers\":[{\"view_id\":\"11\",\"value\":[\"/my/fake/signature1.jpg\",\"/my/fake/signature2.jpg\",\"/my/fake/signature3.jpg\"]}]}"
         val answerSignature = "{\"answers\":[{\"view_id\":\"8\",\"value\":[\"/my/fake/signature.jpg\"]}]}"
         val answerTextSwitchTIme = "{\"answers\":[{\"view_id\":\"1\",\"value\":[\"10:44\"]},{\"view_id\":\"2\",\"value\":[\"02:44\"]},{\"view_id\":\"3\",\"value\":[false]},{\"view_id\":\"4\",\"value\":[\"cmVhbGx5IGdvb2Qg8J+RjfCfkY3wn5GN\\n\"]},{\"view_id\":\"5\",\"value\":[\"ZW1haWwgYWRkcg==\\n\"]},{\"view_id\":\"6\",\"value\":[\"TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdCwg\\nc2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQgdXQgbGFib3JlIGV0IGRvbG9yZSBtYWdu\\nYSBhbGlxdWEuIFV0IGVuaW0gYWQgbWluaW0gdmVuaWFtLCBxdWlzIG5vc3RydWQgZXhlcmNpdGF0\\naW9uIHVsbGFtY28gbGFib3JpcyBuaXNpIHV0IGFsaXF1aXAgZXggZWEgY29tbW9kbyBjb25zZXF1\\nYXQuIER1aXMgYXV0ZSBpcnVyZSBkb2xvciBpbiByZXByZWhlbmRlcml0IGluIHZvbHVwdGF0ZSB2\\nZWxpdCBlc3NlIGNpbGx1bSBkb2xvcmUgZXUgZnVnaWF0IG51bGxhIHBhcmlhdHVyLiBFeGNlcHRl\\ndXIgc2ludCBvY2NhZWNhdCBjdXBpZGF0YXQgbm9uIHByb2lkZW50LCBzdW50IGluIGN1bHBhIHF1\\naSBvZmZpY2lhIGRlc2VydW50IG1vbGxpdCBhbmltIGlkIGVzdCBsYWJvcnVtLg==\\n\"]}]}"
+        val answerAll = "{\"answers\":[{\"view_id\":\"1\",\"value\":[\"11:50\"]},{\"view_id\":\"2\",\"value\":[\"12:25\"]},{\"view_id\":\"3\",\"value\":[false]},{\"view_id\":\"4\",\"value\":[\"cmVhbGx5IGdvb2QgcmlnaHQgbm93IGJ1dCBJIHdpbGwgYmUgdGhlcmUgYXQgdGhl\\n\"]},{\"view_id\":\"5\",\"value\":[\"dGhhbmtz\\n\"]},{\"view_id\":\"6\",\"value\":[\"TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdCwg\\nc2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQgdXQgbGFib3JlIGV0IGRvbG9yZSBtYWdu\\nYSBhbGlxdWEuIFV0IGVuaW0gYWQgbWluaW0gdmVuaWFtLCBxdWlzIG5vc3RydWQgZXhlcmNpdGF0\\naW9uIHVsbGFtY28gbGFib3JpcyBuaXNpIHV0IGFsaXF1aXAgZXggZWEgY29tbW9kbyBjb25zZXF1\\nYXQuIER1aXMgYXV0ZSBpcnVyZSBkb2xvciBpbiByZXByZWhlbmRlcml0IGluIHZvbHVwdGF0ZSB2\\nZWxpdCBlc3NlIGNpbGx1bSBkb2xvcmUgZXUgZnVnaWF0IG51bGxhIHBhcmlhdHVyLiBFeGNlcHRl\\ndXIgc2ludCBvY2NhZWNhdCBjdXBpZGF0YXQgbm9uIHByb2lkZW50LCBzdW50IGluIGN1bHBhIHF1\\naSBvZmZpY2lhIGRlc2VydW50IG1vbGxpdCBhbmltIGlkIGVzdCBsYWJvcnVtLg==\\n\"]},{\"view_id\":\"7\",\"value\":[{\"itemId\":\"2\",\"itemText\":\"Text 2\"},{\"itemId\":\"4\",\"itemText\":\"Text 4\"}]},{\"view_id\":\"8\",\"value\":[\"/data/user/0/cl.datageneral.customforms/cache/attachment/IMG_20211007_005235.jpg\"]},{\"view_id\":\"10\",\"value\":[true]},{\"view_id\":\"11\",\"value\":[\"/my/fake/signature1.jpg\",\"/my/fake/signature2.jpg\",\"/my/fake/signature3.jpg\"]}]}"
 
         saveBtn.setOnClickListener {
             val answers = cform.formAnswers
@@ -150,7 +161,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
         setBtn.setOnClickListener {
             //cform.formAnswer = getFormConfig("template_answers3.json")
-            cform.formAnswers = Pair(JSONObject(answerTextSwitchTIme), arrayListOf())
+            cform.formAnswers = Pair(JSONObject(answerAll), arrayListOf())
         }
 
         saveTemp.setOnClickListener {

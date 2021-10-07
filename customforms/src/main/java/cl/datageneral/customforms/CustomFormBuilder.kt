@@ -36,7 +36,7 @@ class CustomFormBuilder {
             TODO("Not yet implemented")
         }
 
-        override fun onClick(itemId:String, data:ArrayList<String>) {
+        override fun onClick(itemId: String, data: ArrayList<String>, readOnly: Boolean) {
             TODO("Not yet implemented")
         }
 
@@ -102,7 +102,7 @@ class CustomFormBuilder {
             //input?.let { viewList.add(it) }
             val dView = when(input){
                 is InputTextView -> {
-                    PmTextView(activity).apply {
+                    PmTextView(false, activity).apply {
                         inputLabel = input
                     }
                 }
@@ -128,29 +128,29 @@ class CustomFormBuilder {
                     }
                 }
                 is InputSwitchView -> {
-                    PmSwitchView(activity).apply {
+                    PmSwitchView(false, activity).apply {
                         inputLabel = input
                     }
                 }
                 is InputCheckboxView -> {
-                    PmCheckboxView(activity).apply {
+                    PmCheckboxView(false, activity).apply {
                         inputLabel = input
                     }
                 }
                 is InputSignatureView -> {
-                    PmSignatureView(activity).apply {
+                    PmSignatureView(false, activity).apply {
                         inputLabel  = input
                         listener    = mainListener
                     }
                 }
                 is InputFilesView -> {
-                    PmFilesView(activity).apply {
+                    PmFilesView(false, activity).apply {
                         inputLabel  = input
                         listener    = mainListener
                     }
                 }
                 is InputTimeView -> {
-                    PmTimeView(activity).apply {
+                    PmTimeView(false, activity).apply {
                         inputLabel  = input
                         datetimeListener    = mainListener
                     }
@@ -184,7 +184,7 @@ class CustomFormBuilder {
         }
 
         // Set the recycler view
-        adapter = CustomFormAdapter(activity, mainListener)
+        adapter = CustomFormAdapter(activity, pReadOnly, mainListener)
         container.layoutManager  = LinearLayoutManager(activity)
         container.adapter        = adapter
         setData(viewList)

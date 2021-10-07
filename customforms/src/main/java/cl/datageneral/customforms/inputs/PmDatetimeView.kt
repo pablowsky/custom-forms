@@ -2,13 +2,11 @@ package cl.datageneral.customforms.inputs
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import cl.datageneral.customforms.R
-import cl.datageneral.customforms.helpers.DateTimeClickListener
-import kotlinx.android.synthetic.main.pm_datetime_view.view.*
+import cl.datageneral.customforms.helpers.MainListener
 import org.json.JSONObject
 
 /**
@@ -20,7 +18,7 @@ class PmDatetimeView(context: Context, attrs: AttributeSet?=null): PmView(contex
     private var titleLabel: TextView
     private var warningLabel: TextView
     private var mandatoryLabel: TextView
-    var datetimeListener: DateTimeClickListener?=null
+    var datetimeListener: MainListener?=null
     var dateValue = String()
         set(value) {
             dateBox.setText(value)

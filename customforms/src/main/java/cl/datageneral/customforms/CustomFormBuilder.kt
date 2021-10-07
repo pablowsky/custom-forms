@@ -23,29 +23,36 @@ class CustomFormBuilder {
     var layoutContainer:LinearLayout? =null
     var readOnly:Boolean = false
 
-    private var selectListener = object : ItemSelectedListener{
-        override fun onSelectInputClick(viewId: String, value: String) {
-
-            //recursiveSet(viewId, value)
-        }
-
-        override fun onLoadChildrensClick(  parentViewId: String, selectedValue: String ) {
-            recursiveSet(parentViewId, selectedValue)
-        }
-    }
-
-    var datetimeListener = object : DateTimeClickListener{
-        override fun onDateInputClick(viewId:String, value: String) {
+    var mainListener = object : MainListener{
+        override fun onRequestLargeText(itemId: String, value: String, options: TextOptions) {
             TODO("Not yet implemented")
         }
 
-        override fun onTimeInputClick(viewId:String, value: String) {
+        override fun onDateInputClick(viewId: String, value: String) {
             TODO("Not yet implemented")
         }
-    }
 
-    var externalListener = object :ExternalChangeListenerListener{
+        override fun onTimeInputClick(viewId: String, value: String) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onClick(itemId: String, data: ArrayList<String>, readOnly: Boolean) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onDataListClick(data: HashMap<String, ArrayList<String>>) {
+            TODO("Not yet implemented")
+        }
+
         override fun onExternalChange(viewId: String, searchKey: String, parent: String) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onSelectInputClick(viewId: String, value: String) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onLoadChildrensClick(parentViewId: String, selectedValue: String) {
             TODO("Not yet implemented")
         }
     }
@@ -95,16 +102,58 @@ class CustomFormBuilder {
             //input?.let { viewList.add(it) }
             val dView = when(input){
                 is InputTextView -> {
-                    input.draw(PmTextView(activity))
+                    PmTextView(false, activity).apply {
+                        inputLabel = input
+                    }
                 }
                 is InputSelectView -> {
-                    input.draw(PmSelectView(activity), selectListener)
+                    input.draw(PmSelectView(activity)).apply {
+                        listener = mainListener
+                    }
                 }
                 is InputExternalView -> {
-                    input.draw(PmExternalView(activity), externalListener)
+                    input.draw(PmExternalView(activity)).apply {
+                        externalListener = mainListener
+                    }
                 }
                 is InputDatetimeView -> {
-                    input.draw(PmDatetimeView(activity), datetimeListener)
+                    input.draw(PmDatetimeView(activity)).apply {
+                        datetimeListener = mainListener
+                    }
+                }
+                is InputLabelView -> {
+                    PmLabelView(activity).apply {
+                        inputLabel  = input
+                        listener    = mainListener
+                    }
+                }
+                is InputSwitchView -> {
+                    PmSwitchView(false, activity).apply {
+                        inputLabel = input
+                    }
+                }
+                is InputCheckboxView -> {
+                    PmCheckboxView(false, activity).apply {
+                        inputLabel = input
+                    }
+                }
+                is InputSignatureView -> {
+                    PmSignatureView(false, activity).apply {
+                        inputLabel  = input
+                        listener    = mainListener
+                    }
+                }
+                is InputFilesView -> {
+                    PmFilesView(false, activity).apply {
+                        inputLabel  = input
+                        listener    = mainListener
+                    }
+                }
+                is InputTimeView -> {
+                    PmTimeView(false, activity).apply {
+                        inputLabel  = input
+                        datetimeListener    = mainListener
+                    }
                 }
                 else -> PmView(activity)
             }
@@ -114,21 +163,28 @@ class CustomFormBuilder {
 
     }
 
+    private val mapIds:HashMap<String, Int> = HashMap()
     fun buildRecycler(activity: Activity, jsonForm:JSONObject, container:RecyclerView, pReadOnly:Boolean=false){
         // Parse JSON
         val inputList    = Json.getArray(jsonForm, "questions")
         val size         = inputList?.length()?:0
+        var counter = 0
         for (input in 0 until size){
             val qObject  = inputList?.getJSONObject(input)
 
             val iFactory    = ViewFactory(qObject!!)
             val input       = iFactory.build(pReadOnly)
 
-            input?.let { viewList.add(it) }
+            input?.let {
+                viewList.add(counter, it)
+                mapIds[it.viewId] = counter
+                counter++
+            }
+
         }
 
         // Set the recycler view
-        adapter = CustomFormAdapter(activity, selectListener, externalListener, datetimeListener)
+        adapter = CustomFormAdapter(activity, pReadOnly, mainListener)
         container.layoutManager  = LinearLayoutManager(activity)
         container.adapter        = adapter
         setData(viewList)
@@ -149,7 +205,7 @@ class CustomFormBuilder {
         }
     }
 
-    fun setOptions(viewId:String, options:ArrayList<SpinnerItem>){
+    fun setOptions(viewId:String, options:ArrayList<SelectableItem>){
         /*val view = viewList[itemPosition]
         if(view is InputSelectView){
             view.options = options
@@ -235,14 +291,23 @@ class CustomFormBuilder {
             }
         }
 
-    fun setValue(position:Int, value:String, subValue:String?=null){
+    /*fun setValue(position:Int, value:String, subValue:String?=null){
         if(subValue!=null){
             viewList[position].setValue(value, subValue!!)
         }
         adapter?.notifyItemChanged(position)
-    }
+    }*/
 
-    fun setValue(viewId: String, value:String, subValue:String?=null){
+    fun setValue(viewId: String, value:Any) {
+        Log.e("data4", "$value")
+        if(mapIds.containsKey(viewId)){
+            viewList[mapIds[viewId]!!].value2 = value
+
+            adapter?.notifyItemChanged(mapIds[viewId]!!)
+        }
+
+    }
+    fun setValueOld(viewId: String, value:String, subValue:String?=null){
         val layout  = (layoutContainer as LinearLayout)
         for (i in 0 until layout.childCount) {
             val view = layout.getChildAt(i)
@@ -304,35 +369,40 @@ class CustomFormBuilder {
                 }
             }
         }
-    /*
-    var formAnswer:JSONObject
+
+    var formAnswers:Pair<JSONObject, ArrayList<String>>
         get(){
+            val files: ArrayList<String> = ArrayList()
             val answers = JSONArray()
-            for( view in viewList ){
-                answers.put(view.answer)
+            for(view in viewList){
+                answers.put(view.answer.json)
+                files.addAll(view.answer.files)
             }
-            return JSONObject().apply {
+
+            return Pair(JSONObject().apply {
                 put("answers", answers)
-            }
+            }, files)
         }
         set(value) {
-            val jAnswers = value.getJSONArray("answers")
+            val jAnswers = value.first.getJSONArray("answers")
+
             for(key in 0 until jAnswers.length()){
                 val janswer = jAnswers.getJSONObject(key)
                 val jviewId = janswer.getString("view_id")
-                for((position, view) in viewList.withIndex()){
-                    if(jviewId==view.viewId){
-                        view.answer = janswer
-                        adapter?.notifyItemChanged(position)
-                    }
+
+                if(mapIds.containsKey(jviewId)){
+                    viewList[mapIds[jviewId]!!].setJsonAnswer( janswer )
+
+                    adapter?.notifyItemChanged(mapIds[jviewId]!!)
                 }
             }
-        }*/
+        }
+
     data class OptionsForView(
         var position:Int=0,
         var dataCode:String,
         var viewId:String="",
-        var values:ArrayList<SpinnerItem> = ArrayList()
+        var values:ArrayList<SelectableItem> = ArrayList()
     )
 
     data class ValidationResults(

@@ -2,4 +2,11 @@
 <resources>
     <color name="red">#F50057</color>
     <color name="spinner_margin">#989696</color>
+    <color name="blue">#2979FF</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="grey1">#CCCCCC</color>
+    <color name="grey2">#999999</color>
+    <color name="grey3">#666666</color>
+    <color name="grey4">#333333</color>
 </resources>

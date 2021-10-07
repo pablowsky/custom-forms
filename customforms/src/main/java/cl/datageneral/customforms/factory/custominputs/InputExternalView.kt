@@ -1,7 +1,6 @@
 package cl.datageneral.customforms.factory.custominputs
 
 import cl.datageneral.customforms.factory.ViewTypes
-import cl.datageneral.customforms.helpers.ExternalChangeListenerListener
 import cl.datageneral.customforms.inputs.PmExternalView
 
 /**
@@ -36,10 +35,10 @@ class InputExternalView:InputBase() {
             field = value
         }
 
-    fun draw(view: PmExternalView, pExternalListener: ExternalChangeListenerListener): PmExternalView {
+    fun draw(view: PmExternalView): PmExternalView {
         return view.apply {
             viewId      = this@InputExternalView.viewId
-            externalListener = pExternalListener
+            //externalListener = pExternalListener
             hint        = this@InputExternalView.hint
             title       = this@InputExternalView.title
             searchKey   = this@InputExternalView.searchKey

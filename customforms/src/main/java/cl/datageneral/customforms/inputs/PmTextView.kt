@@ -1,103 +1,125 @@
 package cl.datageneral.customforms.inputs
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import cl.datageneral.customforms.R
+import cl.datageneral.customforms.factory.custominputs.InputTextView
+import cl.datageneral.customforms.factory.custominputs.TextOptions
+import cl.datageneral.customforms.helpers.MainListener
+import android.text.InputFilter
+import android.text.InputFilter.LengthFilter
+
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
-class PmTextView(context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
+class PmTextView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
+    var listener:MainListener? = null
+    var inputLabel: InputTextView? = null
+        set(value) {
+            field           = value
+            viewId          = value!!.viewId
+            titleLabel.text = value.title
+            editable.hint   = value.hint
+            editable.setText(value.mainValue)
+            displayWarning(value.showWarning)
+            externalText(value.textOptions.externalText)
+            configureTextOptions(value.textOptions)
+            initReadonly()
+        }
+
     private var editable: EditText
     private var titleLabel: TextView
     private var warningLabel: TextView
     private var mandatoryLabel: TextView
-    var readOnly = false
-        set(value) {
-            editable.isEnabled = !value
-            field = value
+
+    private fun initReadonly(){
+        if(readOnly){
+            initMandatory(false)
+        }else{
+            initMandatory(inputLabel!!.mandatory)
         }
+        editable.maxLines       = 20
+    }
 
-    override var mandatory: Boolean = false
-        set(value) {
-            if(value){
-                mandatoryLabel.visibility = View.VISIBLE
-            }else{
-                mandatoryLabel.visibility = View.GONE
-            }
-            field = value
-        }
+    private fun configureTextOptions(options: TextOptions){
+        editable.isSingleLine   = options.maxLines==1
+        editable.maxLines       = options.maxLines
+        editable.filters        = arrayOf<InputFilter>(LengthFilter(options.maxChars))
+    }
 
-    override var mainValue:String
-        set(value)  = editable.setText(value)
-        get()       = editable.text.toString()
-
-    override val isValid: Boolean
-        get(){
-            return if(mandatory && editable.text.isEmpty()){
-                val format = if(hint!!.isNotEmpty()){
-                    " ($hint)"
-                }else{
-                    ""
+    private fun externalText(value:Boolean){
+        if(value){
+            editable.isSelected     = false
+            editable.isFocusable    = false
+            editable.setOnClickListener {
+                inputLabel?.let {
+                    listener?.onRequestLargeText(it.viewId, it.mainValue, it.textOptions)
                 }
-                displayWarning(context.getString(R.string.is_required)+format)
-                false
-            }else{
-                displayWarning("")
-                true
-            }
-        }
-
-    /**
-     * Returns true when the field has a right answer
-     * Returns false when the field doesnt have a right answer
-     */
-    override fun checkRequired(): Boolean {
-        return if(mandatory){
-            with(editable.text.toString()){
-                return this.isNotEmpty()
             }
         }else{
-            true
+            editable.isFocusable    = true
+            editable.setOnClickListener(null)
         }
     }
 
-    override fun displayWarning(msg:String) {
-        if(msg.isNotEmpty()) {
-            warningLabel.text = msg
+    private fun initMandatory(value:Boolean) {
+        if(value){
+            mandatoryLabel.visibility = View.VISIBLE
+        }else{
+            mandatoryLabel.visibility = View.GONE
+        }
+    }
+
+    fun displayWarning(value: Boolean) {
+        if(value) {
+            val format = if(inputLabel?.hint?.isNotEmpty() == true){
+                "(${inputLabel?.hint})"
+            }else{
+                ""
+            }
+            warningLabel.text = "${context.getString(R.string.is_required)}. $format"
             warningLabel.visibility = View.VISIBLE
         }else{
             warningLabel.text = ""
-            warningLabel.visibility = View.INVISIBLE
+            warningLabel.visibility = View.GONE
         }
     }
 
-    var hint:String? = String()
-        set(value) {
-            value?.let {
-                editable.hint   = value
-            }
-            field               = value
-        }
-
-    var title:String?       = String()
-        set(value) {
-            value?.let {
-                titleLabel.text   = value
-            }
-            field               = value
-        }
+    private var textWatcherListener: TextWatcher? = null
 
     init {
-        inflate(context, R.layout.pm_text_view, this)
+        if (readOnly) {
+            inflate(context, R.layout.ro_text_view, this)
+        } else {
+            inflate(context, R.layout.pm_text_view, this)
+        }
 
         editable        = findViewById(R.id.editableBox)
         titleLabel      = findViewById(R.id.titleLabel)
         warningLabel    = findViewById(R.id.warningLabel)
         mandatoryLabel  = findViewById(R.id.mandatory)
         displayWarning("")
+
+        textWatcherListener?.let {
+            editable.removeTextChangedListener(it)
+        }
+
+        textWatcherListener = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable) {
+                inputLabel?.mainValue = s.toString()
+            }
+        }
+
+        editable.addTextChangedListener(textWatcherListener)
     }
 }

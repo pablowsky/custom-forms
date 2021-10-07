@@ -1,10 +1,8 @@
 package cl.datageneral.customforms.factory.custominputs
 
 import cl.datageneral.customforms.factory.ViewTypes
-import cl.datageneral.customforms.helpers.ItemSelectedListener
-import cl.datageneral.customforms.helpers.SpinnerItem
+import cl.datageneral.customforms.helpers.SelectableItem
 import cl.datageneral.customforms.inputs.PmSelectView
-import org.json.JSONObject
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
@@ -12,8 +10,8 @@ import org.json.JSONObject
 class InputSelectView:InputBase() {
     override var vtype              = ViewTypes.SELECT
     var dataOrigin:String           = String()
-    var options:ArrayList<SpinnerItem>   = ArrayList()
-    var filteredOptions:ArrayList<SpinnerItem>   = ArrayList()
+    var options:ArrayList<SelectableItem>   = ArrayList()
+    var filteredOptions:ArrayList<SelectableItem>   = ArrayList()
     var useFilteredOptions          = false
     var hasChildrens:Boolean        = false
     var hasParent:String            = String()
@@ -22,18 +20,6 @@ class InputSelectView:InputBase() {
                 useFilteredOptions = true
             }
             field = value
-        }
-
-    override var answer: JSONObject
-        get() = super.answer
-        set(value) {
-            val selectedValue =  value.getString("value")
-            this@InputSelectView.value = selectedValue
-            for(opt in options){
-                if(opt.value==selectedValue){
-                    parentSelected = opt.parent
-                }
-            }
         }
 
     var parentSelected              = String()
@@ -64,9 +50,9 @@ class InputSelectView:InputBase() {
     override var value: String = String()
 
 
-    fun draw(view: PmSelectView, pListener: ItemSelectedListener):PmSelectView{
-        val nlist:ArrayList<SpinnerItem>   = ArrayList()
-        nlist.add(0, SpinnerItem("Seleccione", ""))
+    fun draw(view: PmSelectView):PmSelectView{
+        val nlist:ArrayList<SelectableItem>   = ArrayList()
+        nlist.add(0, SelectableItem("Seleccione", ""))
         nlist.addAll(if(useFilteredOptions){
             this@InputSelectView.filteredOptions
         }else {
@@ -76,7 +62,7 @@ class InputSelectView:InputBase() {
         return view.apply {
             viewId          = this@InputSelectView.viewId
             title           = this@InputSelectView.title
-            listener        = pListener
+            //listener        = pListener
             readOnly        = this@InputSelectView.readOnly
             dataOrigin      = this@InputSelectView.dataOrigin
             hasChildrens    = this@InputSelectView.hasChildrens

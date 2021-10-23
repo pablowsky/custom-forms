@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.util.ArrayMap
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.FileProvider
 import cl.datageneral.customforms.dialogs.ISelectedData
 import cl.datageneral.customforms.dialogs.SelectDateFragment
 import cl.datageneral.customforms.dialogs.SelectTimeFragment
@@ -21,10 +19,50 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
     val cform = CustomFormBuilder()
 
+    /*val startFileManagerForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        val id      = result.data?.getStringExtra(FileManagerActivity.PARAM_ID).toString()
+        val data    = result.data?.getCharSequenceArrayListExtra(FileManagerActivity.PARAM_ATTACHMENT)?: arrayListOf()
+
+        if(result.resultCode == FileManagerActivity.ATTACHMENT_OK) {
+            cform.setValue(id, data)
+        }
+    }
+
+    val startSignatureForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        val id      = result.data?.getStringExtra(SignatureActivity.PARAM_ID).toString()
+        val data    = result.data?.getStringExtra(SignatureActivity.PARAM_SIGNATURE).toString()
+
+
+        if(result.resultCode == SignatureActivity.SIGNATURE_OK) {
+            Log.e("saving, $id", data)
+            cform.setValue(id, data)
+        }
+    }
+
+    val startLargeTextForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        val id      = result.data?.getStringExtra(LargeTextActivity.PARAM_ID).toString()
+        val data    = result.data?.getStringExtra(LargeTextActivity.PARAM_TEXT).toString()
+
+
+        if(result.resultCode == LargeTextActivity.OK) {
+            Log.e("saving, $id", data)
+            cform.setValue(id, data)
+        }
+    }*/
+
     var mainListener = object : MainListener{
         override fun onRequestLargeText(itemId: String, value: String, options: TextOptions) {
             Log.e("requireLargetext", "id:${itemId} ${value}")
-            cform.setValue(itemId, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+            val text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            cform.setValue(itemId, text)
+            /*val intent = Intent(this@MainActivity, LargeTextActivity::class.java)
+            intent.putExtra(LargeTextActivity.PARAM_TITLE, "Texto largo")
+            intent.putExtra(LargeTextActivity.PARAM_TEXT, value)
+            intent.putExtra(LargeTextActivity.PARAM_ID, itemId)
+            startLargeTextForResult.launch(intent)*/
         }
 
         override fun onDateInputClick(viewId:String, value: String) {
@@ -38,11 +76,32 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
         override fun onClick(itemId: String, data: ArrayList<String>, readOnly: Boolean) {
             Log.e("DialogData", "Id:${itemId}, Values:${data.size}")
-            if(itemId=="11") {
+            /*if(itemId=="11") {
                 cform.setValue(itemId, arrayListOf("/my/fake/signature1.jpg","/my/fake/signature2.jpg","/my/fake/signature3.jpg"))
             }else{
                 cform.setValue(itemId, fileUri("IMG_20211007_005235.jpg"))
-            }
+            }*/
+            /*when(cform.getType(itemId)){
+                ViewTypes.FILES -> {
+                    val intent = Intent(this@MainActivity, FileManagerActivity::class.java)
+                    intent.putExtra(FileManagerActivity.PARAM_OPTIONS, arrayListOf("GALLERY", "CAMERA", "DOCUMENTS"))
+                    intent.putExtra(FileManagerActivity.PARAM_TITLE, cform.getTitle(itemId))
+                    intent.putExtra(FileManagerActivity.PARAM_ATTACHMENT, data)
+                    intent.putExtra(FileManagerActivity.PARAM_ID, itemId)
+                    startFileManagerForResult.launch(intent)
+                }
+                ViewTypes.SIGNATURE -> {
+                    val intent = Intent(this@MainActivity, SignatureActivity::class.java)
+                    intent.putExtra(SignatureActivity.PARAM_TITLE, cform.getTitle(itemId))
+                    intent.putExtra(SignatureActivity.PARAM_SIGNATURE, data.first().toString())
+                    intent.putExtra(SignatureActivity.PARAM_ID, itemId)
+                    startSignatureForResult.launch(intent)
+                }
+            }*/
+        }
+
+        override fun onClick(itemId: String, data: String) {
+            Log.e("DialogData", "Id:${itemId}, Values:${data}")
         }
 
         override fun onExternalChange(viewId:String, searchKey: String, parent: String) {
@@ -91,12 +150,12 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         setContentView(R.layout.activity_main)
 
         //val sampleJson = getFormConfig("template.json")
-        val sampleJson = getFormConfig("template_viewer.json")
-        //val sampleJson = getFormConfig("template_acta.json")
+        //val sampleJson = getFormConfig("template_viewer.json")
+        val sampleJson = getFormConfig("template_acta.json")
 
         cform.mainListener = mainListener
         //cform.buildLayout(this, sampleJson, viewContainer, true)
-        cform.buildRecycler(this, sampleJson, viewListContainer, true)
+        cform.buildRecycler(this, sampleJson, viewListContainer, false)
 
         val f = File(fileUri("IMG_20211007_005235.jpg"))
         Log.e("fileURI", f.path)

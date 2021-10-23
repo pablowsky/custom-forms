@@ -29,7 +29,7 @@ class CustomFormBuilder {
             TODO("Not yet implemented")
         }
 
-        override fun onShowDialog(itemId: String, data: String) {
+        override fun onClick(itemId: String, data: String) {
             TODO("Not yet implemented")
         }
 

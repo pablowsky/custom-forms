@@ -73,7 +73,7 @@ class PmLabelView(context: Context, attrs: AttributeSet?=null): PmView(context, 
         button.setOnClickListener {
             inputLabel?.let {
                 if(inputLabel?.showAsDialog==true){
-                    listener?.onShowDialog(it.viewId, it.inputValue?:"")
+                    listener?.onClick(it.viewId, it.inputValue?:"")
                 }else {
                     listener?.onDataListClick(it.dialogData!!)
                 }

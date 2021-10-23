@@ -28,6 +28,7 @@ class ViewFactory(var jsonInput: JSONObject) {
                 "checkbox"      -> ViewTypes.CHECKBOX
                 "signature"     -> ViewTypes.SIGNATURE
                 "files"         -> ViewTypes.FILES
+                "single_button" -> ViewTypes.SINGLE_BUTTON
                 else -> throw Resources.NotFoundException("Property \"vtype\" was not found in the object")
             }
         }
@@ -47,11 +48,12 @@ class ViewFactory(var jsonInput: JSONObject) {
             ViewTypes.CHECKBOX  -> InputCheckboxConverter(jsonInput, readOnly).invoke()
             ViewTypes.SIGNATURE -> InputSignatureConverter(jsonInput, readOnly).invoke()
             ViewTypes.FILES     -> InputFilesConverter(jsonInput, readOnly).invoke()
+            ViewTypes.SINGLE_BUTTON     -> InputSingleButtonConverter(jsonInput, readOnly).invoke()
             else -> null
         }
     }
 }
 
 enum class ViewTypes{
-    TEXT, SELECT, RADIOBUTTON, EXTERNAL_DATA, DATE, TIME, DATETIME, LABEL, SWITCH, CHECKBOX, SIGNATURE, FILES
+    TEXT, SELECT, RADIOBUTTON, EXTERNAL_DATA, DATE, TIME, DATETIME, LABEL, SWITCH, CHECKBOX, SIGNATURE, FILES, SINGLE_BUTTON
 }

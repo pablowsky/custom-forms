@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cl.datageneral.customforms.factory.ViewFactory
+import cl.datageneral.customforms.factory.ViewTypes
 import cl.datageneral.customforms.factory.custominputs.*
 import cl.datageneral.customforms.helpers.*
 import cl.datageneral.customforms.inputs.*
@@ -25,6 +26,10 @@ class CustomFormBuilder {
 
     var mainListener = object : MainListener{
         override fun onRequestLargeText(itemId: String, value: String, options: TextOptions) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onShowDialog(itemId: String, data: String) {
             TODO("Not yet implemented")
         }
 
@@ -336,6 +341,22 @@ class CustomFormBuilder {
             }
         }
         return value
+    }
+
+    fun getTitle(viewId:String):String?{
+        return if(mapIds.containsKey(viewId)){
+            viewList[mapIds[viewId]!!].title
+        }else{
+            null
+        }
+    }
+
+    fun getType(viewId:String): ViewTypes? {
+        return if(mapIds.containsKey(viewId)){
+            viewList[mapIds[viewId]!!].vtype
+        }else{
+            null
+        }
     }
 
     var formAnswer:JSONObject

@@ -27,7 +27,7 @@ class PmLabelView(context: Context, attrs: AttributeSet?=null): PmView(context, 
     private fun initValueBox(){
         val valueBoxV = findViewById<TextView>(R.id.valueBoxVertical)
         val valueBoxH = findViewById<TextView>(R.id.valueBoxHorizontal)
-        if(inputLabel?.dialogData!=null){
+        if(inputLabel?.dialogData!=null || inputLabel?.showAsDialog==true){
             button.visibility   = View.VISIBLE
             valueBoxH.visibility = View.GONE
             valueBoxV.visibility = View.GONE
@@ -72,7 +72,11 @@ class PmLabelView(context: Context, attrs: AttributeSet?=null): PmView(context, 
 
         button.setOnClickListener {
             inputLabel?.let {
-                listener?.onDataListClick(it.dialogData!!)
+                if(inputLabel?.showAsDialog==true){
+                    listener?.onShowDialog(it.viewId, it.inputValue?:"")
+                }else {
+                    listener?.onDataListClick(it.dialogData!!)
+                }
             }
         }
     }

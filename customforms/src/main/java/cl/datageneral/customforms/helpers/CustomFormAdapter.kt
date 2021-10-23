@@ -138,6 +138,7 @@ interface MainListener{
     fun onDateInputClick(viewId:String, value:String)
     fun onTimeInputClick(viewId:String, value:String)
     fun onClick(itemId:String, data:ArrayList<String>, readOnly: Boolean)
+    fun onShowDialog(itemId:String, data:String)
     fun onRequestLargeText(itemId:String, value:String, options:TextOptions)
     fun onDataListClick(data:HashMap<String, ArrayList<String>>)
     fun onExternalChange(viewId:String, searchKey:String, parent:String)

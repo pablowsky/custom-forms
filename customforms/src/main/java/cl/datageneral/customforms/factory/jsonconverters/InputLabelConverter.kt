@@ -19,6 +19,7 @@ class InputLabelConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseCo
             readOnly    = pReadOnly
             dialogData  = jData
             buttonText  = jButtonText
+            showAsDialog= jShowAsDialog
             layoutDisposition = jLayoutDisposition
         }
     }
@@ -47,6 +48,15 @@ class InputLabelConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseCo
                 Json.getText(jsonInput, "value")
             }else{
                 String()
+            }
+        }
+
+    private val jShowAsDialog:Boolean
+        get() {
+            return if(jsonInput.has("show_as_dialog")){
+                Json.getBoolean(jsonInput, "show_as_dialog")
+            }else{
+                false
             }
         }
 

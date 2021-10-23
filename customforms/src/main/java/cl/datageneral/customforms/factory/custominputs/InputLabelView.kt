@@ -13,6 +13,7 @@ class InputLabelView:InputBase() {
     var layoutDisposition: Disposition = Disposition.VERTICAL
     var dialogData:HashMap<String, ArrayList<String>>? = null
     var buttonText:String = String()
+    var showAsDialog = false
     override var readOnly: Boolean  = false
     override var title: String      = String()
     override var warningMessage: String= String()

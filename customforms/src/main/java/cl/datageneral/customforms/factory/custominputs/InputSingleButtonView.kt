@@ -11,4 +11,5 @@ class InputSingleButtonView:InputBase() {
     override var title: String      = String()
     override val isValid: Boolean   = true
     var onlyShowOnReadOnly = false
+    var color:String = ""
 }

@@ -50,8 +50,10 @@
       "title": "Glosa ST",
       "value": "+5988659865478",
       "vtype": "label",
+      "show_as_dialog": true,
       "layout_options": {
-        "disposition" : "vertical"
+        "disposition" : "vertical",
+        "button_text" : "Ver"
       }
     },
     {

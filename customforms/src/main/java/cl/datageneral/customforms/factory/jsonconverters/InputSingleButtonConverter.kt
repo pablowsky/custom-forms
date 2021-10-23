@@ -16,8 +16,22 @@ class InputSingleButtonConverter(jsonInput: JSONObject, var pReadOnly: Boolean):
             viewId      = jViewId
             readOnly    = pReadOnly
             onlyShowOnReadOnly = jOnlyShowOnReadOnly
+            color = jColor
         }
     }
+
+    private val jColor:String
+        get() {
+            return if(jsonInput.has("layout_options")){
+                if(jsonInput.getJSONObject("layout_options").has("color")){
+                    jsonInput.getJSONObject("layout_options").getString("color")
+                }else{
+                    ""
+                }
+            }else{
+                ""
+            }
+        }
 
     private val jOnlyShowOnReadOnly:Boolean
         get() {

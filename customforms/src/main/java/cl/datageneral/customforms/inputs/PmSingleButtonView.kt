@@ -1,10 +1,12 @@
 package cl.datageneral.customforms.inputs
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import androidx.core.content.ContextCompat
 import cl.datageneral.customforms.R
 import cl.datageneral.customforms.factory.custominputs.InputSingleButtonView
 import cl.datageneral.customforms.helpers.MainListener
@@ -20,6 +22,7 @@ class PmSingleButtonView(val readOnly:Boolean, context: Context, attrs: Attribut
             title       = value.title
 
             initReadonly()
+            setColor(value.color)
         }
 
     private var singleButton: Button
@@ -31,6 +34,45 @@ class PmSingleButtonView(val readOnly:Boolean, context: Context, attrs: Attribut
         }else{
             singleButton.visibility = View.VISIBLE
         }
+    }
+
+    private fun setColor(color:String){
+        //singleButton.setBackgroundColor(context.resources.getColor(R.color.blue))
+        var backgroundColor = ContextCompat.getColor(context, R.color.blue)
+        var textColor = ContextCompat.getColor(context, R.color.white)
+        when(color){
+            "RED" -> {
+                backgroundColor = ContextCompat.getColor(context, R.color.red)
+                textColor = ContextCompat.getColor(context, R.color.white)
+            }
+            "BLUE" -> {
+                backgroundColor = ContextCompat.getColor(context, R.color.blue)
+                textColor = ContextCompat.getColor(context, R.color.white)
+            }
+            "GREEN" -> {
+                backgroundColor = ContextCompat.getColor(context, R.color.green)
+                textColor = ContextCompat.getColor(context, R.color.white)
+            }
+            "LIGHTBLUE" -> {
+                backgroundColor = ContextCompat.getColor(context, R.color.light_blue)
+                textColor = ContextCompat.getColor(context, R.color.white)
+            }
+            "PURPLE" -> {
+                backgroundColor = ContextCompat.getColor(context, R.color.purple)
+                textColor = ContextCompat.getColor(context, R.color.white)
+            }
+            "ORANGE" -> {
+                backgroundColor = ContextCompat.getColor(context, R.color.orange)
+                textColor = ContextCompat.getColor(context, R.color.white)
+            }
+            "WHITE" -> {
+                backgroundColor = ContextCompat.getColor(context, R.color.white)
+                textColor = ContextCompat.getColor(context, R.color.blue)
+            }
+        }
+        singleButton.background.setColorFilter(backgroundColor, PorterDuff.Mode.MULTIPLY)
+        singleButton.setTextColor(textColor)
+
     }
 
     var title:String?       = String()

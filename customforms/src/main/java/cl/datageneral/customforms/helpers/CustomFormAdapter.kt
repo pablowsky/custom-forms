@@ -122,6 +122,12 @@ class CustomFormAdapter(private val context: Context,
                 }
                 InputSingleButtonViewHolder(view, listener)
             }
+            13 -> {
+                val view = PmDualButtonView(readOnly, context).apply {
+                    layoutParams = customLayoutParams
+                }
+                InputDualButtonViewHolder(view, listener)
+            }
 
             else -> BaseViewHolder(PmView(parent.context))
         }

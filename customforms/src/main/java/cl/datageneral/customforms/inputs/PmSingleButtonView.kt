@@ -29,7 +29,7 @@ class PmSingleButtonView(val readOnly:Boolean, context: Context, attrs: Attribut
     var listener: MainListener?=null
 
     private fun initReadonly(){
-        if(inputLabel?.onlyShowOnReadOnly==true && readOnly){
+        if(inputLabel?.onlyShowOnEdit==true && readOnly){
             singleButton.visibility = View.GONE
         }else{
             singleButton.visibility = View.VISIBLE

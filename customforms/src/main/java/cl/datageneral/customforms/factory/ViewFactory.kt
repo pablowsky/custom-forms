@@ -29,6 +29,7 @@ class ViewFactory(var jsonInput: JSONObject) {
                 "signature"     -> ViewTypes.SIGNATURE
                 "files"         -> ViewTypes.FILES
                 "single_button" -> ViewTypes.SINGLE_BUTTON
+                "dual_button"   -> ViewTypes.DUAL_BUTTON
                 else -> throw Resources.NotFoundException("Property \"vtype\" was not found in the object")
             }
         }
@@ -49,11 +50,12 @@ class ViewFactory(var jsonInput: JSONObject) {
             ViewTypes.SIGNATURE -> InputSignatureConverter(jsonInput, readOnly).invoke()
             ViewTypes.FILES     -> InputFilesConverter(jsonInput, readOnly).invoke()
             ViewTypes.SINGLE_BUTTON     -> InputSingleButtonConverter(jsonInput, readOnly).invoke()
+            ViewTypes.DUAL_BUTTON     -> InputDualButtonConverter(jsonInput, readOnly).invoke()
             else -> null
         }
     }
 }
 
 enum class ViewTypes{
-    TEXT, SELECT, RADIOBUTTON, EXTERNAL_DATA, DATE, TIME, DATETIME, LABEL, SWITCH, CHECKBOX, SIGNATURE, FILES, SINGLE_BUTTON
+    TEXT, SELECT, RADIOBUTTON, EXTERNAL_DATA, DATE, TIME, DATETIME, LABEL, SWITCH, CHECKBOX, SIGNATURE, FILES, SINGLE_BUTTON, DUAL_BUTTON
 }

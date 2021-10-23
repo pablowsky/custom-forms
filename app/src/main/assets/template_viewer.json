@@ -101,6 +101,15 @@
       "layout_options": {
         "disposition" : "vertical"
       }
+    },
+    {
+      "view_id": 12,
+      "title": "Continuar",
+      "vtype": "single_button",
+      "layout_options": {
+        "only_show_on_edit": true,
+        "color": "ORANGE"
+      }
     }
   ]
 }

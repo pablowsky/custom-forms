@@ -95,11 +95,13 @@
       "mandatory": false
     },
     {
-      "view_id": 11,
-      "title": "Continuar",
-      "vtype": "single_button",
+      "view_id": 13,
+      "title": "",
+      "vtype": "dual_button",
       "layout_options": {
-        "only_show_on_readonly": true,
+        "titleA": "Guardar",
+        "titleB": "Cancelar",
+        "only_show_on_edit": true,
         "color": "ORANGE"
       }
     }

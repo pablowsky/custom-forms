@@ -51,7 +51,7 @@ class InputDatetimeView:InputBase() {
         }
 
     override fun setValue(value:String, subtype:String){
-        Log.e("setValue", value)
+        //Log.e("setValue", value)
         if(subtype=="DATE"){
             dateValue = value
         }

@@ -67,11 +67,11 @@ class CustomFormBuilder {
         for (i in 0 until layout.childCount) {
             val view = layout.getChildAt(i) as PmView
             if(view is PmSelectView && view.hasParent==parentViewId){
-                Log.e("recSet PmSelectView", "${view.viewId} ${view.hasParent} $parentViewId")
+                //Log.e("recSet PmSelectView", "${view.viewId} ${view.hasParent} $parentViewId")
                 view.parentSelected = selectedValue
             }
             if(view is PmExternalView && view.hasParent==parentViewId){
-                Log.e("recSet PmExternalView", "${view.viewId} ${view.hasParent} $parentViewId")
+                //Log.e("recSet PmExternalView", "${view.viewId} ${view.hasParent} $parentViewId")
                 view.parentSelected = selectedValue
             }
         }
@@ -304,7 +304,7 @@ class CustomFormBuilder {
     }*/
 
     fun setValue(viewId: String, value:Any) {
-        Log.e("data4", "$value")
+        //Log.e("data4", "$value")
         if(mapIds.containsKey(viewId)){
             viewList[mapIds[viewId]!!].value2 = value
 
@@ -383,7 +383,7 @@ class CustomFormBuilder {
                     val view = layout.getChildAt(i)
                     if(view is PmView){
                         if(jviewId==view.viewId){
-                            Log.e("jAnswer", janswer.toString())
+                            //Log.e("jAnswer", janswer.toString())
                             view.answer = janswer
                         }
                     }

@@ -85,7 +85,7 @@ class PmSingleButtonView(val readOnly:Boolean, context: Context, attrs: Attribut
 
     init {
         inflate(context, R.layout.pm_singlebutton_view, this)
-        Log.e("switchView", "Init...")
+        //Log.e("switchView", "Init...")
 
         singleButton = findViewById(R.id.single_button)
         singleButton.setOnClickListener {

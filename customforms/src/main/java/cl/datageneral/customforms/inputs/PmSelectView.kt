@@ -84,7 +84,7 @@ class PmSelectView(context: Context, attrs: AttributeSet? = null): PmView(contex
         if(mainValue.isNotEmpty()){
             setSelectedByValue(mainValue)
         }
-        Log.e("setDataAdapter", "adapter setted.. VIew:$viewId Value:$mainValue")
+        //Log.e("setDataAdapter", "adapter setted.. VIew:$viewId Value:$mainValue")
     }
     /**
      * Returns true when the field has a right answer
@@ -113,7 +113,7 @@ class PmSelectView(context: Context, attrs: AttributeSet? = null): PmView(contex
             if(hasParent.isNotEmpty()){
                 for((key, opt) in options.withIndex()){
                     if(opt.value==value){
-                        Log.e("mainValue", "${opt.parent} $value")
+                        //Log.e("mainValue", "${opt.parent} $value")
                         parentSelected = opt.parent
                     }
                 }
@@ -135,7 +135,7 @@ class PmSelectView(context: Context, attrs: AttributeSet? = null): PmView(contex
     }
 
     fun notifySelection(position: Int){
-        Log.e("notifySelection", "View:$viewId Position:$position")
+        //Log.e("notifySelection", "View:$viewId Position:$position")
         selectable.setSelection(position)
         //selectable.onItemSelectedListener?.onItemSelected(selectable, this, position, 0)
     }
@@ -167,7 +167,7 @@ class PmSelectView(context: Context, attrs: AttributeSet? = null): PmView(contex
         return try {
             (sp.selectedItem as SelectableItem).value
         }catch (e: Exception){
-            Log.e("getSelectedSpin", e.toString())
+            //Log.e("getSelectedSpin", e.toString())
             ""
         }
     }
@@ -192,7 +192,7 @@ class PmSelectView(context: Context, attrs: AttributeSet? = null): PmView(contex
                 //val viewId  = viewId
                 //element.value = value
 
-                Log.e("onItemSelectedListener", "$viewId $value")
+                //Log.e("onItemSelectedListener", "$viewId $value")
                 if(hasChildrens){
                     listener?.onLoadChildrensClick(viewId, value)
                 }

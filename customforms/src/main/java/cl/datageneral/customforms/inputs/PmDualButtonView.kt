@@ -59,7 +59,7 @@ class PmDualButtonView(val readOnly:Boolean, context: Context, attrs: AttributeS
 
     init {
         inflate(context, R.layout.pm_dualbutton_view, this)
-        Log.e("switchView", "Init...")
+        //Log.e("switchView", "Init...")
 
         buttonA = findViewById(R.id.btnGuardar)
         buttonB = findViewById(R.id.btnCancelar)

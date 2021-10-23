@@ -52,7 +52,7 @@ class PmSwitchView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=
 
     init {
         inflate(context, R.layout.pm_switch_view, this)
-        Log.e("switchView", "Init...")
+        //Log.e("switchView", "Init...")
 
         titleLabel      = findViewById(R.id.titleLabel)
         switchText      = findViewById(R.id.switchText)

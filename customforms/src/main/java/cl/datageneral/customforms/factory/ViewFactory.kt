@@ -14,7 +14,7 @@ class ViewFactory(var jsonInput: JSONObject) {
 
     private val type:ViewTypes
         get(){
-            Log.e("type", jsonInput.toString())
+            //Log.e("type", jsonInput.toString())
             return when(Json.getText(jsonInput, "vtype")){
                 "text"          -> ViewTypes.TEXT
                 "select"        -> ViewTypes.SELECT

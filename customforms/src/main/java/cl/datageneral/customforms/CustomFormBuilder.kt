@@ -170,6 +170,7 @@ class CustomFormBuilder {
 
     private val mapIds:HashMap<String, Int> = HashMap()
     fun buildRecycler(activity: Activity, jsonForm:JSONObject, container:RecyclerView, pReadOnly:Boolean=false){
+        viewList.clear()
         // Parse JSON
         val inputList    = Json.getArray(jsonForm, "questions")
         val size         = inputList?.length()?:0
@@ -192,6 +193,7 @@ class CustomFormBuilder {
         adapter = CustomFormAdapter(activity, pReadOnly, mainListener)
         container.layoutManager  = LinearLayoutManager(activity)
         container.adapter        = adapter
+
         setData(viewList)
 
         /*container.post {
@@ -395,9 +397,17 @@ class CustomFormBuilder {
         get(){
             val files: ArrayList<String> = ArrayList()
             val answers = JSONArray()
-            for(view in viewList){
-                answers.put(view.answer.json)
-                files.addAll(view.answer.files)
+            for(view in viewList) {
+                view.answer.json.let{
+                    if (it.length() > 0) {
+                        answers.put(it)
+                    }
+                }
+                view.answer.files.let {
+                    if (it.size > 0) {
+                        files.addAll(it)
+                    }
+                }
             }
 
             return Pair(JSONObject().apply {
@@ -409,12 +419,14 @@ class CustomFormBuilder {
 
             for(key in 0 until jAnswers.length()){
                 val janswer = jAnswers.getJSONObject(key)
-                val jviewId = janswer.getString("view_id")
+                if(janswer.length()>0) {
+                    val jviewId = janswer.getString("view_id")
 
-                if(mapIds.containsKey(jviewId)){
-                    viewList[mapIds[jviewId]!!].setJsonAnswer( janswer )
+                    if (mapIds.containsKey(jviewId)) {
+                        viewList[mapIds[jviewId]!!].setJsonAnswer(janswer)
 
-                    adapter?.notifyItemChanged(mapIds[jviewId]!!)
+                        adapter?.notifyItemChanged(mapIds[jviewId]!!)
+                    }
                 }
             }
         }

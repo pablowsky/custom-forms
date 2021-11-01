@@ -100,7 +100,7 @@ class PmSignatureView(val readOnly:Boolean, context: Context, attrs: AttributeSe
 
         button.setOnClickListener {
             inputLabel?.let {
-                listener?.onClick(inputLabel!!.viewId, arrayListOf(inputLabel!!.mainValue), readOnly)
+                listener?.onClick(inputLabel!!.viewId, arrayListOf(inputLabel!!.mainValue), readOnly, null)
             }
         }
         displayWarning("")

@@ -11,8 +11,7 @@ class InputFilesView:InputBase() {
     override var vtype              = ViewTypes.FILES
     var mainValues:ArrayList<String> = arrayListOf()
     var buttonText:String = String()
-    var maxFiles:Int = 0
-    var minFiles:Int = 0
+    var fileOptions = FileOptions()
     override var readOnly: Boolean  = false
     override var title: String      = String()
     override var warningMessage: String= String()
@@ -29,7 +28,7 @@ class InputFilesView:InputBase() {
 
     override val isValid: Boolean
         get(){
-            return (if(mandatory){
+            return (if(mandatory||fileOptions.minFiles>0){
                 mainValues.isNotEmpty()
             }else{
                 true

@@ -41,6 +41,13 @@ data class TextOptions(
     var maxLines:Int = MAX_LINES
 )
 
+data class FileOptions(
+    var minFiles:Int = MIN_FILES,
+    var maxFiles:Int = MAX_FILES
+)
+
+const val MIN_FILES = 0
+const val MAX_FILES = 10
 const val MIN_CHARS = 0
 const val MAX_CHARS = 250
 const val MAX_LINES = 1

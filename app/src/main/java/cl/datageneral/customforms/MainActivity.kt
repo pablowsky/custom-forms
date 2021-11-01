@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import cl.datageneral.customforms.dialogs.ISelectedData
 import cl.datageneral.customforms.dialogs.SelectDateFragment
 import cl.datageneral.customforms.dialogs.SelectTimeFragment
+import cl.datageneral.customforms.factory.custominputs.FileOptions
 import cl.datageneral.customforms.factory.custominputs.TextOptions
 import cl.datageneral.customforms.helpers.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -74,13 +75,13 @@ class MainActivity : AppCompatActivity(), ISelectedData {
             SelectTimeFragment(viewId, this@MainActivity as ISelectedData).show(supportFragmentManager, "TimePikcer")
         }
 
-        override fun onClick(itemId: String, data: ArrayList<String>, readOnly: Boolean) {
+        override fun onClick(itemId: String, data: ArrayList<String>, readOnly: Boolean, options: FileOptions?) {
             Log.e("DialogData", "Id:${itemId}, Values:${data.size}")
-            /*if(itemId=="11") {
+            if(itemId=="11") {
                 cform.setValue(itemId, arrayListOf("/my/fake/signature1.jpg","/my/fake/signature2.jpg","/my/fake/signature3.jpg"))
             }else{
                 cform.setValue(itemId, fileUri("IMG_20211007_005235.jpg"))
-            }*/
+            }
             /*when(cform.getType(itemId)){
                 ViewTypes.FILES -> {
                     val intent = Intent(this@MainActivity, FileManagerActivity::class.java)
@@ -151,8 +152,8 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
         //val sampleJson = getFormConfig("template.json")
         //val sampleJson = getFormConfig("template_viewer.json")
-        //val sampleJson = getFormConfig("template_acta.json")
-        val sampleJson = JSONObject("{\"questions\":[{\"view_id\":1,\"title\":\"Hora de inicio\",\"hint\":\"HH:MM\",\"vtype\":\"time\",\"mandatory\":true},{\"view_id\":2,\"title\":\"Hora de termino\",\"hint\":\"HH:MM\",\"vtype\":\"time\",\"mandatory\":true},{\"view_id\":3,\"title\":\"Colacion\",\"textOff\":\"Verdadero\",\"textOn\":\"Falso\",\"default\":true,\"vtype\":\"switch\"},{\"view_id\":4,\"title\":\"Numero de sellos o comprobante\",\"hint\":\"Escriba aquí\",\"vtype\":\"text\",\"mandatory\":true},{\"view_id\":5,\"title\":\"Descripcion de equipos\",\"hint\":\"Escriba aquí\",\"vtype\":\"text\",\"mandatory\":true,\"text_options\":{\"max_chars\":10}},{\"view_id\":6,\"title\":\"Detalle de los servicios\",\"hint\":\"Escriba aquí\",\"vtype\":\"text\",\"mandatory\":true,\"text_options\":{\"external_text\":true,\"max_chars\":1000,\"min_chars\":10,\"max_lines\":2}},{\"view_id\":7,\"title\":\"Desea agregar al resto del personal en su acta?\",\"hint\":\"Escriba aquí\",\"vtype\":\"checkbox\",\"mandatory\":true,\"items\":[{\"itemId\":\"10431387\",\"itemText\":\"Mónica Díaz Badillo\"},{\"itemId\":\"10504403\",\"itemText\":\"Claudio Orellana C.\"}]},{\"view_id\":8,\"title\":\"Firma del cliente\",\"vtype\":\"signature\",\"layout_options\":{\"button_text\":\"Ingresar Firma\"},\"mandatory\":true},{\"view_id\":10,\"title\":\"Envia copia de acta de inspeccion al cliente\",\"textOff\":\"Verdadero\",\"textOn\":\"Falso\",\"default\":false,\"vtype\":\"switch\"},{\"view_id\":11,\"title\":\"Archivos adjuntos\",\"vtype\":\"files\",\"min_files\":1,\"max_files\":3,\"layout_options\":{\"button_text\":\"Adjuntos\"},\"mandatory\":false},{\"view_id\":13,\"title\":\"\",\"vtype\":\"dual_button\",\"layout_options\":{\"titleA\":\"Guardar\",\"titleB\":\"Cancelar\",\"only_show_on_edit\":true,\"color\":\"BLUE\"}}]}")
+        val sampleJson = getFormConfig("template_acta.json")
+        //val sampleJson = JSONObject("{\"questions\":[{\"view_id\":1,\"title\":\"Hora de inicio\",\"hint\":\"HH:MM\",\"vtype\":\"time\",\"mandatory\":true},{\"view_id\":2,\"title\":\"Hora de termino\",\"hint\":\"HH:MM\",\"vtype\":\"time\",\"mandatory\":true},{\"view_id\":3,\"title\":\"Colacion\",\"textOff\":\"Verdadero\",\"textOn\":\"Falso\",\"default\":true,\"vtype\":\"switch\"},{\"view_id\":4,\"title\":\"Numero de sellos o comprobante\",\"hint\":\"Escriba aquí\",\"vtype\":\"text\",\"mandatory\":true},{\"view_id\":5,\"title\":\"Descripcion de equipos\",\"hint\":\"Escriba aquí\",\"vtype\":\"text\",\"mandatory\":true,\"text_options\":{\"max_chars\":10}},{\"view_id\":6,\"title\":\"Detalle de los servicios\",\"hint\":\"Escriba aquí\",\"vtype\":\"text\",\"mandatory\":true,\"text_options\":{\"external_text\":true,\"max_chars\":1000,\"min_chars\":10,\"max_lines\":2}},{\"view_id\":7,\"title\":\"Desea agregar al resto del personal en su acta?\",\"hint\":\"Escriba aquí\",\"vtype\":\"checkbox\",\"mandatory\":true,\"items\":[{\"itemId\":\"10431387\",\"itemText\":\"Mónica Díaz Badillo\"},{\"itemId\":\"10504403\",\"itemText\":\"Claudio Orellana C.\"}]},{\"view_id\":8,\"title\":\"Firma del cliente\",\"vtype\":\"signature\",\"layout_options\":{\"button_text\":\"Ingresar Firma\"},\"mandatory\":true},{\"view_id\":10,\"title\":\"Envia copia de acta de inspeccion al cliente\",\"textOff\":\"Verdadero\",\"textOn\":\"Falso\",\"default\":false,\"vtype\":\"switch\"},{\"view_id\":11,\"title\":\"Archivos adjuntos\",\"vtype\":\"files\",\"min_files\":1,\"max_files\":3,\"layout_options\":{\"button_text\":\"Adjuntos\"},\"mandatory\":false},{\"view_id\":13,\"title\":\"\",\"vtype\":\"dual_button\",\"layout_options\":{\"titleA\":\"Guardar\",\"titleB\":\"Cancelar\",\"only_show_on_edit\":true,\"color\":\"BLUE\"}}]}")
 
         cform.mainListener = mainListener
         //cform.buildLayout(this, sampleJson, viewContainer, true)

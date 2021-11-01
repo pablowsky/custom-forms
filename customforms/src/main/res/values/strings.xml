@@ -3,4 +3,8 @@
 
     <string name="is_required">Este campo es requerido</string>
     <string name="signature_indicator">Firma cargada correctamente</string>
+    <string name="min">Mínimo:</string>
+    <string name="max">Máximo:</string>
+    <string name="minmax">Mínimo: %1$d , Máximo: %2$d</string>
+    <string name="fileloaded">Archivos cargados: %1$d</string>
 </resources>

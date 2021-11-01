@@ -151,7 +151,7 @@ class CustomFormAdapter(private val context: Context,
 interface MainListener{
     fun onDateInputClick(viewId:String, value:String)
     fun onTimeInputClick(viewId:String, value:String)
-    fun onClick(itemId:String, data:ArrayList<String>, readOnly: Boolean)
+    fun onClick(itemId:String, data:ArrayList<String>, readOnly: Boolean, options: FileOptions?)
     fun onClick(itemId:String, data:String)
     fun onRequestLargeText(itemId:String, value:String, options:TextOptions)
     fun onDataListClick(data:HashMap<String, ArrayList<String>>)

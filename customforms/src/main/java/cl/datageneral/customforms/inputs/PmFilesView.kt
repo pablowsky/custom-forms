@@ -2,6 +2,7 @@ package cl.datageneral.customforms.inputs
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -25,7 +26,7 @@ class PmFilesView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=n
             if(readOnly){
                 initMandatory(false)
             }else{
-                initMandatory(value.mandatory||value.minFiles>0)
+                initMandatory(value.mandatory||value.fileOptions.minFiles>0)
             }
         }
 
@@ -49,14 +50,17 @@ class PmFilesView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=n
         if(sCounter==0){
             signatureIndicator.visibility = View.GONE
         }else{
-            signatureIndicator.text = "Archivos cargados: $sCounter"
+            signatureIndicator.text = context.getString(R.string.fileloaded, sCounter)
             signatureIndicator.visibility = View.VISIBLE
         }
     }
 
     fun displayWarning(value: Boolean) {
         if(value) {
-            warningLabel.text = context.getString(R.string.is_required)
+            val min = context.getString(R.string.is_required)
+            val max = context.getString(R.string.is_required)
+            val minmax = context.getString(R.string.minmax, inputLabel?.fileOptions?.minFiles, inputLabel?.fileOptions?.maxFiles)
+            warningLabel.text = minmax
             warningLabel.visibility = View.VISIBLE
         }else{
             warningLabel.text = ""
@@ -76,7 +80,7 @@ class PmFilesView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=n
 
         button.setOnClickListener {
             inputLabel?.let {
-                listener?.onClick(inputLabel!!.viewId, inputLabel!!.mainValues, readOnly)
+                listener?.onClick(it.viewId, it.mainValues, readOnly, it.fileOptions)
             }
         }
     }

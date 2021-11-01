@@ -41,7 +41,7 @@ class CustomFormBuilder {
             TODO("Not yet implemented")
         }
 
-        override fun onClick(itemId: String, data: ArrayList<String>, readOnly: Boolean) {
+        override fun onClick(itemId: String, data: ArrayList<String>, readOnly: Boolean, options: FileOptions?) {
             TODO("Not yet implemented")
         }
 
@@ -304,6 +304,18 @@ class CustomFormBuilder {
         }
         adapter?.notifyItemChanged(position)
     }*/
+    /**
+     * Remove view from the stack
+     * @param viewId View identification
+     */
+    fun removeView(viewId: String){
+        if(mapIds.containsKey(viewId)){
+            val index = mapIds[viewId]!!
+            viewList.removeAt(index)
+
+            adapter?.notifyItemChanged(index)
+        }
+    }
 
     fun setValue(viewId: String, value:Any) {
         //Log.e("data4", "$value")

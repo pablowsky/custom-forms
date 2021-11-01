@@ -1,5 +1,6 @@
 package cl.datageneral.customforms.factory.jsonconverters
 
+import android.util.Log
 import cl.datageneral.customforms.base.BaseConverter
 import cl.datageneral.customforms.factory.custominputs.*
 import org.json.JSONArray
@@ -16,29 +17,34 @@ class InputFilesConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseCo
             viewId      = jViewId
             readOnly    = pReadOnly
             buttonText  = jButtonText
-            maxFiles    = jMaxFiles
-            minFiles    = jMinFiles
+            fileOptions = jFileOptions
             mandatory   = jMandatory
         }
     }
 
-    private val jMaxFiles:Int
+    private val jFileOptions:FileOptions
         get() {
-            return if(jsonInput.has("max_files")){
-                jsonInput.getInt("max_files")
+            return if(jsonInput.has("file_options")){
+                val jTextOptions = jsonInput.getJSONObject("file_options")
+
+                val max = if(jTextOptions.has("max_files")){
+                    jTextOptions.getInt("max_files")
+                }else{
+                    MAX_CHARS
+                }
+
+                val min = if(jTextOptions.has("min_files")){
+                    jTextOptions.getInt("min_files")
+                }else{
+                    MIN_FILES
+                }
+
+                FileOptions(min, max)
             }else{
-                0
+                FileOptions(MIN_FILES, MAX_FILES)
             }
         }
 
-    private val jMinFiles:Int
-        get() {
-            return if(jsonInput.has("min_files")){
-                jsonInput.getInt("min_files")
-            }else{
-                0
-            }
-        }
 
     companion object{
         fun prepareAnswer(data: InputFilesView): Answer {

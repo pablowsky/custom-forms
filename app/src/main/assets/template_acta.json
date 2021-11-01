@@ -87,8 +87,10 @@
       "view_id": 11,
       "title": "Archivos adjuntos",
       "vtype": "files",
-      "min_files": 1,
-      "max_files": 3,
+      "file_options": {
+        "min_files": 1,
+        "max_files": 3
+      },
       "layout_options": {
         "button_text" : "Adjuntos"
       },

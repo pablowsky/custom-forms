@@ -30,22 +30,21 @@
         app:layout_constraintTop_toBottomOf="@+id/titleBox" />
 
     <Button
+        style="@style/label_btn"
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Button"
-        android:backgroundTint="@color/blue"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        style="@style/text_value"
         android:id="@+id/signatureIndicator"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textColor="@color/grey4"
         android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent"

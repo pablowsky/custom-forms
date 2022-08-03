@@ -1,11 +1,13 @@
 package cl.datageneral.customforms.inputs
 
 import android.content.Context
+import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.LinearLayoutCompat
 import cl.datageneral.customforms.R
@@ -70,7 +72,10 @@ class PmCheckboxView(val readOnly:Boolean, context: Context, attrs: AttributeSet
     }
 
     private fun addOption(item:SelectableItem){
-        val cbox = AppCompatCheckBox(context).apply {
+        val cbox = AppCompatCheckBox(ContextThemeWrapper(context, R.style.checkbox)).apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                this.setTextAppearance(R.style.checkbox)
+            }
             this.text               = item.text
             this.tag                = item.value
             this.layoutParams       = LayoutParams(
@@ -98,6 +103,9 @@ class PmCheckboxView(val readOnly:Boolean, context: Context, attrs: AttributeSet
     private fun addOptionRO(item:SelectableItem){
         if(inputLabel!!.selectedItems.containsKey(item.value)) {
             val cbox = TextView(context).apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    this.setTextAppearance(R.style.text_value)
+                }
                 this.text = item.text
                 this.layoutParams = LayoutParams(
                     LayoutParams.MATCH_PARENT,

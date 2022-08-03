@@ -21,10 +21,24 @@
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/CustomsForms/customforms/src/main/res/layout/ro_text_view.xml" value="0.12386018237082067" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/CustomsForms/customforms/src/main/res/layout/ro_time_view.xml" value="0.1" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/CustomsForms/customforms/src/main/res/layout/title.xml" value="0.2246376811594203" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/app/src/main/res/layout/activity_main.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/pm_checkbox_view.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/pm_datetime_view.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/pm_external_view.xml" value="0.2572463768115942" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/pm_files_view.xml" value="0.1734375" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/pm_label_vertical_view.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/pm_signature_view.xml" value="0.2572463768115942" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/pm_singlebutton_view.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/pm_switch_view.xml" value="0.19479166666666667" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/pm_text_view.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/pm_time_view.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/ro_text_view.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/ro_time_view.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/d/StudioProjects/custom-forms/customforms/src/main/res/layout/title.xml" value="0.26403985507246375" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

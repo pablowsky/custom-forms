@@ -1,5 +1,8 @@
 package cl.datageneral.customforms
 
+import android.content.res.ColorStateList
+import android.content.res.Configuration
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.ArrayMap
 import android.util.Log
@@ -150,6 +153,16 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        when (resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                viewListContainer.background = ColorDrawable(resources.getColor(R.color.darkNightBackGround))
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                viewListContainer.background = ColorDrawable(resources.getColor(R.color.white))
+            }
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> {}
+        }
+
         //val sampleJson = getFormConfig("template.json")
         //val sampleJson = getFormConfig("template_viewer.json")
         val sampleJson = getFormConfig("template_acta.json")
@@ -157,7 +170,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
         cform.mainListener = mainListener
         //cform.buildLayout(this, sampleJson, viewContainer, true)
-        cform.buildRecycler(this, sampleJson, viewListContainer, false)
+        cform.buildRecycler(this, sampleJson, viewListContainer, true)
 
         val f = File(fileUri("IMG_20211007_005235.jpg"))
         Log.e("fileURI", f.path)
@@ -224,7 +237,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         setBtn.setOnClickListener {
             //cform.formAnswer = getFormConfig("template_answers3.json")
             val actas = "{\"answers\":[{\"view_id\":\"1\",\"value\":[\"11:07\"]},{\"view_id\":\"2\",\"value\":[\"03:07\"]},{\"view_id\":\"3\",\"value\":[true]},{\"view_id\":\"4\",\"value\":[\"dGVzdCBva2lv\\n\"]},{\"view_id\":\"5\",\"value\":[\"\"]},{\"view_id\":\"6\",\"value\":[\"\"]},{\"view_id\":\"7\",\"value\":[{\"itemId\":\"10431387\",\"itemText\":\"Mónica Díaz Badillo\"}]},{\"view_id\":\"8\",\"value\":[\"\"]},{\"view_id\":\"10\",\"value\":[false]},{\"view_id\":\"11\",\"value\":[]},{}]}"
-            cform.formAnswers = Pair(JSONObject(actas), arrayListOf())
+            cform.formAnswers = Pair(JSONObject(answerAll), arrayListOf())
         }
 
         saveTemp.setOnClickListener {

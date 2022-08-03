@@ -20,6 +20,7 @@
         android:orientation="horizontal">
 
         <EditText
+            style="@style/text_value"
             android:id="@+id/dateBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -37,6 +38,7 @@
             app:srcCompat="@drawable/ic_datepicker" />
 
         <EditText
+            style="@style/text_value"
             android:id="@+id/timeBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -25,6 +25,7 @@
     </LinearLayout>
 
     <EditText
+        style="@style/input_text_value"
         android:id="@+id/timeBox2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

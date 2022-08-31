@@ -269,7 +269,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         }
 
         clearBtn.setOnClickListener {
-
+            cform.setValue("11", listOf("/sign/picture1", "/sign/picture12", "/sign/picture13"))
         }
     }
 

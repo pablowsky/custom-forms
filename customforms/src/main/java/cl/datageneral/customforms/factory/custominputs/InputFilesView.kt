@@ -20,6 +20,7 @@ class InputFilesView:InputBase() {
         get() = mainValues
         set(value) {
             field = value
+            mainValues.clear()
 
             if(value is List<*>) {
                 mainValues.addAll(value.map { it.toString() })

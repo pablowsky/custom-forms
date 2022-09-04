@@ -237,7 +237,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
         setBtn.setOnClickListener {
             //cform.formAnswer = getFormConfig("template_answers3.json")
             val actas = "{\"answers\":[{\"view_id\":\"1\",\"value\":[\"11:07\"]},{\"view_id\":\"2\",\"value\":[\"03:07\"]},{\"view_id\":\"3\",\"value\":[true]},{\"view_id\":\"4\",\"value\":[\"dGVzdCBva2lv\\n\"]},{\"view_id\":\"5\",\"value\":[\"\"]},{\"view_id\":\"6\",\"value\":[\"\"]},{\"view_id\":\"7\",\"value\":[{\"itemId\":\"10431387\",\"itemText\":\"Mónica Díaz Badillo\"}]},{\"view_id\":\"8\",\"value\":[\"\"]},{\"view_id\":\"10\",\"value\":[false]},{\"view_id\":\"11\",\"value\":[]},{}]}"
-            cform.formAnswers = Pair(JSONObject(answerAll), arrayListOf())
+            cform.formAnswers = Pair(JSONObject(answerFiles), arrayListOf())
         }
 
         saveTemp.setOnClickListener {

@@ -64,7 +64,7 @@ class InputFilesConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseCo
 
         fun parseAnswer(data:InputFilesView, answer: JSONObject){
             val jValues = answer.getJSONArray("value")
-
+            data.mainValues.clear()
             for(index in 0 until jValues.length()){
                 data.mainValues.add(jValues[index].toString())
             }

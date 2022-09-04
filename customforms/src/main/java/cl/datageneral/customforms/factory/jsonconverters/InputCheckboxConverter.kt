@@ -55,7 +55,7 @@ class InputCheckboxConverter(jsonInput: JSONObject, var pReadOnly: Boolean):Base
 
         fun parseAnswer(data:InputCheckboxView, answer: JSONObject){
             val jValues = answer.getJSONArray("value")
-
+            data.selectedItems.clear()
             for(index in 0 until jValues.length()){
                 val jSel = JSONObject(jValues[index].toString())
                 data.selectedItems[jSel.getString("itemId")] = jSel.getString("itemText")

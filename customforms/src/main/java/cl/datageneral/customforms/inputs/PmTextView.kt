@@ -13,12 +13,14 @@ import cl.datageneral.customforms.factory.custominputs.TextOptions
 import cl.datageneral.customforms.helpers.MainListener
 import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
+import android.util.Log
 
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
  */
 class PmTextView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=null): PmView(context, attrs) {
+    var isExternalText = false
     var listener:MainListener? = null
     var inputLabel: InputTextView? = null
         set(value) {
@@ -27,9 +29,9 @@ class PmTextView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=nu
             titleLabel.text = value.title
             editable.hint   = value.hint
             editable.setText(value.mainValue)
+            isExternalText = value.textOptions.externalText
             displayWarning(value.showWarning)
-            externalText(value.textOptions.externalText)
-            configureTextOptions(value.textOptions)
+            externalText()
             initReadonly()
         }
 
@@ -43,18 +45,20 @@ class PmTextView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=nu
             initMandatory(false)
         }else{
             initMandatory(inputLabel!!.mandatory)
+            configureTextOptions(inputLabel!!.textOptions)
         }
-        editable.maxLines       = 20
     }
 
     private fun configureTextOptions(options: TextOptions){
         editable.isSingleLine   = options.maxLines==1
-        editable.maxLines       = options.maxLines
+        options.maxLines?.let {
+            editable.maxLines = it
+        }
         editable.filters        = arrayOf<InputFilter>(LengthFilter(options.maxChars))
     }
 
-    private fun externalText(value:Boolean){
-        if(value){
+    private fun externalText(){
+        if (isExternalText) {
             editable.isSelected     = false
             editable.isFocusable    = false
             editable.setOnClickListener {
@@ -62,7 +66,7 @@ class PmTextView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=nu
                     listener?.onRequestLargeText(it.viewId, it.mainValue, it.textOptions)
                 }
             }
-        }else{
+        } else {
             editable.isFocusable    = true
             editable.setOnClickListener(null)
         }

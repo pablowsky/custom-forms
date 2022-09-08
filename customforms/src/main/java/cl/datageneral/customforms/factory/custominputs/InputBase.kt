@@ -38,7 +38,7 @@ data class TextOptions(
     var minChars:Int = MIN_CHARS,
     var maxChars:Int = MAX_CHARS,
     var externalText:Boolean = EXTERNAL_TEXT,
-    var maxLines:Int = MAX_LINES
+    var maxLines:Int? = null
 )
 
 data class FileOptions(

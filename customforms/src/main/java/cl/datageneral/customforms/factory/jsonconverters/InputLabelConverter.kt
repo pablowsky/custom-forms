@@ -19,8 +19,9 @@ class InputLabelConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseCo
             readOnly    = pReadOnly
             dialogData  = jData
             buttonText  = jButtonText
-            showAsDialog= jShowAsDialog
-            layoutDisposition = jLayoutDisposition
+            showAsDialog        = jShowAsDialog
+            layoutDisposition   = jLayoutDisposition
+            keyWeight   = jKeyWeight
         }
     }
 
@@ -39,6 +40,16 @@ class InputLabelConverter(jsonInput: JSONObject, var pReadOnly: Boolean): BaseCo
                 }
             }else{
                 Disposition.VERTICAL
+            }
+        }
+
+    private val jKeyWeight:Double
+        get() {
+            return if (jsonInput.has("layout_options")
+                && jsonInput.getJSONObject("layout_options").has("key_weight") ) {
+                    jsonInput.getJSONObject("layout_options").getDouble("key_weight")
+            } else {
+                0.5
             }
         }
 

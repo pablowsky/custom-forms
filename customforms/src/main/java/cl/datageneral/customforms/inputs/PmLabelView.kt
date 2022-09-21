@@ -5,10 +5,13 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import cl.datageneral.customforms.R
 import cl.datageneral.customforms.factory.custominputs.InputLabelView
 import cl.datageneral.customforms.helpers.Disposition
 import cl.datageneral.customforms.helpers.MainListener
+
 
 /**
  * Created by Pablo Molina on 27-10-2020. s.pablo.molina@gmail.com
@@ -37,6 +40,16 @@ class PmLabelView(context: Context, attrs: AttributeSet?=null): PmView(context, 
                 valueBox = valueBoxH
                 valueBoxH.visibility = View.VISIBLE
                 valueBoxV.visibility = View.GONE
+
+                val w:Double = if (inputLabel?.keyWeight==null){
+                    0.5
+                } else {
+                    inputLabel?.keyWeight!!
+                }
+                (valueBoxH.layoutParams as ConstraintLayout.LayoutParams)
+                    .matchConstraintPercentWidth = w.toFloat()
+                valueBoxH.requestLayout()
+
             } else {
                 valueBox = valueBoxV
                 valueBoxH.visibility = View.GONE

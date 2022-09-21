@@ -6,7 +6,8 @@
       "value": "QWER1234567 FRTG890455",
       "vtype": "label",
       "layout_options": {
-        "disposition" : "horizontal"
+        "disposition": "horizontal",
+        "key_weight": 0.6
       }
     },
     {

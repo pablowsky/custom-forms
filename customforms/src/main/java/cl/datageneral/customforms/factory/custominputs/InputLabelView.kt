@@ -11,6 +11,7 @@ class InputLabelView:InputBase() {
     var inputValue:String ? = null
     var hint:String                 = String()
     var layoutDisposition: Disposition = Disposition.VERTICAL
+    var keyWeight: Double = 0.5 // Only apply for Disposition.HORIZONTAL
     var dialogData:HashMap<String, ArrayList<String>>? = null
     var buttonText:String = String()
     var showAsDialog = false

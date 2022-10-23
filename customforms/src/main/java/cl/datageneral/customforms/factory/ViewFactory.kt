@@ -1,7 +1,6 @@
 package cl.datageneral.customforms.factory
 
 import android.content.res.Resources
-import android.util.Log
 import cl.datageneral.customforms.Json
 import cl.datageneral.customforms.factory.custominputs.InputBase
 import cl.datageneral.customforms.factory.jsonconverters.*
@@ -14,7 +13,6 @@ class ViewFactory(var jsonInput: JSONObject) {
 
     private val type:ViewTypes
         get(){
-            //Log.e("type", jsonInput.toString())
             return when(Json.getText(jsonInput, "vtype")){
                 "text"          -> ViewTypes.TEXT
                 "select"        -> ViewTypes.SELECT
@@ -30,6 +28,7 @@ class ViewFactory(var jsonInput: JSONObject) {
                 "files"         -> ViewTypes.FILES
                 "single_button" -> ViewTypes.SINGLE_BUTTON
                 "dual_button"   -> ViewTypes.DUAL_BUTTON
+                "numeric"       -> ViewTypes.NUMERIC
                 else -> throw Resources.NotFoundException("Property \"vtype\" was not found in the object")
             }
         }
@@ -49,13 +48,27 @@ class ViewFactory(var jsonInput: JSONObject) {
             ViewTypes.CHECKBOX  -> InputCheckboxConverter(jsonInput, readOnly).invoke()
             ViewTypes.SIGNATURE -> InputSignatureConverter(jsonInput, readOnly).invoke()
             ViewTypes.FILES     -> InputFilesConverter(jsonInput, readOnly).invoke()
-            ViewTypes.SINGLE_BUTTON     -> InputSingleButtonConverter(jsonInput, readOnly).invoke()
-            ViewTypes.DUAL_BUTTON     -> InputDualButtonConverter(jsonInput, readOnly).invoke()
-            else -> null
+            ViewTypes.SINGLE_BUTTON -> InputSingleButtonConverter(jsonInput, readOnly).invoke()
+            ViewTypes.DUAL_BUTTON   -> InputDualButtonConverter(jsonInput, readOnly).invoke()
+            ViewTypes.NUMERIC   -> InputNumericConverter(jsonInput, readOnly).invoke()
         }
     }
 }
 
 enum class ViewTypes{
-    TEXT, SELECT, RADIOBUTTON, EXTERNAL_DATA, DATE, TIME, DATETIME, LABEL, SWITCH, CHECKBOX, SIGNATURE, FILES, SINGLE_BUTTON, DUAL_BUTTON
+    TEXT,
+    SELECT,
+    RADIOBUTTON,
+    EXTERNAL_DATA,
+    DATE,
+    TIME,
+    DATETIME,
+    LABEL,
+    SWITCH,
+    CHECKBOX,
+    SIGNATURE,
+    FILES,
+    SINGLE_BUTTON,
+    DUAL_BUTTON,
+    NUMERIC
 }

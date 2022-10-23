@@ -56,6 +56,7 @@ class CustomFormAdapter(private val context: Context,
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+        Log.e("onCreateViewHolder", "$viewType")
         return when (viewType){
             0 -> {
                 val view = PmTextView(readOnly, context).apply {
@@ -130,6 +131,12 @@ class CustomFormAdapter(private val context: Context,
                 }
                 InputDualButtonViewHolder(view, listener)
             }
+            14 -> {
+                val view = PmNumericView(readOnly, context).apply {
+                    layoutParams = customLayoutParams
+                }
+                InputNumericViewHolder(view, listener)
+            }
 
             else -> BaseViewHolder(PmView(parent.context))
         }
@@ -140,6 +147,7 @@ class CustomFormAdapter(private val context: Context,
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        Log.e("onBindViewHolder", "$position, ${holder.itemId}")
         holder.bind(items[position])
     }
 

@@ -15,6 +15,15 @@
       "mandatory": true
     },
     {
+      "view_id": 14,
+      "title": "Horas de Traslado",
+      "hint": "Horas",
+      "vtype": "numeric",
+      "mandatory": true,
+      "min": 0.0,
+      "max": 10.0
+    },
+    {
       "view_id": 3,
       "title": "Colacion",
       "textOff": "Verdadero",
@@ -29,10 +38,10 @@
       "vtype": "text",
       "mandatory": true,
       "text_options": {
-        "external_text" : true,
+        "external_text": true,
         "max_chars": 1000,
         "min_chars": 10,
-        "max_lines": 2
+        "max_lines": 3
       }
     },
     {
@@ -42,10 +51,10 @@
       "vtype": "text",
       "mandatory": true,
       "text_options": {
-        "external_text" : true,
+        "external_text": true,
         "max_chars": 1000,
         "min_chars": 10,
-        "max_lines": 4
+        "max_lines": 3
       }
     },
     {
@@ -55,10 +64,10 @@
       "vtype": "text",
       "mandatory": true,
       "text_options": {
-        "external_text" : true,
+        "external_text": true,
         "max_chars": 1000,
         "min_chars": 10,
-        "max_lines": 1
+        "max_lines": 3
       }
     },
     {
@@ -66,13 +75,16 @@
       "title": "Desea agregar al resto del personal en su acta?",
       "hint": "Escriba aquí",
       "vtype": "checkbox",
-      "mandatory": true,
-      "items":[
-        {"itemId": 1, "itemText": "Text 1"},
-        {"itemId": 2, "itemText": "Text 2"},
-        {"itemId": 3, "itemText": "Text 3"},
-        {"itemId": 4, "itemText": "Text 4"},
-        {"itemId": 5, "itemText": "Text 5"}
+      "mandatory": false,
+      "items": [
+        {
+          "itemId": "10773373",
+          "itemText": "Félix Flores M."
+        },
+        {
+          "itemId": "9977869",
+          "itemText": "Patricio Godoy C."
+        }
       ]
     },
     {
@@ -80,7 +92,7 @@
       "title": "Firma del cliente",
       "vtype": "signature",
       "layout_options": {
-        "button_text" : "Ingresar Firma"
+        "button_text": "Ingresar Firma"
       },
       "mandatory": true
     },
@@ -96,12 +108,10 @@
       "view_id": 11,
       "title": "Archivos adjuntos",
       "vtype": "files",
-      "file_options": {
-        "min_files": 1,
-        "max_files": 3
-      },
+      "min_files": 1,
+      "max_files": 3,
       "layout_options": {
-        "button_text" : "Adjuntos"
+        "button_text": "Adjuntos"
       },
       "mandatory": false
     },
@@ -113,11 +123,10 @@
         "titleA": "Guardar",
         "titleB": "Cancelar",
         "only_show_on_edit": true,
-        "color": "ORANGE"
+        "color": "BLUE"
       }
     }
-
-    ]
+  ]
 
 
 

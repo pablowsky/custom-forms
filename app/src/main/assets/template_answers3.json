@@ -1,76 +1,66 @@
 {
-  "answers":[
+  "answers": [
     {
-      "view_id":"1",
-      "value":"2"
+      "view_id": "1",
+      "value": [
+        "05:38"
+      ]
     },
     {
-      "view_id":"2",
-      "value":"15"
+      "view_id": "2",
+      "value": [
+        "03:38"
+      ]
     },
     {
-      "view_id":"3",
-      "value":"24"
+      "view_id": "14",
+      "value": [
+        "5.5"
+      ]
     },
     {
-      "view_id":"4",
-      "value":"33"
+      "view_id": "3",
+      "value": [
+        true
+      ]
     },
     {
-      "view_id":"5",
-      "value":"Este es un texto externo jajaja"
+      "view_id": "4",
+      "value": [
+        "TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdCwg\nc2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQgdXQgbGFib3JlIGV0IGRvbG9yZSBtYWdu\nYSBhbGlxdWEuIFV0IGVuaW0gYWQgbWluaW0gdmVuaWFtLCBxdWlzIG5vc3RydWQgZXhlcmNpdGF0\naW9uIHVsbGFtY28gbGFib3JpcyBuaXNpIHV0IGFsaXF1aXAgZXggZWEgY29tbW9kbyBjb25zZXF1\nYXQuIER1aXMgYXV0ZSBpcnVyZSBkb2xvciBpbiByZXByZWhlbmRlcml0IGluIHZvbHVwdGF0ZSB2\nZWxpdCBlc3NlIGNpbGx1bSBkb2xvcmUgZXUgZnVnaWF0IG51bGxhIHBhcmlhdHVyLiBFeGNlcHRl\ndXIgc2ludCBvY2NhZWNhdCBjdXBpZGF0YXQgbm9uIHByb2lkZW50LCBzdW50IGluIGN1bHBhIHF1\naSBvZmZpY2lhIGRlc2VydW50IG1vbGxpdCBhbmltIGlkIGVzdCBsYWJvcnVtLg==\n"
+      ]
     },
     {
-      "view_id":"6",
-      "value":""
+      "view_id": "5",
+      "value": [
+        ""
+      ]
     },
     {
-      "view_id":"7",
-      "value":""
+      "view_id": "6",
+      "value": [
+        ""
+      ]
     },
     {
-      "view_id":"8",
-      "value":""
+      "view_id": "7",
+      "value": []
     },
     {
-      "view_id":"9",
-      "value":""
+      "view_id": "8",
+      "value": [
+        ""
+      ]
     },
     {
-      "view_id":"10",
-      "value":""
+      "view_id": "10",
+      "value": [
+        false
+      ]
     },
     {
-      "view_id":"11",
-      "value":"el otro muy oscuro y tú cómo"
-    },
-    {
-      "view_id":"12",
-      "value":"{\"date\":\"01\\\/01\\\/1998\",\"time\":\"01:05:08\"}"
-    },
-    {
-      "view_id":"14",
-      "value":""
-    },
-    {
-      "view_id":"15",
-      "value":""
-    },
-    {
-      "view_id":"16",
-      "value":""
-    },
-    {
-      "view_id":"17",
-      "value":""
-    },
-    {
-      "view_id":"18",
-      "value":""
-    },
-    {
-      "view_id":"19",
-      "value":""
+      "view_id": "11",
+      "value": []
     }
   ]
 }

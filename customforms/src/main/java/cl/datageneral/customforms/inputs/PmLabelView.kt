@@ -88,7 +88,7 @@ class PmLabelView(context: Context, attrs: AttributeSet?=null): PmView(context, 
                 if(inputLabel?.showAsDialog==true){
                     listener?.onClick(it.viewId, it.inputValue?:"")
                 }else {
-                    listener?.onDataListClick(it.dialogData!!)
+                    listener?.onDataListClick(it.viewId, it.dialogData!!)
                 }
             }
         }

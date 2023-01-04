@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
             cform.setValue(viewId, "Este es un texto externo")
         }
 
-        override fun onDataListClick(data: HashMap<String, ArrayList<String>>) {
+        override fun onDataListClick(viewId:String, data: HashMap<String, ArrayList<String>>) {
             for(d in data){
                 Log.e("DialogData", "Title:${d.key}, Values:${d.value.size}")
             }

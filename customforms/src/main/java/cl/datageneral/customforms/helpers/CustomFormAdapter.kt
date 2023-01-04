@@ -162,7 +162,7 @@ interface MainListener{
     fun onClick(itemId:String, data:ArrayList<String>, readOnly: Boolean, options: FileOptions?)
     fun onClick(itemId:String, data:String)
     fun onRequestLargeText(itemId:String, value:String, options:TextOptions)
-    fun onDataListClick(data:HashMap<String, ArrayList<String>>)
+    fun onDataListClick(viewId:String, data:HashMap<String, ArrayList<String>>)
     fun onExternalChange(viewId:String, searchKey:String, parent:String)
     fun onSelectInputClick(viewId:String, value:String)
     fun onLoadChildrensClick(parentViewId:String, selectedValue:String)

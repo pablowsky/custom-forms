@@ -29,6 +29,8 @@ class PmTextView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=nu
             titleLabel.text = value.title
             editable.hint   = value.hint
             editable.setText(value.mainValue)
+            editableDis.hint   = value.hint
+            editableDis.setText(value.mainValue)
             isExternalText = value.textOptions.externalText
             displayWarning(value.showWarning)
             externalText()
@@ -36,6 +38,7 @@ class PmTextView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=nu
         }
 
     private var editable: EditText
+    private var editableDis: EditText
     private var titleLabel: TextView
     private var warningLabel: TextView
     private var mandatoryLabel: TextView
@@ -51,24 +54,31 @@ class PmTextView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=nu
 
     private fun configureTextOptions(options: TextOptions){
         editable.isSingleLine   = options.maxLines==1
+        editableDis.isSingleLine   = options.maxLines==1
         options.maxLines?.let {
             editable.maxLines = it
+            editableDis.maxLines = it
         }
         editable.filters        = arrayOf<InputFilter>(LengthFilter(options.maxChars))
+        editableDis.filters        = arrayOf<InputFilter>(LengthFilter(options.maxChars))
     }
 
     private fun externalText(){
         if (isExternalText) {
-            editable.isSelected     = false
-            editable.isFocusable    = false
-            editable.setOnClickListener {
+            editableDis.visibility = View.VISIBLE
+            editable.visibility = View.GONE
+            editableDis.isSelected     = false
+            editableDis.isFocusable    = false
+            editableDis.setOnClickListener {
                 inputLabel?.let {
                     listener?.onRequestLargeText(it.viewId, it.mainValue, it.textOptions)
                 }
             }
         } else {
-            editable.isFocusable    = true
-            editable.setOnClickListener(null)
+            editableDis.visibility = View.GONE
+            editable.visibility = View.VISIBLE
+//            editable.isFocusable    = true
+//            editable.setOnClickListener(null)
         }
     }
 
@@ -105,6 +115,7 @@ class PmTextView(val readOnly:Boolean, context: Context, attrs: AttributeSet?=nu
         }
 
         editable        = findViewById(R.id.editableBox)
+        editableDis     = findViewById(R.id.editableBoxDisabled)
         titleLabel      = findViewById(R.id.titleLabel)
         warningLabel    = findViewById(R.id.warningLabel)
         mandatoryLabel  = findViewById(R.id.mandatory)

@@ -170,7 +170,7 @@ class MainActivity : AppCompatActivity(), ISelectedData {
 
         cform.mainListener = mainListener
         //cform.buildLayout(this, sampleJson, viewContainer, true)
-        cform.buildRecycler(this, sampleJson, viewListContainer, false)
+        cform.buildRecycler(this, sampleJson, viewListContainer, true)
 
         val f = File(fileUri("IMG_20211007_005235.jpg"))
         Log.e("fileURI", f.path)

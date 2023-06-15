@@ -2,7 +2,7 @@
 
 Build fast and easy formularies
 
-Uploading a new version
+To Upload a new version
 
 ```bash
 git tag 1.x.x {commit-id}

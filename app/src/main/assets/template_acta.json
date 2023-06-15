@@ -15,6 +15,18 @@
       "mandatory": true
     },
     {
+      "view_id": 15,
+      "title": "Nombre del cliente",
+      "vtype": "text",
+      "mandatory": false,
+      "text_options": {
+        "external_text": false,
+        "max_chars": 100,
+        "min_chars": 3,
+        "max_lines": 1
+      }
+    },
+    {
       "view_id": 14,
       "title": "Horas de Traslado",
       "hint": "Horas",
